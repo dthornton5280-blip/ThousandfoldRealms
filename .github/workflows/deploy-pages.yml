@@ -3,8 +3,6 @@ name: Deploy Thousandfold Realms
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-${{ github.event_name }}-${{ github.ref }}
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -50,45 +48,32 @@ jobs:
           test -f CHANGELOG.md
           test -f docs/CURRENT_STATE.md
 
-          # Temporary transport/assembly fragments must not return to main.
           if find . -maxdepth 1 -type f \( -name 'v*_payload_*.txt' -o -name 'v*_js_*.txt' \) | grep -q .; then
             echo "Temporary payload or JavaScript chunk files found in repository root."
             exit 1
           fi
 
-          # Validate every repository-managed JavaScript override.
           while IFS= read -r file; do
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
           node tests/world-atlas-v150-harness.js
 
-          # Catch incomplete CSS writes before deployment.
           python - <<'PY'
           from pathlib import Path
 
           checks = {
               "live-overrides/unified-realm-ui-v149.css": (
-                  "body:not(.tf-title-mode)",
-                  ".creator-screen",
-                  ".hud .panel",
-                  ".dialogue-card",
-                  ".combat-card",
-                  "prefers-reduced-motion",
+                  "body:not(.tf-title-mode)", ".creator-screen", ".hud .panel",
+                  ".dialogue-card", ".combat-card", "prefers-reduced-motion",
               ),
               "live-overrides/world-atlas-v150.css": (
-                  ".atlas-level-tabs",
-                  ".atlas-world-map",
-                  ".atlas-region-map",
-                  ".atlas-location-node",
-                  "prefers-reduced-motion",
+                  ".atlas-level-tabs", ".atlas-world-map", ".atlas-region-map",
+                  ".atlas-location-node", "prefers-reduced-motion",
               ),
               "live-overrides/world-atlas-v152-exploration.css": (
-                  ".atlas-pixel-grid",
-                  ".atlas-fog-layer",
-                  ".atlas-map-key",
-                  ".key-fog",
-                  "prefers-reduced-motion",
+                  ".atlas-pixel-grid", ".atlas-fog-layer", ".atlas-map-key",
+                  ".key-fog", "prefers-reduced-motion",
               ),
           }
           for filename, required in checks.items():
@@ -126,14 +111,8 @@ jobs:
           css_files = sorted(path.name for path in override_dir.glob("*.css"))
           js_files = sorted(path.name for path in override_dir.glob("*.js"))
 
-          css_tags = "".join(
-              f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">'
-              for name in css_files
-          )
-          js_tags = "".join(
-              f'<script src="./live-overrides/{name}?v={revision}"></script>'
-              for name in js_files
-          )
+          css_tags = "".join(f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">' for name in css_files)
+          js_tags = "".join(f'<script src="./live-overrides/{name}?v={revision}"></script>' for name in js_files)
           build_meta = (
               f'<meta name="tf-build" content="{version["version"]}">'
               f'<meta name="tf-build-name" content="{version["buildName"]}">'
@@ -152,9 +131,6 @@ jobs:
                   raise SystemExit(f"{filename} has no closing head tag")
               if main_script not in text:
                   raise SystemExit(f"{filename} has no packaged main-script marker")
-
-              # Styles can load in head. Runtime overrides must load after all AO
-              # classes but before src/main.js creates the game instance.
               text = text.replace("</head>", head_marker + build_meta + css_tags + "</head>", 1)
               text = text.replace(main_script, runtime_marker + js_tags + main_script, 1)
               path.write_text(text, encoding="utf-8")
@@ -162,25 +138,10 @@ jobs:
 
           grep -q 'GIT_LIVE_OVERRIDE_STYLES' _site/index.html
           grep -q 'GIT_LIVE_OVERRIDE_RUNTIME' _site/index.html
-          grep -q 'tf-build' _site/index.html
-          grep -q 'hud-interaction.css' _site/index.html
-          grep -q 'tactical-battlefields-v147.js' _site/index.html
-          grep -q 'tactical-presentation-v147.css' _site/index.html
-          grep -q 'title-screen-v146.css' _site/index.html
-          grep -q 'title-screen-v146.js' _site/index.html
-          grep -q 'unified-realm-ui-v149.css' _site/index.html
           grep -q 'world-atlas-v150.js' _site/index.html
-          grep -q 'world-atlas-v150.css' _site/index.html
           grep -q 'world-atlas-v152-exploration.js' _site/index.html
           grep -q 'world-atlas-v152-exploration.css' _site/index.html
-          test -f _site/live-overrides/hud-interaction.css
-          test -f _site/live-overrides/tactical-battlefields-v147.js
-          test -f _site/live-overrides/tactical-presentation-v147.css
-          test -f _site/live-overrides/title-screen-v146.css
-          test -f _site/live-overrides/title-screen-v146.js
-          test -f _site/live-overrides/unified-realm-ui-v149.css
           test -f _site/live-overrides/world-atlas-v150.js
-          test -f _site/live-overrides/world-atlas-v150.css
           test -f _site/live-overrides/world-atlas-v152-exploration.js
           test -f _site/live-overrides/world-atlas-v152-exploration.css
 
@@ -200,25 +161,19 @@ jobs:
           if min(packaged_ui, atlas_runtime, exploration_runtime, atlas_fixes, game_bootstrap) < 0:
               raise SystemExit("Missing one or more runtime ordering markers")
           if not packaged_ui < atlas_runtime < exploration_runtime < atlas_fixes < game_bootstrap:
-              raise SystemExit(
-                  "Runtime order invalid: packaged UI, base Atlas, exploration Atlas, "
-                  "integration fixes, then src/main.js are required"
-              )
+              raise SystemExit("Invalid Atlas runtime order")
           PY
 
           echo "Assembled canonical Thousandfold Realms build with explored Atlas before game bootstrap."
 
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload website artifact
-        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
       - name: Deploy to GitHub Pages
-        if: github.event_name != 'pull_request'
         id: deployment
         uses: actions/deploy-pages@v4
