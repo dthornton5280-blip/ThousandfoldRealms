@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.4.9-dev**
-- Build name: **Unified Realm Interface**
-- Working branch: **feature/unified-realm-ui-v149**
+- Version: **1.5.0-dev**
+- Build name: **The Living Atlas**
+- Working branch: **feature/living-atlas-v150**
 - Canonical branch after merge: **main**
 - Deployment: GitHub Pages
 
@@ -28,100 +28,165 @@ Key active overrides:
 - `live-overrides/title-art-v148-loader.js`
 - `live-overrides/title-version-v148.js`
 - `live-overrides/unified-realm-ui-v149.css`
-
-The five generated-art modules are compiled production data for the approved title image. The loader joins and validates them before exposing the image to CSS.
+- `live-overrides/world-atlas-v150.js`
+- `live-overrides/world-atlas-v150.css`
 
 The package's editable text source remains under `source/` for inspection and future migration. Binary art, audio, and font assets from the original build remain in the verified package.
+
+## Living Atlas hierarchy
+
+The Map page now has three connected scales:
+
+1. **World** — establishes seven named biome regions.
+2. **Region** — shows settlements, wilderness, dungeons, roads, travel time, danger, and current position.
+3. **Local** — preserves the detailed terrain-and-landmark cartography for the currently loaded map.
+
+The open region is **Last Lantern Vale**. The world layer also establishes:
+
+- The Drowned Fen
+- The Cinder Marches
+- Frostmere Reach
+- The Shattered Coast
+- The Veiled Highlands
+- The Sunken Crown
+
+Those six regions are visually charted but their travel networks remain closed for later expansions.
+
+## Last Lantern Vale network
+
+Current regional locations:
+
+- Haven of the Last Lantern
+- Whisperwood
+- Abandoned Lantern Mine
+- The Ashen Crypt
+- The Lantern Road
+- Aurelia, City of a Thousand Lanterns
+
+Regional routes store travel hours and danger. Known settlement and road destinations can be selected from the atlas. Dungeons remain local entrances and cannot be skipped through fast travel.
+
+Atlas save data tracks:
+
+- Discovered regions
+- Known locations
+- Visited locations
+- Discovered routes
+- Travel history
+- Remaining travel hours toward the next in-game day
+- Current parent location
+
+Existing saves receive this structure through the normal migration path.
+
+## Aurelia city architecture
+
+Aurelia is not one oversized grid. It is a connected city made of district maps:
+
+- **Golden Gate Ward** — the eastern entrance and road traffic.
+- **Market Ward** — the central junction, merchants, and city navigation.
+- **River Ward** — docks, warehouses, and the future route to the Shattered Coast.
+- **Citadel Heights** — civic archive, High Atlas, and council district.
+
+The districts connect through ordinary local portals, so Aurelia can expand with additional neighborhoods and interiors without replacing the city foundation.
+
+Named residents currently present:
+
+- Captain Vela Arden
+- Tomas Bell
+- Yona Marr
+- Archivist Maelin
+
+Their dialogue explains the city districts, regional roads, future coast access, and the seven-region world plan.
 
 ## Unified interface system
 
 - The title scene remains the visual reference for the entire game.
-- The non-title UI now shares warm parchment text, bronze-gold accents, charcoal surfaces, engraved borders, deep shadows, subtle glow, and restrained motion.
-- The unified stylesheet is scoped to `body:not(.tf-title-mode)` so the approved title artwork and floating title menu are not altered.
-- Shared button, input, dropdown, focus, disabled, selected, scrollbar, meter, and reduced-motion treatments are applied globally.
-- Character creation uses stronger fantasy hierarchy, bronze section dividers, deeper portrait framing, and selected-card glow.
-- Exploration HUD panels are darker and more transparent so the world remains visually dominant.
-- Inventory, equipment, quests, journal, shops, maps, codex, character pages, and settings inherit the same panel and typography language.
-- Dialogue uses cinematic framing, parchment body text, bronze speaker treatment, and integrated choices.
-- Combat and tactical overlays use the same charcoal-bronze hierarchy with clearer ability, meter, status, and action states.
-- Toasts, level-up, defeat, and system feedback are now visually consistent with the rest of the interface.
+- The non-title UI shares warm parchment text, bronze-gold accents, charcoal surfaces, engraved borders, deep shadows, subtle glow, and restrained motion.
+- World and regional atlas views use the same visual system rather than a separate modern map style.
+- The atlas includes responsive layouts, keyboard focus, mobile adjustments, and reduced-motion handling.
+- Pressing **M** opens the atlas during exploration.
 
 ## Title and save flow
 
 - The approved Thousandfold Realms panorama is the full-screen title artwork.
 - Start Game and Continue Game float directly over the landscape without a boxed menu panel.
-- Start Game resets the creator defaults and opens character creation directly.
+- Start Game opens character creation directly.
 - Continue Game loads the latest save directly and disables itself when no save exists.
-- The legacy Continue Saved Game button inside character creation remains hidden.
-- Back to Title remains available from character creation.
-- The title art uses subtle drift, lighting, vignette, and ember animation.
-- Reduced-motion settings disable title movement.
+- The redundant saved-game control inside character creation remains hidden.
 
 ## Tactical combat architecture
 
-- Tactical encounters build a temporary full-size arena from a clean biome palette instead of copying the exploration grid.
+- Tactical encounters use temporary isolated biome arenas rather than copied exploration grids.
 - Supported biome families are Haven, wilds, fen, mine, crypt, and arcane.
-- Each biome family has five arena templates selected from the encounter seed.
-- Combatants receive temporary arena spawn positions.
-- The player's exploration map and coordinates are stored in `returnState` and remain unchanged during combat.
-- Exploration NPCs, buildings, camps, chests, resources, and decorative entities are removed from the tactical render pass.
-- Line of sight and cover use tactical terrain only in isolated arenas.
-- Legacy saved encounters migrate to the isolated arena format when resumed.
-- The combat canvas centers the arena and fills unused space with biome ambience rather than a one-sided black panel.
-
-## What currently works in code
-
-- Browser-playable deployment through GitHub Pages.
-- Direct Start Game and Continue Game behavior.
-- Save detection and disabled-state messaging.
-- Generated title-art integrity and completeness checks.
-- Unified non-title interface theme loaded through the live override pipeline.
-- Isolated seeded biome arena generation.
-- Tactical movement, cover, terrain cost, hazards, elevation, range, and line of sight.
+- Exploration entities do not leak into tactical rendering.
+- Combat movement does not change persistent exploration coordinates.
 - Victory and retreat restore the exploration position.
-- Exploration HUD interaction hotfix remains active.
-- Deployment validates every Git-managed JavaScript override with `node --check`.
+
+## Automated validation
+
+The Pages workflow currently requires:
+
+- Syntax validation for every Git-managed JavaScript override.
+- Balanced-brace and required-selector validation for the unified UI and Living Atlas stylesheets.
+- `tests/world-atlas-v150-harness.js` runtime validation.
+- Presence of both Living Atlas files in the assembled Pages site.
+
+The Living Atlas harness verifies:
+
+- Five new local maps have valid 30×18 dimensions.
+- Atlas state initializes and migrates.
+- Haven is recorded as visited.
+- Aurelia is a known destination.
+- The Haven-to-Aurelia regional route resolves to 30 hours.
+- Arrival occurs at the Golden Gate.
+- In-game day and remaining travel hours advance correctly.
 
 ## Required live regression checklist
 
-### Character creation
+### Atlas
 
-- The approved title remains unchanged when returning to the title screen.
-- Creator header, panels, choices, stats, inputs, and Begin the Oath button use the unified theme.
-- Selected race, class, and background cards remain clearly distinguishable.
-- All creator controls remain readable and clickable at desktop and phone widths.
+- Pressing M opens the atlas during exploration.
+- World, Region, and Local tabs switch without closing the page.
+- Current location is marked correctly from interiors, wilderness, dungeons, road, and city districts.
+- Haven-to-Aurelia travel advances time and arrives at the Golden Gate.
+- Dungeon travel buttons remain unavailable.
+- Existing local cartography still renders terrain, landmarks, people, enemies, and discoveries.
+- Atlas layout remains usable at desktop and narrow phone widths.
 
-### Exploration and RPG pages
+### New local maps
 
-- HUD panels remain readable without blocking world interaction.
-- Mouse, touch, doors, drag, wheel, and HUD collapse controls continue to work.
-- Inventory, journal, character, skills, map, crafting, codex, settings, shops, and dialogue pages remain usable.
-- Focus-visible and hover states remain clear without excessive glow.
-- Scrollbars and long content areas remain usable.
+- Whisperwood southern trail reaches the Lantern Road.
+- Lantern Road reaches both Whisperwood and Aurelia.
+- Golden Gate reaches Market Ward and returns to the road.
+- Market Ward reaches Gate, River, and Citadel districts.
+- River Ward and Citadel Heights return to Market Ward.
+- New NPCs, signs, decoration, camp, enemies, chest, and landmarks render and interact.
+- No portal or NPC spawns on blocked terrain.
 
-### Tactical combat
+### Existing systems
 
-- Encounter opens on an isolated biome battlefield.
-- No exploration entities leak into combat.
-- Arena remains centered with no large right-side black cutout.
-- Tactical HUD, action dock, meters, statuses, and ability controls remain legible.
-- Movement, cover, elevation, hazards, line of sight, victory, retreat, save, and load behavior remain unchanged.
+- Haven remains the new-game start.
+- Existing quests and save files still load.
+- Exploration input, doors, dialogue, inventory, combat, victory, retreat, and saving remain functional.
+- The title screen and unified interface remain visually unchanged outside the atlas additions.
 
 ## Known risks and unfinished work
 
-1. The v1.4.9 stylesheet needs live visual QA across the creator, HUD, dialogue, RPG pages, and combat.
-2. Some dynamically generated content may use rare one-off classes that need a second styling pass after live screenshots.
-3. Procedural arenas still need sampling and balance tuning across every biome.
-4. The extracted `source/` tree is reference source; deployment still uses the verified package plus live overrides.
-5. Music redistribution and attribution rights must be confirmed before a commercial release.
+1. The Living Atlas and Aurelia maps need live browser visual QA after Pages deployment.
+2. Aurelia currently establishes four exterior districts; shops, inns, guild interiors, district quests, guards, and ambient citizens are the next city-content pass.
+3. Regional travel records time and danger but does not yet generate route encounters or consume supplies.
+4. The six future regions are world-map foundations only; their regional networks and local content are not built yet.
+5. Procedural tactical arenas still need sampling and balance tuning across every biome.
+6. The extracted `source/` tree is reference source; deployment still uses the verified package plus live overrides.
+7. Music redistribution and attribution rights must be confirmed before a commercial release.
 
 ## Next development pass
 
-1. Merge v1.4.9 after review.
+1. Merge v1.5.0 after automated validation.
 2. Confirm the Pages deployment succeeds.
-3. Capture screenshots of character creation, exploration HUD, one dialogue, inventory, and one battle.
-4. Correct any spacing, contrast, or dynamic-class gaps found in live QA.
-5. Continue biome combat testing after the interface pass is stable.
+3. Run the Living Atlas and new-map regression checklist.
+4. Correct live atlas spacing, label overlap, map readability, or portal placement issues.
+5. Expand Aurelia with interiors, services, ambient citizens, factions, and the first city quest line.
+6. Add route encounters and supply use after the basic travel system is proven stable.
 
 ## Repository rules
 
