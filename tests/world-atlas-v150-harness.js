@@ -50,6 +50,7 @@ const AO=global.AO={
 
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v150.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-exploration.js','utf8'));
+vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-travel-copy.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/zz-world-atlas-v150-fixes.js','utf8'));
 
 const validateMaps=()=>{
