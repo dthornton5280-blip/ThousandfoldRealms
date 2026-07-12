@@ -2,6 +2,18 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.1-dev — Living Atlas Runtime Hotfix
+
+### Fixed
+- JavaScript overrides now load after the packaged `AO` classes exist and before `src/main.js` creates the game instance.
+- The Living Atlas no longer exits during page startup, so the World, Region, and Local tabs can replace the legacy local-only map screen.
+- Aurelia, the Lantern Road, regional routes, travel logic, and atlas save migration now install in the live browser build.
+
+### Deployment validation
+- The assembled page must place packaged cartography code before `world-atlas-v150.js`.
+- `world-atlas-v150.js` and its integration fixes must appear before `src/main.js`.
+- Runtime JavaScript is rejected if it is accidentally injected into `<head>` again.
+
 ## 1.5.0-dev — The Living Atlas
 
 ### Added

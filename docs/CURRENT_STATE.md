@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.0-dev**
-- Build name: **The Living Atlas**
-- Working branch: **feature/living-atlas-v150**
+- Version: **1.5.1-dev**
+- Build name: **Living Atlas Runtime Hotfix**
+- Working branch: **fix/atlas-runtime-v151**
 - Canonical branch after merge: **main**
 - Deployment: GitHub Pages
 
@@ -30,12 +30,26 @@ Key active overrides:
 - `live-overrides/unified-realm-ui-v149.css`
 - `live-overrides/world-atlas-v150.js`
 - `live-overrides/world-atlas-v150.css`
+- `live-overrides/zz-world-atlas-v150-fixes.js`
 
 The package's editable text source remains under `source/` for inspection and future migration. Binary art, audio, and font assets from the original build remain in the verified package.
 
+## Runtime injection order
+
+The first v1.5.0 live deployment contained the Living Atlas files, but JavaScript overrides were injected into `<head>` before the packaged `AO` classes existed. The Atlas guard exited and the browser continued using the legacy local-only cartography screen.
+
+The v1.5.1 deployment now separates presentation and runtime loading:
+
+1. Build metadata and CSS overrides load in `<head>`.
+2. Packaged data, systems, renderers, UI classes, and game classes load normally.
+3. JavaScript overrides load immediately before `src/main.js`.
+4. `src/main.js` creates the game only after the Atlas and other runtime patches are installed.
+
+The Pages workflow rejects any assembly that places the Atlas runtime in `<head>` or outside the required packaged-cartography → Atlas → integration fixes → game-bootstrap order.
+
 ## Living Atlas hierarchy
 
-The Map page now has three connected scales:
+The Map page has three connected scales:
 
 1. **World** — establishes seven named biome regions.
 2. **Region** — shows settlements, wilderness, dungeons, roads, travel time, danger, and current position.
@@ -128,7 +142,11 @@ The Pages workflow currently requires:
 - Syntax validation for every Git-managed JavaScript override.
 - Balanced-brace and required-selector validation for the unified UI and Living Atlas stylesheets.
 - `tests/world-atlas-v150-harness.js` runtime validation.
-- Presence of both Living Atlas files in the assembled Pages site.
+- Presence of all Living Atlas runtime and stylesheet files in the assembled Pages site.
+- Packaged cartography code before `world-atlas-v150.js`.
+- Atlas integration fixes after the main Atlas file.
+- All runtime overrides before `src/main.js`.
+- No runtime Atlas script inside `<head>`.
 
 The Living Atlas harness verifies:
 
@@ -171,7 +189,7 @@ The Living Atlas harness verifies:
 
 ## Known risks and unfinished work
 
-1. The Living Atlas and Aurelia maps need live browser visual QA after Pages deployment.
+1. The v1.5.1 runtime-order fix still needs confirmation in the deployed browser build.
 2. Aurelia currently establishes four exterior districts; shops, inns, guild interiors, district quests, guards, and ambient citizens are the next city-content pass.
 3. Regional travel records time and danger but does not yet generate route encounters or consume supplies.
 4. The six future regions are world-map foundations only; their regional networks and local content are not built yet.
@@ -181,12 +199,12 @@ The Living Atlas harness verifies:
 
 ## Next development pass
 
-1. Merge v1.5.0 after automated validation.
+1. Merge v1.5.1 after workflow validation.
 2. Confirm the Pages deployment succeeds.
-3. Run the Living Atlas and new-map regression checklist.
-4. Correct live atlas spacing, label overlap, map readability, or portal placement issues.
-5. Expand Aurelia with interiors, services, ambient citizens, factions, and the first city quest line.
-6. Add route encounters and supply use after the basic travel system is proven stable.
+3. Verify that the World, Region, and Local tabs appear in the live game.
+4. Travel to Aurelia and run the new-map regression checklist.
+5. Correct live atlas spacing, label overlap, map readability, or portal placement issues.
+6. Expand Aurelia with interiors, services, ambient citizens, factions, and the first city quest line.
 
 ## Repository rules
 
