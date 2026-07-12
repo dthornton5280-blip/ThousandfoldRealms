@@ -27,11 +27,16 @@ jobs:
       - name: Prepare website
         shell: bash
         run: |
-          test -f Thousandfold_Realms_Web_v1.4.4-dev.zip
+          PACKAGE="Thousandfold_Realms_Web_v1.4.5-dev.zip"
+          if [ ! -f "$PACKAGE" ]; then
+            PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
+          fi
+          test -f "$PACKAGE"
           mkdir -p _site
-          unzip -q Thousandfold_Realms_Web_v1.4.4-dev.zip -d _site
+          unzip -q "$PACKAGE" -d _site
           touch _site/.nojekyll
           test -f _site/index.html
+          echo "Deploying $PACKAGE"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
