@@ -2,6 +2,24 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.4-dev — Directional Atlas + Cardinal Roads
+
+### Changed
+- Repositioned Last Lantern Vale locations so the regional atlas follows the same west-to-east journey used in local exploration.
+- Reoriented Southwood Trail, Mosswater Crossing, Ambermeadow, and Eastwatch Approach into continuous west-to-east maps.
+- Moved Whisperwood’s Southwood exit to the east-southeast edge while preserving its separate northern mine and eastern crypt branches.
+- Added west and east markings to Atlas compasses.
+- Tightened the desktop Atlas height, sidebar scrolling, labels, legend spacing, and route-line presentation so the page fits normal browser viewports more cleanly.
+
+### Fixed
+- Aurelia, the Lantern Road, Eastwatch, Ambermeadow, Mosswater, Southwood, Whisperwood, and Haven now appear in the same cardinal order in both Atlas and playable maps.
+- Eastbound exits now advance toward Aurelia; westbound exits return toward Haven.
+- Removed the obsolete southbound Whisperwood trail tail left behind by the earlier compatibility layer.
+
+### Validation
+- A dedicated directional harness verifies monotonic eastward Atlas coordinates, east-edge forward portals, west-edge return portals, 30×18 dimensions, and continuous west-to-east roads.
+- Pull-request and Pages workflows validate the fitted layout stylesheet and final runtime ordering.
+
 ## 1.5.3-dev — Physical Wilderness Road Network
 
 ### Added
