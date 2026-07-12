@@ -1,0 +1,21 @@
+/* Thousandfold Realms — live HUD interaction hotfix
+   The exploration HUD is informational. It stays visible without blocking
+   movement clicks, door interactions, drag gestures, or wheel input.
+   Only the HUD collapse/expand control remains interactive. */
+
+.hud,
+.immersive-hud-left,
+.immersive-hud-left *,
+.immersive-hud-right,
+.immersive-hud-right *,
+.immersive-hud-bottom,
+.immersive-hud-bottom *,
+.canvas-help {
+  pointer-events: none !important;
+  user-select: none;
+}
+
+.immersive-hud-toggle {
+  pointer-events: auto !important;
+  user-select: auto;
+}
