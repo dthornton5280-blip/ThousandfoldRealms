@@ -46,7 +46,12 @@ jobs:
           test -f live-overrides/world-atlas-v152-travel-copy.js
           test -f live-overrides/world-travel-network-v153.js
           test -f live-overrides/world-travel-network-v153a-tiles.js
+          test -f live-overrides/world-travel-network-v154-directional.js
+          test -f live-overrides/world-atlas-v154-directional.css
+          test -f live-overrides/zz-world-atlas-v150-fixes.js
+          test -f live-overrides/zzz-world-directional-v154.js
           test -f tests/world-atlas-v150-harness.js
+          test -f tests/world-direction-v154-harness.js
           test -f version.json
           test -f CHANGELOG.md
           test -f docs/CURRENT_STATE.md
@@ -61,6 +66,7 @@ jobs:
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
           node tests/world-atlas-v150-harness.js
+          node tests/world-direction-v154-harness.js
 
           python - <<'PY'
           from pathlib import Path
@@ -77,6 +83,10 @@ jobs:
               "live-overrides/world-atlas-v152-exploration.css": (
                   ".atlas-pixel-grid", ".atlas-fog-layer", ".atlas-map-key",
                   ".key-fog", "prefers-reduced-motion",
+              ),
+              "live-overrides/world-atlas-v154-directional.css": (
+                  ".atlas-exploration-layout", "calc(100dvh - 300px)",
+                  ".atlas-compass::before", ".atlas-compass::after", "overflow:auto",
               ),
           }
           for filename, required in checks.items():
@@ -146,12 +156,17 @@ jobs:
           grep -q 'world-atlas-v152-travel-copy.js' _site/index.html
           grep -q 'world-travel-network-v153.js' _site/index.html
           grep -q 'world-travel-network-v153a-tiles.js' _site/index.html
+          grep -q 'world-travel-network-v154-directional.js' _site/index.html
+          grep -q 'zzz-world-directional-v154.js' _site/index.html
           test -f _site/live-overrides/world-atlas-v150.js
           test -f _site/live-overrides/world-atlas-v152-exploration.js
           test -f _site/live-overrides/world-atlas-v152-exploration.css
           test -f _site/live-overrides/world-atlas-v152-travel-copy.js
           test -f _site/live-overrides/world-travel-network-v153.js
           test -f _site/live-overrides/world-travel-network-v153a-tiles.js
+          test -f _site/live-overrides/world-travel-network-v154-directional.js
+          test -f _site/live-overrides/world-atlas-v154-directional.css
+          test -f _site/live-overrides/zzz-world-directional-v154.js
 
           python - <<'PY'
           from pathlib import Path
@@ -161,7 +176,8 @@ jobs:
           runtime_files = (
               "world-atlas-v150.js", "world-atlas-v152-exploration.js",
               "world-atlas-v152-travel-copy.js", "world-travel-network-v153.js",
-              "world-travel-network-v153a-tiles.js",
+              "world-travel-network-v153a-tiles.js", "world-travel-network-v154-directional.js",
+              "zz-world-atlas-v150-fixes.js", "zzz-world-directional-v154.js",
           )
           if any(name in head for name in runtime_files):
               raise SystemExit("Atlas runtime was injected into head before AO exists")
@@ -173,14 +189,16 @@ jobs:
               text.find('live-overrides/world-atlas-v152-travel-copy.js'),
               text.find('live-overrides/world-travel-network-v153.js'),
               text.find('live-overrides/world-travel-network-v153a-tiles.js'),
+              text.find('live-overrides/world-travel-network-v154-directional.js'),
               text.find('live-overrides/zz-world-atlas-v150-fixes.js'),
+              text.find('live-overrides/zzz-world-directional-v154.js'),
               text.find('src/main.js'),
           ]
           if min(markers) < 0 or markers != sorted(markers):
               raise SystemExit(f"Invalid Atlas runtime order: {markers}")
           PY
 
-          echo "Assembled canonical Thousandfold Realms build with the physical road network before game bootstrap."
+          echo "Assembled canonical Thousandfold Realms build with directional atlas routes before game bootstrap."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
