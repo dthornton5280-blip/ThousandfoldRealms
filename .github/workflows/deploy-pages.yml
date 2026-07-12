@@ -3,8 +3,6 @@ name: Deploy Thousandfold Realms
 on:
   push:
     branches: [main]
-    paths:
-      - Thousandfold_Realms_Web_v1.4.4-dev.zip
   workflow_dispatch:
 
 permissions:
