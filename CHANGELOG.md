@@ -2,33 +2,58 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
-## 1.4.6-dev — Biome Tactical + Animated Title Scene
+## 1.4.7-dev — Direct Title Flow + Isolated Biome Arenas
 
 ### Added
-- Animated title scene with atmospheric background effects.
-- Start Game, Create New Character, Load Game, and Continue Game controls.
-- Back-to-title navigation from character creation.
+- Five dedicated arena layouts for each supported biome family: Haven, wilds, fen, mine, crypt, and arcane.
+- A full-screen tactical renderer with centered arena framing, biome-colored ambience, responsive canvas sizing, and corrected camera coordinates.
+- Extracted editable text source under `source/` for normal repository review and maintenance.
+- Scenic title composition with moonlit ruins, a gate, road, hero silhouette, lantern light, mist, and responsive framing.
+
+### Changed
+- Start Game now opens a freshly reset character creator directly.
+- Continue Game now loads the latest save directly and disables itself when no save exists.
+- The title menu now contains only Start Game and Continue Game.
+- Tactical combat now builds a clean temporary arena rather than copying the exploration grid.
+- Combatants receive arena-specific spawn positions while their exploration positions remain unchanged.
+- The battlefield fills the tactical viewport with balanced framing instead of leaving a large one-sided black area.
+
+### Fixed
+- Removed the redundant Create New Character and Load Game buttons from the title menu.
+- Removed the redundant Continue Saved Game button from character creation.
+- Prevented exploration NPCs, tents, campfires, chests, buildings, and other world entities from rendering inside tactical combat.
+- Prevented combat movement from permanently moving the player or enemies on the exploration map.
+- Line of sight and cover in isolated arenas now use arena terrain only.
+- Legacy saved tactical encounters migrate into the new isolated arena format when resumed.
+
+### Validation
+- All Git-managed JavaScript overrides pass `node --check` before deployment.
+- The deployment workflow verifies the title and tactical override files are present in the assembled Pages build.
+
+## 1.4.6-dev — Animated Title Scene
+
+### Added
+- First-pass animated title scene with atmospheric background effects.
+- Initial title-menu and back-to-title wiring.
 - Build metadata injected during deployment from `version.json`.
 
 ### Changed
-- Combat uses dedicated biome battlefields instead of a cropped section of the exploration map.
-- GitHub Pages now assembles one canonical deployed build from a single verified package and Git-managed overrides.
+- GitHub Pages assembles one canonical deployed build from a single verified package and Git-managed overrides.
 - Deployment validation rejects temporary payload and JavaScript chunk files.
 
 ### Fixed
 - Exploration HUD no longer blocks movement, doors, drag gestures, or wheel input.
-- Existing saves remain available through the current title flow.
 
-### Known issues
-- Battlefield presentation still needs broad visual QA across every biome and arena type.
-- The verified packaged base retains its legacy v1.4.4 filename while active code is maintained in Git overrides.
-- The title scene needs final desktop and mobile composition testing before a public release.
+### Known issues at that checkpoint
+- The first title scene read like a split website landing page and had clipping at common desktop sizes.
+- The active tactical build still copied the exploration grid and could display exploration entities in combat.
+- The verified packaged base retained its legacy v1.4.4 filename while active code was maintained in Git overrides.
 
-## 1.4.5-dev — Biome Tactical
+## 1.4.5-dev — Biome Tactical Prototype
 
 ### Added
-- Dedicated tactical battlefield generation.
-- Biome-specific arena catalogs, terrain, cover, hazards, elevation, movement, range, and line-of-sight rules.
+- Initial tactical battlefield-generation prototype.
+- Biome-specific terrain, cover, hazards, elevation, movement, range, and line-of-sight rules.
 - Encounter budgeting and multi-enemy group scaling.
 
 ## 1.4.4-dev — Verified packaged base
