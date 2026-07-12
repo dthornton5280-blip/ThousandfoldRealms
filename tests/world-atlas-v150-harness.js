@@ -33,7 +33,7 @@ const AO=global.AO={
   },
   MAP_DEFS:{
     haven:{id:'haven',portals:[{id:'haven_to_wilds',x:29,y:8,to:'wilds',toX:1,toY:9,label:'Whisperwood Road'}],objects:[]},
-    wilds:{id:'wilds',portals:[
+    wilds:{id:'wilds',builder:'wilds',portals:[
       {id:'wilds_to_haven',x:0,y:9,to:'haven',toX:28,toY:8,label:'Haven'},
       {id:'wilds_to_crypt',x:29,y:9,to:'crypt',toX:1,toY:9,label:'Ashen Crypt'},
       {id:'wilds_to_mine',x:24,y:0,to:'lantern_mine',toX:1,toY:9,label:'Lantern Mine'}
@@ -66,6 +66,7 @@ vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v150.js','utf8')
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-exploration.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-travel-copy.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/world-travel-network-v153.js','utf8'));
+vm.runInThisContext(fs.readFileSync('live-overrides/world-travel-network-v153a-tiles.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/zz-world-atlas-v150-fixes.js','utf8'));
 
 const blocked=new Set(['tree','stonewall','water','lilywater','roof','woodwall','bar','cliff_face','waterfall','rocks','shrub','fence','reeds','wall']);
