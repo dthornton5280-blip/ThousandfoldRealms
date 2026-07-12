@@ -1,0 +1,17 @@
+THOUSANDFOLD REALMS v1.4.4-dev — BRAND MIGRATION VALIDATION
+
+PASS — Player-facing browser title, title screen, top-bar logo, canvas accessibility label, warnings, documentation, test labels, and package filenames use Thousandfold Realms.
+PASS — Current source tree contains no former title text or former-title filenames.
+PASS — Primary save key is thousandfold_realms_modular_save_v2.
+PASS — Legacy pre-rename save data loads and migrates automatically to the new save key.
+PASS — Stable race, class, ability, item, quest, map, enemy, and NPC ID sets are unchanged from v1.4.3-dev.
+PASS — All source JavaScript files passed syntax checks.
+PASS — Original content/reference/regression suite: 15 passed, 0 failed.
+PASS — Responsive menu, canvas containment, and sample-music playback checks passed at 1280x900, 900x650, 520x700, and 360x640.
+PASS — Thousandfold Realms branding fits the top bar at tested desktop, embedded, tablet, and phone-like widths.
+
+Compatibility note:
+The internal AO JavaScript namespace remains as a non-player-facing compatibility alias. It does not display the former title and avoids unnecessary system-wide regression risk.
+
+Music note:
+The user-supplied sample remains a provisional development asset until redistribution and attribution rights are verified.

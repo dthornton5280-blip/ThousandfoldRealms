@@ -1,0 +1,6 @@
+0: inn
+1: arcane
+2: tavern
+3: provisions
+4: chapel
+5: forge
