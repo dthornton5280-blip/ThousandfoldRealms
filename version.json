@@ -1,6 +1,6 @@
 {
-  "version": "1.4.6-dev",
-  "buildName": "Biome Tactical + Animated Title Scene",
+  "version": "1.4.7-dev",
+  "buildName": "Direct Title Flow + Isolated Biome Arenas",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
