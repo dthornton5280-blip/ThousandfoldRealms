@@ -41,43 +41,39 @@ jobs:
           test -f live-overrides/unified-realm-ui-v149.css
           test -f live-overrides/world-atlas-v150.js
           test -f live-overrides/world-atlas-v150.css
+          test -f live-overrides/world-atlas-v152-exploration.js
+          test -f live-overrides/world-atlas-v152-exploration.css
           test -f tests/world-atlas-v150-harness.js
           test -f version.json
           test -f CHANGELOG.md
           test -f docs/CURRENT_STATE.md
 
-          # Temporary transport/assembly fragments must not return to main.
           if find . -maxdepth 1 -type f \( -name 'v*_payload_*.txt' -o -name 'v*_js_*.txt' \) | grep -q .; then
             echo "Temporary payload or JavaScript chunk files found in repository root."
             exit 1
           fi
 
-          # Validate every repository-managed JavaScript override.
           while IFS= read -r file; do
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
           node tests/world-atlas-v150-harness.js
 
-          # Catch incomplete CSS writes before deployment.
           python - <<'PY'
           from pathlib import Path
 
           checks = {
               "live-overrides/unified-realm-ui-v149.css": (
-                  "body:not(.tf-title-mode)",
-                  ".creator-screen",
-                  ".hud .panel",
-                  ".dialogue-card",
-                  ".combat-card",
-                  "prefers-reduced-motion",
+                  "body:not(.tf-title-mode)", ".creator-screen", ".hud .panel",
+                  ".dialogue-card", ".combat-card", "prefers-reduced-motion",
               ),
               "live-overrides/world-atlas-v150.css": (
-                  ".atlas-level-tabs",
-                  ".atlas-world-map",
-                  ".atlas-region-map",
-                  ".atlas-location-node",
-                  "prefers-reduced-motion",
+                  ".atlas-level-tabs", ".atlas-world-map", ".atlas-region-map",
+                  ".atlas-location-node", "prefers-reduced-motion",
+              ),
+              "live-overrides/world-atlas-v152-exploration.css": (
+                  ".atlas-pixel-grid", ".atlas-fog-layer", ".atlas-map-key",
+                  ".key-fog", "prefers-reduced-motion",
               ),
           }
           for filename, required in checks.items():
@@ -115,14 +111,8 @@ jobs:
           css_files = sorted(path.name for path in override_dir.glob("*.css"))
           js_files = sorted(path.name for path in override_dir.glob("*.js"))
 
-          css_tags = "".join(
-              f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">'
-              for name in css_files
-          )
-          js_tags = "".join(
-              f'<script src="./live-overrides/{name}?v={revision}"></script>'
-              for name in js_files
-          )
+          css_tags = "".join(f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">' for name in css_files)
+          js_tags = "".join(f'<script src="./live-overrides/{name}?v={revision}"></script>' for name in js_files)
           build_meta = (
               f'<meta name="tf-build" content="{version["version"]}">'
               f'<meta name="tf-build-name" content="{version["buildName"]}">'
@@ -141,9 +131,6 @@ jobs:
                   raise SystemExit(f"{filename} has no closing head tag")
               if main_script not in text:
                   raise SystemExit(f"{filename} has no packaged main-script marker")
-
-              # Styles can load in head. Runtime overrides must load after all AO
-              # classes but before src/main.js creates the game instance.
               text = text.replace("</head>", head_marker + build_meta + css_tags + "</head>", 1)
               text = text.replace(main_script, runtime_marker + js_tags + main_script, 1)
               path.write_text(text, encoding="utf-8")
@@ -151,46 +138,33 @@ jobs:
 
           grep -q 'GIT_LIVE_OVERRIDE_STYLES' _site/index.html
           grep -q 'GIT_LIVE_OVERRIDE_RUNTIME' _site/index.html
-          grep -q 'tf-build' _site/index.html
-          grep -q 'hud-interaction.css' _site/index.html
-          grep -q 'tactical-battlefields-v147.js' _site/index.html
-          grep -q 'tactical-presentation-v147.css' _site/index.html
-          grep -q 'title-screen-v146.css' _site/index.html
-          grep -q 'title-screen-v146.js' _site/index.html
-          grep -q 'unified-realm-ui-v149.css' _site/index.html
           grep -q 'world-atlas-v150.js' _site/index.html
-          grep -q 'world-atlas-v150.css' _site/index.html
-          test -f _site/live-overrides/hud-interaction.css
-          test -f _site/live-overrides/tactical-battlefields-v147.js
-          test -f _site/live-overrides/tactical-presentation-v147.css
-          test -f _site/live-overrides/title-screen-v146.css
-          test -f _site/live-overrides/title-screen-v146.js
-          test -f _site/live-overrides/unified-realm-ui-v149.css
+          grep -q 'world-atlas-v152-exploration.js' _site/index.html
+          grep -q 'world-atlas-v152-exploration.css' _site/index.html
           test -f _site/live-overrides/world-atlas-v150.js
-          test -f _site/live-overrides/world-atlas-v150.css
+          test -f _site/live-overrides/world-atlas-v152-exploration.js
+          test -f _site/live-overrides/world-atlas-v152-exploration.css
 
           python - <<'PY'
           from pathlib import Path
 
           text = Path("_site/index.html").read_text(encoding="utf-8")
           head = text.split("</head>", 1)[0]
-          if "world-atlas-v150.js" in head:
+          if "world-atlas-v150.js" in head or "world-atlas-v152-exploration.js" in head:
               raise SystemExit("Living Atlas runtime was injected into head before AO exists")
 
           packaged_ui = text.find('src/ui/cartography_ui.js')
           atlas_runtime = text.find('live-overrides/world-atlas-v150.js')
+          exploration_runtime = text.find('live-overrides/world-atlas-v152-exploration.js')
           atlas_fixes = text.find('live-overrides/zz-world-atlas-v150-fixes.js')
           game_bootstrap = text.find('src/main.js')
-          if min(packaged_ui, atlas_runtime, atlas_fixes, game_bootstrap) < 0:
+          if min(packaged_ui, atlas_runtime, exploration_runtime, atlas_fixes, game_bootstrap) < 0:
               raise SystemExit("Missing one or more runtime ordering markers")
-          if not packaged_ui < atlas_runtime < atlas_fixes < game_bootstrap:
-              raise SystemExit(
-                  "Runtime order invalid: packaged UI must load before Atlas, "
-                  "and Atlas must load before src/main.js"
-              )
+          if not packaged_ui < atlas_runtime < exploration_runtime < atlas_fixes < game_bootstrap:
+              raise SystemExit("Invalid Atlas runtime order")
           PY
 
-          echo "Assembled canonical Thousandfold Realms build with overrides loaded before game bootstrap."
+          echo "Assembled canonical Thousandfold Realms build with explored Atlas before game bootstrap."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

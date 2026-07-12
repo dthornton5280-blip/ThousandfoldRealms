@@ -1,10 +1,18 @@
 const fs=require('fs');
 const vm=require('vm');
 
+const mode=process.argv[2]||'all';
+const assert=(condition,message)=>{if(!condition)throw new Error(message);};
+
 global.window=global;
 global.document={activeElement:null};
 global.performance={now:()=>0};
 global.addEventListener=()=>{};
+
+const panelBody=()=>({
+  querySelectorAll:()=>[],querySelector:()=>null,insertAdjacentHTML(){},
+  set innerHTML(value){this.value=value;},get innerHTML(){return this.value||'';}
+});
 
 const AO=global.AO={
   CONFIG:{mapWidth:30,mapHeight:18},
@@ -22,7 +30,7 @@ const AO=global.AO={
   NPCS:{},
   MAP_LANDMARKS:{wilds:[]},
   UI:class{
-    constructor(game){this.game=game;this.e={panelBody:{querySelectorAll:()=>[],querySelector:()=>null,insertAdjacentHTML(){},set innerHTML(value){this.value=value;},get innerHTML(){return this.value||'';}},panelTitle:{}};}
+    constructor(game){this.game=game;this.e={panelBody:panelBody(),panelTitle:{}};}
     renderMap(){}
     closePanel(){if(this.game.state?.mode==='panel')this.game.state.mode='explore';}
   },
@@ -41,33 +49,96 @@ const AO=global.AO={
 };
 
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v150.js','utf8'));
+vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-exploration.js','utf8'));
+vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v152-travel-copy.js','utf8'));
 vm.runInThisContext(fs.readFileSync('live-overrides/zz-world-atlas-v150-fixes.js','utf8'));
 
-const newMaps=['lantern_road','aurelia_gate','aurelia_market','aurelia_river','aurelia_citadel'];
-for(const mapId of newMaps){
-  const def=AO.MAP_DEFS[mapId];
-  if(!def)throw new Error(`Missing map definition: ${mapId}`);
-  const grid=AO.MapBuilders[def.builder]();
-  if(grid.length!==18||grid.some(row=>row.length!==30))throw new Error(`Invalid map dimensions: ${mapId}`);
+const validateMaps=()=>{
+  const newMaps=['lantern_road','aurelia_gate','aurelia_market','aurelia_river','aurelia_citadel'];
+  for(const mapId of newMaps){
+    const def=AO.MAP_DEFS[mapId];
+    assert(def,`Missing map definition: ${mapId}`);
+    const grid=AO.MapBuilders[def.builder]();
+    assert(grid.length===18&&!grid.some(row=>row.length!==30),`Invalid map dimensions: ${mapId}`);
+  }
+  const wilds=AO.MapBuilders.wilds();
+  for(let y=10;y<18;y++)assert(wilds[y][24]==='path',`Whisperwood southern trail is broken at 24,${y}.`);
+};
+
+const createGame=()=>{
+  const game=new AO.Game();
+  game.ui={closePanel(){if(game.state?.mode==='panel')game.state.mode='explore';},closeDialogue(){},dialogue(){},openPanel(){}};
+  game.world=new AO.WorldSystem(game);
+  game.newGame();
+  game.world.load('haven',14,15);
+  return game;
+};
+
+const verifyInitialProgression=game=>{
+  assert(game.state.atlas?.visitedLocations?.haven,'Haven was not registered as visited.');
+  assert(game.state.atlas?.knownLocations?.whisperwood,'The road from Haven did not reveal Whisperwood as known.');
+  assert(!game.state.atlas?.visitedLocations?.whisperwood,'Whisperwood should not begin as visited.');
+  game.state.mode='panel';
+  assert(!game.atlasTravel('whisperwood'),'Fast travel incorrectly allowed an unvisited destination.');
+  assert(game.state.world.mapId==='haven','Rejected fast travel changed the active map.');
+  assert(/physically reach/.test(game.lastToast),'Rejected travel did not explain the visited requirement.');
+};
+
+const physicallyReachAurelia=game=>{
+  game.state.mode='explore';
+  game.world.load('wilds',2,9);
+  game.world.load('lantern_road',1,9);
+  game.world.load('aurelia_gate',2,9);
+  assert(game.state.atlas.visitedLocations.aurelia,'Physical arrival did not unlock Aurelia.');
+  assert(game.state.atlas.revealedMapAreas.regions.last_lantern_vale.length>=4,'Regional fog reveal points were not persisted.');
+  assert(game.state.atlas.revealedMapAreas.world.some(point=>point.id==='last_lantern_vale'),'World fog reveal was not persisted.');
+};
+
+const verifyReturnTravel=game=>{
+  game.state.mode='panel';
+  assert(game.atlasTravel('haven'),'Fast travel to a previously visited destination failed.');
+  assert(game.state.mode==='explore','Atlas travel did not return the game to exploration mode.');
+  assert(game.state.world.mapId==='haven','Return travel did not arrive in Haven.');
+  assert(game.state.atlas.travelHistory[0]?.hours===30,'Aurelia-to-Haven route should require 30 hours.');
+  assert(game.state.rest.day===2&&game.state.atlas.hourRemainder===6,'Regional travel time did not advance correctly.');
+};
+
+const verifyRendering=game=>{
+  const atlasUI=new AO.UI(game);
+  atlasUI.atlasSelectedLocation='ashen_crypt';
+  atlasUI.renderRegionAtlas();
+  const regionMarkup=atlasUI.e.panelBody.innerHTML;
+  assert(regionMarkup.includes('atlas-pixel-grid')&&regionMarkup.includes('atlas-fog-layer'),'Regional pixel terrain or fog layer is missing.');
+  assert(regionMarkup.includes('Regional Map Key'),'Regional legend is missing.');
+  assert(!regionMarkup.includes('data-atlas-travel="ashen_crypt"'),'An unvisited dungeon exposed a fast-travel action.');
+  atlasUI.renderWorldAtlas();
+  const worldMarkup=atlasUI.e.panelBody.innerHTML;
+  assert(worldMarkup.includes('atlas-pixel-grid')&&worldMarkup.includes('atlas-fog-layer'),'World pixel terrain or fog layer is missing.');
+  assert(worldMarkup.includes('World Map Key'),'World legend is missing.');
+};
+
+validateMaps();
+const game=createGame();
+verifyInitialProgression(game);
+
+if(mode==='initial'){
+  console.log('Atlas initial-progression stage passed.');
+  process.exit(0);
 }
 
-const wilds=AO.MapBuilders.wilds();
-for(let y=10;y<18;y++)if(wilds[y][24]!=='path')throw new Error(`Whisperwood southern trail is broken at 24,${y}.`);
+physicallyReachAurelia(game);
 
-const game=new AO.Game();
-game.ui={closePanel(){if(game.state?.mode==='panel')game.state.mode='explore';},closeDialogue(){},dialogue(){},openPanel(){}};
-game.world=new AO.WorldSystem(game);
-game.newGame();
-game.world.load('haven',14,15);
+if(mode==='render'){
+  verifyRendering(game);
+  console.log('Atlas rendering stage passed.');
+  process.exit(0);
+}
 
-if(!game.state.atlas?.visitedLocations?.haven)throw new Error('Haven was not registered in the atlas.');
-if(!game.state.atlas?.knownLocations?.aurelia)throw new Error('Aurelia was not seeded as a known destination.');
+verifyReturnTravel(game);
+if(mode==='travel'){
+  console.log('Atlas travel stage passed.');
+  process.exit(0);
+}
 
-game.state.mode='panel';
-if(!game.atlasTravel('aurelia'))throw new Error('Regional travel from the open atlas panel failed.');
-if(game.state.mode!=='explore')throw new Error('Atlas travel did not return the game to exploration mode.');
-if(game.state.world.mapId!=='aurelia_gate')throw new Error('Aurelia travel did not arrive at the Golden Gate.');
-if(game.state.atlas.travelHistory[0]?.hours!==30)throw new Error('Haven-to-Aurelia route should require 30 hours.');
-if(game.state.rest.day!==2||game.state.atlas.hourRemainder!==6)throw new Error('Regional travel time did not advance correctly.');
-
-console.log(`Living Atlas harness passed: ${newMaps.length} new maps, ${Object.keys(AO.ATLAS_LOCATIONS).length} regional locations, panel travel and Aurelia arrival verified.`);
+verifyRendering(game);
+console.log('Living Atlas harness passed: map definitions, visited-only travel, persistent fog, pixel terrain, and legends verified.');
