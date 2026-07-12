@@ -1,6 +1,6 @@
 {
-  "version": "1.5.3-dev",
-  "buildName": "Physical Wilderness Road Network",
+  "version": "1.5.4-dev",
+  "buildName": "Directional Atlas + Cardinal Roads",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
