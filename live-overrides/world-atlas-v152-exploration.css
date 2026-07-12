@@ -1,0 +1,98 @@
+/* Thousandfold Realms v1.5.2-dev — pixel atlas, legends, and persistent fog. */
+body:not(.tf-title-mode) .atlas-pixel-map{background:#111511}
+body:not(.tf-title-mode) .atlas-pixel-grid{
+  position:absolute;z-index:0;inset:0;display:grid;grid-template-columns:repeat(30,1fr);grid-template-rows:repeat(18,1fr);
+  image-rendering:pixelated;background:#172019
+}
+body:not(.tf-title-mode) .atlas-pixel-tile{
+  position:relative;min-width:0;min-height:0;border-right:1px solid rgba(229,210,166,.045);border-bottom:1px solid rgba(0,0,0,.15);
+  box-shadow:inset 0 1px rgba(255,255,255,.018)
+}
+body:not(.tf-title-mode) .atlas-pixel-tile::after{content:"";position:absolute;inset:0;opacity:.22}
+body:not(.tf-title-mode) .atlas-pixel-tile.variant-1::after{background:linear-gradient(135deg,transparent 0 58%,rgba(255,255,255,.12) 59% 65%,transparent 66%)}
+body:not(.tf-title-mode) .atlas-pixel-tile.variant-2::after{background:radial-gradient(circle at 68% 35%,rgba(255,255,255,.16) 0 7%,transparent 8%)}
+body:not(.tf-title-mode) .atlas-pixel-tile.variant-3::after{background:linear-gradient(45deg,rgba(0,0,0,.17) 0 28%,transparent 29%)}
+body:not(.tf-title-mode) .terrain-grass{background:#596b52}
+body:not(.tf-title-mode) .terrain-forest{background:#2d4c38}
+body:not(.tf-title-mode) .terrain-hill{background:#6b7156}
+body:not(.tf-title-mode) .terrain-mountain{background:#666b68}
+body:not(.tf-title-mode) .terrain-snow{background:#8a9798}
+body:not(.tf-title-mode) .terrain-highland{background:#62627b}
+body:not(.tf-title-mode) .terrain-moor{background:#555468}
+body:not(.tf-title-mode) .terrain-fen{background:#3e665c}
+body:not(.tf-title-mode) .terrain-water{background:#427487}
+body:not(.tf-title-mode) .terrain-sea{background:#315a70}
+body:not(.tf-title-mode) .terrain-coast{background:#687464}
+body:not(.tf-title-mode) .terrain-cliff{background:#545c5d}
+body:not(.tf-title-mode) .terrain-ash{background:#705548}
+body:not(.tf-title-mode) .terrain-rock{background:#5b5650}
+body:not(.tf-title-mode) .terrain-desert{background:#8b7652}
+body:not(.tf-title-mode) .terrain-ruin{background:#74675d}
+body:not(.tf-title-mode) .terrain-road{background:#9b8458}
+body:not(.tf-title-mode) .terrain-bridge{background:#8a6644}
+body:not(.tf-title-mode) .terrain-city{background:#7c6357}
+body:not(.tf-title-mode) .terrain-cobble{background:#7a7971}
+body:not(.tf-title-mode) .atlas-geography-lines{position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none}
+body:not(.tf-title-mode) .atlas-geography-lines path{fill:none;vector-effect:non-scaling-stroke;filter:drop-shadow(0 1px 1px rgba(0,0,0,.7))}
+body:not(.tf-title-mode) .atlas-water-line{stroke:#78aebe;stroke-width:2.2;opacity:.82}
+body:not(.tf-title-mode) .atlas-ridge-line{stroke:#c2b28c;stroke-width:1.2;stroke-dasharray:1.5 1.6;opacity:.45}
+body:not(.tf-title-mode) .atlas-old-road{stroke:#c5a66a;stroke-width:1.25;stroke-dasharray:2.2 1.2;opacity:.7}
+body:not(.tf-title-mode) .atlas-feature-label{
+  position:absolute;z-index:3;color:rgba(237,220,180,.52);font-family:var(--realm-serif);font-size:.62rem;font-style:italic;
+  letter-spacing:.08em;text-shadow:0 1px 3px #000;pointer-events:none;transform:rotate(-5deg)
+}
+body:not(.tf-title-mode) .feature-frost{left:52%;top:17%}
+body:not(.tf-title-mode) .feature-sea{right:4%;top:38%;transform:rotate(76deg)}
+body:not(.tf-title-mode) .feature-fen{left:29%;bottom:18%;transform:rotate(4deg)}
+body:not(.tf-title-mode) .region-ridge{left:31%;top:18%}
+body:not(.tf-title-mode) .region-river{left:60%;top:47%;transform:rotate(79deg)}
+body:not(.tf-title-mode) .region-woods{left:24%;top:38%;transform:rotate(-7deg)}
+body:not(.tf-title-mode) .atlas-fog-layer{position:absolute;z-index:6;inset:0;width:100%;height:100%;pointer-events:none}
+body:not(.tf-title-mode) .atlas-fog-fill{fill:rgba(7,9,9,.94)}
+body:not(.tf-title-mode) .atlas-fog-grain{fill:rgba(42,47,43,.62);filter:url(#none)}
+body:not(.tf-title-mode) .atlas-region-node,
+body:not(.tf-title-mode) .atlas-location-node{z-index:7}
+body:not(.tf-title-mode) .atlas-region-node.veiled,
+body:not(.tf-title-mode) .atlas-location-node.unknown{z-index:5;opacity:.12!important}
+body:not(.tf-title-mode) .atlas-region-node.charted{opacity:.7}
+body:not(.tf-title-mode) .atlas-region-node.current i{background:#98723a;box-shadow:0 0 0 4px rgba(0,0,0,.45),0 0 24px rgba(239,191,98,.75)}
+body:not(.tf-title-mode) .atlas-location-node small{
+  display:block;margin-top:2px;padding:2px 4px;background:rgba(7,8,8,.78);color:#9e947e;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase
+}
+body:not(.tf-title-mode) .atlas-location-node.visited small{color:#d4bd88}
+body:not(.tf-title-mode) .atlas-location-node.known:not(.visited) strong{border-style:dashed;color:#c2b797}
+body:not(.tf-title-mode) .atlas-location-node.known:not(.visited) i{opacity:.74;filter:grayscale(.25)}
+body:not(.tf-title-mode) .atlas-location-node:disabled,
+body:not(.tf-title-mode) .atlas-region-node:disabled{cursor:default;pointer-events:none}
+body:not(.tf-title-mode) .atlas-map-key{
+  position:relative;margin:18px 0 0;padding:13px 14px;border:1px solid rgba(212,171,95,.2);background:rgba(5,7,7,.44)
+}
+body:not(.tf-title-mode) .atlas-map-key h4{margin:0 0 10px;color:var(--realm-gold);font-family:var(--realm-serif);font-size:.78rem;letter-spacing:.08em}
+body:not(.tf-title-mode) .atlas-map-key span{display:flex;align-items:center;gap:9px;padding:5px 0;border-top:1px solid rgba(213,172,96,.08);color:#c9bea4;font-size:.69rem;line-height:1.25}
+body:not(.tf-title-mode) .atlas-map-key i{display:inline-block;flex:0 0 auto}
+body:not(.tf-title-mode) .key-dot{width:11px;height:11px;border:1px solid #d7b167;border-radius:50%;background:#171815;box-shadow:0 0 0 2px rgba(0,0,0,.35)}
+body:not(.tf-title-mode) .key-dot.current{background:#a67a35;box-shadow:0 0 9px rgba(239,188,87,.7)}
+body:not(.tf-title-mode) .key-dot.seen{background:#516d4e}
+body:not(.tf-title-mode) .key-dot.charted{border-style:dashed;background:#272924;opacity:.8}
+body:not(.tf-title-mode) .key-block{width:15px;height:11px;border:1px solid rgba(255,255,255,.16)}
+body:not(.tf-title-mode) .key-block.road{background:#9b8458}
+body:not(.tf-title-mode) .key-block.forest{background:#2d4c38}
+body:not(.tf-title-mode) .key-block.mountain{background:#666b68}
+body:not(.tf-title-mode) .key-block.water{background:#427487}
+body:not(.tf-title-mode) .key-fog{width:15px;height:11px;background:#0a0d0d;box-shadow:inset 0 0 5px rgba(96,105,97,.38)}
+body:not(.tf-title-mode) .atlas-exploration-layout .atlas-detail-card{scrollbar-width:thin}
+body:not(.tf-title-mode) .atlas-route-network line.known{stroke:#c19a58;stroke-width:.7;opacity:.9}
+body:not(.tf-title-mode) .atlas-route-network line.unknown{opacity:.08}
+body:not(.tf-title-mode) .atlas-exploration-layout .atlas-map-caption{z-index:8}
+body:not(.tf-title-mode) .atlas-exploration-layout .atlas-compass{z-index:8}
+@media(max-width:980px){
+  body:not(.tf-title-mode) .atlas-map-key{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+  body:not(.tf-title-mode) .atlas-map-key h4{grid-column:1/-1}
+}
+@media(max-width:700px){
+  body:not(.tf-title-mode) .atlas-pixel-tile{border-right-color:rgba(255,255,255,.025)}
+  body:not(.tf-title-mode) .atlas-feature-label{display:none}
+  body:not(.tf-title-mode) .atlas-map-key{grid-template-columns:1fr}
+  body:not(.tf-title-mode) .atlas-location-node small{display:none}
+}
+@media(prefers-reduced-motion:reduce){body:not(.tf-title-mode) .atlas-fog-layer{transition:none!important}}
