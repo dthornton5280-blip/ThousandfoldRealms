@@ -1,6 +1,6 @@
 {
-  "version": "1.4.9-dev",
-  "buildName": "Unified Realm Interface",
+  "version": "1.5.0-dev",
+  "buildName": "The Living Atlas",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
