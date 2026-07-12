@@ -34,6 +34,8 @@ jobs:
           test -f "$PACKAGE"
           test -d live-overrides
           test -f live-overrides/hud-interaction.css
+          test -f live-overrides/tactical-battlefields-v147.js
+          test -f live-overrides/tactical-presentation-v147.css
           test -f live-overrides/title-screen-v146.css
           test -f live-overrides/title-screen-v146.js
           test -f version.json
@@ -107,9 +109,13 @@ jobs:
           grep -q 'GIT_LIVE_OVERRIDES' _site/index.html
           grep -q 'tf-build' _site/index.html
           grep -q 'hud-interaction.css' _site/index.html
+          grep -q 'tactical-battlefields-v147.js' _site/index.html
+          grep -q 'tactical-presentation-v147.css' _site/index.html
           grep -q 'title-screen-v146.css' _site/index.html
           grep -q 'title-screen-v146.js' _site/index.html
           test -f _site/live-overrides/hud-interaction.css
+          test -f _site/live-overrides/tactical-battlefields-v147.js
+          test -f _site/live-overrides/tactical-presentation-v147.css
           test -f _site/live-overrides/title-screen-v146.css
           test -f _site/live-overrides/title-screen-v146.js
 

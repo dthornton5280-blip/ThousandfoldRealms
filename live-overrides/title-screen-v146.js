@@ -1,93 +1,106 @@
-/* Thousandfold Realms v1.4.6-dev — title scene and title-menu wiring */
+/* Thousandfold Realms v1.4.7-dev — direct title flow and scenic title screen */
 (() => {
-  if (window.__TF_TITLE_V146__) return;
-  window.__TF_TITLE_V146__ = true;
+  if (window.__TF_TITLE_V147__) return;
+  window.__TF_TITLE_V147__ = true;
 
   const titleMarkup = `
-    <div id="tfTitleScreen" class="screen">
+    <div id="tfTitleScreen" class="screen hidden">
       <div class="tf-title-ambience" aria-hidden="true">
-        <span class="tf-title-starfield"></span>
-        <span class="tf-title-fog tf-title-fog-a"></span>
-        <span class="tf-title-fog tf-title-fog-b"></span>
-        <span class="tf-title-runes"></span>
-        <span class="tf-title-sparks"></span>
-        <span class="tf-title-lantern"></span>
-        <span class="tf-title-lantern tf-title-lantern-right"></span>
-        <span class="tf-title-horizon"></span>
-        <span class="tf-title-silhouette"></span>
+        <span class="tf-title-stars"></span>
+        <span class="tf-title-mist tf-title-mist-a"></span>
+        <span class="tf-title-mist tf-title-mist-b"></span>
+        <span class="tf-title-distant-ridges"></span>
+        <span class="tf-title-near-ridges"></span>
       </div>
-      <div class="tf-title-shell">
-        <section class="tf-title-copy">
-          <p class="tf-title-eyebrow">PIXEL CRPG • TACTICAL FANTASY • PERSISTENT JOURNEY</p>
-          <h1 class="tf-title-logo">THOUSANDFOLD REALMS</h1>
-          <p class="tf-title-tagline">A lantern-lit oath. A thousand roads. One hero against the dark between worlds.</p>
-          <div class="tf-title-feature-row">
-            <span>Explore living towns</span>
-            <span>Fight tactical battles</span>
-            <span>Forge your own legend</span>
+
+      <main class="tf-title-shell">
+        <section class="tf-title-hero">
+          <div class="tf-title-brand">
+            <p class="tf-title-eyebrow">A SINGLE-PLAYER PIXEL CRPG</p>
+            <h1 class="tf-title-logo">
+              <span>THOUSANDFOLD</span>
+              <span>REALMS</span>
+            </h1>
+            <p class="tf-title-tagline">A lantern-lit oath. A thousand roads. One hero against the dark between worlds.</p>
+          </div>
+
+          <div class="tf-title-scene" aria-hidden="true">
+            <span class="tf-title-moon"></span>
+            <span class="tf-title-ruin tf-title-ruin-left"></span>
+            <span class="tf-title-ruin tf-title-ruin-right"></span>
+            <span class="tf-title-gate"></span>
+            <span class="tf-title-road"></span>
+            <span class="tf-title-pines"></span>
+            <span class="tf-title-hero-silhouette"></span>
+            <span class="tf-title-lantern-glow"></span>
+            <span class="tf-title-lantern-post"></span>
+            <span class="tf-title-embers"></span>
           </div>
         </section>
-        <section class="tf-title-menu">
+
+        <section class="tf-title-menu" aria-label="Main menu">
           <div class="tf-title-menu-header">
-            <p class="tf-title-eyebrow">ADVENTURER'S GATE</p>
-            <h2>Choose your path</h2>
-            <p>Begin a new saga, shape a hero, or return to your last lantern-lit save.</p>
+            <p class="tf-title-eyebrow">THE LAST LANTERN AWAITS</p>
+            <h2>Begin your journey</h2>
+            <p>Create a hero and enter the realms, or return immediately to your latest save.</p>
           </div>
           <div class="tf-title-menu-buttons">
             <button id="tfTitleStart" class="tf-title-primary">Start Game</button>
-            <button id="tfTitleNew">Create New Character</button>
-            <button id="tfTitleLoad">Load Game</button>
-          </div>
-          <div class="tf-title-continue-wrap">
             <button id="tfTitleContinue" class="tf-title-continue">Continue Game</button>
-            <small id="tfTitleSaveHint">Continue from your latest save.</small>
           </div>
+          <small id="tfTitleSaveHint" class="tf-title-save-hint">Checking for a saved journey…</small>
+          <div class="tf-title-version">v1.4.7-dev</div>
         </section>
-      </div>
+      </main>
     </div>`;
 
   function insertTitleMarkup() {
     if (document.getElementById('tfTitleScreen')) return;
     const creator = document.getElementById('creator');
     if (!creator) return;
+
     creator.insertAdjacentHTML('beforebegin', titleMarkup);
     creator.classList.add('hidden');
 
+    const legacyContinue = document.getElementById('continueBtn');
+    if (legacyContinue) {
+      legacyContinue.classList.add('hidden');
+      legacyContinue.setAttribute('aria-hidden', 'true');
+      legacyContinue.tabIndex = -1;
+    }
+
     const header = creator.querySelector('.creator-header');
     if (header && !document.getElementById('tfBackToTitle')) {
-      const oldContinue = document.getElementById('continueBtn');
-      const actions = document.createElement('div');
-      actions.className = 'tf-creator-header-actions';
       const back = document.createElement('button');
       back.id = 'tfBackToTitle';
-      back.className = 'secondary';
+      back.className = 'secondary tf-back-to-title';
       back.textContent = 'Back to Title';
-      if (oldContinue) {
-        oldContinue.parentNode.insertBefore(actions, oldContinue);
-        actions.append(back, oldContinue);
-      } else {
-        header.append(actions);
-        actions.append(back);
-      }
+      header.append(back);
     }
   }
 
   function patchUi() {
-    if (!window.AO?.UI || AO.UI.prototype.__tfTitlePatched) return;
+    if (!window.AO?.UI || AO.UI.prototype.__tfTitleV147Patched) return;
     const proto = AO.UI.prototype;
-    proto.__tfTitlePatched = true;
+    proto.__tfTitleV147Patched = true;
 
     proto.tfRefreshTitleState = function () {
       const hasSave = !!AO.SaveManager?.exists?.();
-      const load = document.getElementById('tfTitleLoad');
       const cont = document.getElementById('tfTitleContinue');
       const hint = document.getElementById('tfTitleSaveHint');
-      if (load) load.disabled = !hasSave;
       if (cont) cont.disabled = !hasSave;
-      if (hint) hint.textContent = hasSave
-        ? 'Continue from your latest save.'
-        : 'No save found yet — begin a new journey first.';
-      if (this.e?.continueBtn) this.e.continueBtn.classList.toggle('hidden', !hasSave);
+      if (hint) {
+        hint.textContent = hasSave
+          ? 'Continue from your latest saved journey.'
+          : 'No saved journey found — choose Start Game.';
+      }
+
+      const legacyContinue = document.getElementById('continueBtn');
+      if (legacyContinue) {
+        legacyContinue.classList.add('hidden');
+        legacyContinue.setAttribute('aria-hidden', 'true');
+        legacyContinue.tabIndex = -1;
+      }
     };
 
     proto.tfShowTitle = function () {
@@ -99,20 +112,26 @@
       this.game?.audio?.applyVolume?.();
     };
 
-    proto.tfShowCreator = function (reset = false) {
-      if (reset) {
-        this.selectedRace = 'human';
-        this.selectedRaceGroup = 'all';
-        this.selectedClass = 'vanguard';
-        this.selectedBackground = 'outlander';
-        this.creatorAppearance = {
-          hairColor: '#29252a', eyeColor: '#65a8cf', accentColor: '#557a96',
-          hairStyle: 'natural', frame: 'standard', mark: 'none'
-        };
-        this.creatorStats = { str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8 };
-        if (this.e?.heroName) this.e.heroName.value = 'Alden';
-        this.renderCreator?.();
-      }
+    proto.tfResetCreator = function () {
+      this.selectedRace = 'human';
+      this.selectedRaceGroup = 'all';
+      this.selectedClass = 'vanguard';
+      this.selectedBackground = 'outlander';
+      this.creatorAppearance = {
+        hairColor: '#29252a',
+        eyeColor: '#65a8cf',
+        accentColor: '#557a96',
+        hairStyle: 'natural',
+        frame: 'standard',
+        mark: 'none'
+      };
+      this.creatorStats = { str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8 };
+      if (this.e?.heroName) this.e.heroName.value = 'Alden';
+      this.renderCreator?.();
+    };
+
+    proto.tfShowCreator = function (reset = true) {
+      if (reset) this.tfResetCreator();
       document.getElementById('tfTitleScreen')?.classList.add('hidden');
       document.getElementById('gameScreen')?.classList.add('hidden');
       document.getElementById('creator')?.classList.remove('hidden');
@@ -124,9 +143,7 @@
     const originalInit = proto.init;
     proto.init = function (...args) {
       const result = originalInit.apply(this, args);
-      document.getElementById('tfTitleStart')?.addEventListener('click', () => this.tfShowCreator(false));
-      document.getElementById('tfTitleNew')?.addEventListener('click', () => this.tfShowCreator(true));
-      document.getElementById('tfTitleLoad')?.addEventListener('click', () => this.game.loadGame());
+      document.getElementById('tfTitleStart')?.addEventListener('click', () => this.tfShowCreator(true));
       document.getElementById('tfTitleContinue')?.addEventListener('click', () => this.game.loadGame());
       document.getElementById('tfBackToTitle')?.addEventListener('click', () => this.tfShowTitle());
       this.tfShowTitle();
