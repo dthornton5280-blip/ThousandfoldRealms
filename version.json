@@ -1,6 +1,6 @@
 {
-  "version": "1.5.2-dev",
-  "buildName": "Explored Atlas + Persistent Fog",
+  "version": "1.5.3-dev",
+  "buildName": "Physical Wilderness Road Network",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }

@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.2-dev**
-- Build name: **Explored Atlas + Persistent Fog**
-- Working branch: **feature/atlas-exploration-v152**
+- Version: **1.5.3-dev**
+- Build name: **Physical Wilderness Road Network**
+- Working branch: **feature/physical-road-network-v153**
 - Canonical branch after merge: **main**
 - Deployment: GitHub Pages
 
@@ -14,231 +14,215 @@ The live game is assembled from the verified packaged base:
 
 `Thousandfold_Realms_Web_v1.4.4-dev.zip`
 
-The filename is legacy. Maintained corrections and additions are stored in `live-overrides/` and injected during deployment.
+Maintained corrections and additions are stored in `live-overrides/` and injected before `src/main.js` creates the game.
 
-Key active overrides:
+Key Atlas and road-network overrides:
 
-- `live-overrides/hud-interaction.css`
-- `live-overrides/tactical-battlefields-v147.js`
-- `live-overrides/tactical-presentation-v147.css`
-- `live-overrides/title-screen-v146.css`
-- `live-overrides/title-screen-v146.js`
-- `live-overrides/title-screen-v148-art.css`
-- `live-overrides/title-art-v148-0.js` through `title-art-v148-4.js`
-- `live-overrides/title-art-v148-loader.js`
-- `live-overrides/title-version-v148.js`
-- `live-overrides/unified-realm-ui-v149.css`
 - `live-overrides/world-atlas-v150.js`
 - `live-overrides/world-atlas-v150.css`
 - `live-overrides/world-atlas-v152-exploration.js`
 - `live-overrides/world-atlas-v152-exploration.css`
+- `live-overrides/world-atlas-v152-travel-copy.js`
+- `live-overrides/world-travel-network-v153.js`
+- `live-overrides/world-travel-network-v153a-tiles.js`
 - `live-overrides/zz-world-atlas-v150-fixes.js`
 
-The package's editable text source remains under `source/` for inspection and future migration. Binary art, audio, and font assets from the original build remain in the verified package.
+## Runtime order
 
-## Runtime injection order
+The required runtime sequence is:
 
-Build metadata and CSS load in `<head>`. Packaged data, systems, renderers, UI classes, and game classes load next. Repository-managed JavaScript overrides then load immediately before `src/main.js` creates the game.
-
-The required Atlas order is:
-
-1. Packaged cartography UI.
+1. Packaged map data, systems, renderers, cartography UI, and game classes.
 2. Base Living Atlas v1.5.0.
-3. Explored Atlas v1.5.2.
-4. Atlas integration fixes.
-5. Game bootstrap.
+3. Persistent exploration and fog v1.5.2.
+4. Explicit visited-only travel feedback.
+5. Physical wilderness road network v1.5.3.
+6. Supported-tile compatibility for the new wilderness maps.
+7. Atlas integration fixes.
+8. `src/main.js` game bootstrap.
 
-The Pages workflow rejects missing files, invalid JavaScript, unbalanced CSS, runtime scripts placed in `<head>`, or an incorrect order.
+Pull-request and Pages workflows reject missing files, invalid JavaScript, runtime scripts in `<head>`, or incorrect ordering.
 
 ## Living Atlas hierarchy
 
 The Map page has three connected scales:
 
-1. **World** — major regions, world geography, charted frontiers, and persistent world fog.
-2. **Region** — settlements, roads, dungeons, wilderness, terrain, travel time, danger, and persistent regional fog.
-3. **Local** — the existing exact tile map with local exploration percentages, landmarks, people, threats, discoveries, and its own persisted tile visibility.
+1. **World** — major regions, broad geography, charted frontiers, and persistent world fog.
+2. **Region** — settlements, roads, wilderness, dungeons, travel information, and persistent regional fog.
+3. **Local** — the exact 30×18 playable map, local landmarks, people, threats, discoveries, and tile visibility.
 
-The open region is **Last Lantern Vale**. The world foundation also includes:
+## Persistent exploration rules
 
-- The Drowned Fen
-- The Cinder Marches
-- Frostmere Reach
-- The Shattered Coast
-- The Veiled Highlands
-- The Sunken Crown
-
-Those six regions remain future expansions. Their names may become charted through lore, but terrain remains fogged until the player physically reaches them.
-
-## Persistent exploration and fog
-
-Atlas save data now tracks:
+Atlas save data tracks:
 
 - Discovered regions
 - Known locations
-- Visited locations
-- Discovered routes
-- Travel history
+- Physically visited locations
+- Discovered route segments
 - Persistent world reveal points
 - Persistent regional reveal points
+- Travel history and elapsed time
 - Current parent location
-- Remaining travel hours toward the next in-game day
 
-Visibility rules:
+A destination may be known or rumored without being available for fast travel. Fast travel requires:
 
-- Physically entering a location adds a persistent reveal area around it on the regional map.
-- Fully explored route segments reveal corridors between visited locations.
-- Physically entering a region adds a persistent reveal area on the world map.
-- A charted or rumored destination can be labeled without revealing surrounding terrain.
-- Existing visited-location data migrates into reveal points when an older save is loaded.
+- The destination has been physically visited.
+- Every route segment between the current and destination locations has been personally discovered.
+- The destination permits fast travel.
 
-## Fast-travel rules
+Dungeons still require entry through their connected local maps.
 
-- A destination must be **physically visited** before fast travel unlocks.
-- A known but unvisited location is informational only.
-- The route between the current location and destination must be personally discovered.
-- Dungeons remain local entrances and cannot be fast-traveled into.
-- Fast travel advances time, records the journey, saves the game, and loads the destination entry point.
-- New characters begin with Haven charted. Whisperwood becomes known from Haven's connected road, and later destinations are learned through continued exploration.
+## Physical Haven-to-Aurelia journey
 
-## World and regional cartography style
+The road to Aurelia is now a continuous playable chain:
 
-World and regional views now use the same visual logic as the local map:
+1. **Haven of the Last Lantern**
+2. **Whisperwood**
+3. **Southwood Trail**
+4. **Mosswater Crossing**
+5. **Ambermeadow**
+6. **Eastwatch Approach**
+7. **The Lantern Road**
+8. **Aurelia — Golden Gate Ward**
 
-- A 30×18 pixel-tile terrain field.
-- Grid-visible land, water, road, forest, mountain, wetland, coast, ruin, desert, city, bridge, and cobble terrain.
-- Named geographic features such as the Frostmere Spine, Shattered Sea, Blackwater Basin, Lantern Ridge, Mosswater, and Whisperwood.
-- Route and river overlays.
-- Current, visited, known-only, and uncharted marker states.
-- A dedicated World Map Key and Regional Map Key.
-- Persistent dark fog with soft reveal edges.
+The trip remains approximately thirty in-game hours from Haven to Aurelia, but that distance is now represented by authored wilderness maps rather than one hidden abstract jump.
 
-## Last Lantern Vale network
+### Southwood Trail
 
-Current regional locations:
+- Dense forest road descending from Whisperwood.
+- Travelers’ camp, lantern mile marker, herbs, flowers, bandits, and mirelings.
+- Two-way connection between Whisperwood and Mosswater Crossing.
 
-- Haven of the Last Lantern
-- Whisperwood
-- Abandoned Lantern Mine
-- The Ashen Crypt
-- The Lantern Road
-- Aurelia, City of a Thousand Lanterns
+### Mosswater Crossing
 
-Current routes:
+- Wide river map with an actual bridge and wet banks.
+- Raised camp platform, stranded merchant cart, resources, and mirelings.
+- Two-way connection between Southwood Trail and Ambermeadow.
 
-- Haven ↔ Whisperwood
-- Whisperwood ↔ Lantern Mine
-- Whisperwood ↔ Ashen Crypt
-- Whisperwood ↔ Lantern Road
-- Lantern Road ↔ Aurelia
+### Ambermeadow
+
+- Open grain country and abandoned farm roads.
+- Fields, fences, camp, cart, road lanterns, resources, and bandits.
+- Two-way connection between Mosswater Crossing and Eastwatch Approach.
+
+### Eastwatch Approach
+
+- Rocky patrol country beneath a ruined watch post.
+- Ruined guardian, patrol camp, cache, signs, and bandits.
+- Two-way connection between Ambermeadow and the Lantern Road.
+
+### Lantern Road
+
+- Existing final approach to Aurelia.
+- Western exit now returns to Eastwatch Approach rather than jumping directly to Whisperwood.
+- Eastern exit reaches Aurelia’s Golden Gate.
+
+## Regional route graph
+
+Current primary route hours:
+
+- Haven ↔ Whisperwood: 6 hours
+- Whisperwood ↔ Southwood Trail: 4 hours
+- Southwood Trail ↔ Mosswater Crossing: 5 hours
+- Mosswater Crossing ↔ Ambermeadow: 5 hours
+- Ambermeadow ↔ Eastwatch Approach: 4 hours
+- Eastwatch Approach ↔ Lantern Road: 3 hours
+- Lantern Road ↔ Aurelia: 3 hours
+
+Total Haven ↔ Aurelia: **30 hours**.
+
+The Lantern Mine and Ashen Crypt remain side destinations branching from Whisperwood.
 
 ## Aurelia city architecture
 
-Aurelia is a connected city made of district maps:
+Aurelia remains a connected city composed of district maps:
 
-- **Golden Gate Ward** — eastern entrance and road traffic.
-- **Market Ward** — central junction, merchants, and city navigation.
-- **River Ward** — docks, warehouses, and the future coast route.
-- **Citadel Heights** — civic archive, High Atlas, and council district.
+- Golden Gate Ward
+- Market Ward
+- River Ward
+- Citadel Heights
 
-Named residents currently present:
+The physical wilderness chain enters at the Golden Gate. Additional city interiors, services, guilds, residents, factions, quests, and districts remain future content work.
 
-- Captain Vela Arden
-- Tomas Bell
-- Yona Marr
-- Archivist Maelin
+## Map presentation
 
-Aurelia still needs interiors, shops, guilds, ambient crowds, factions, and a first city quest line.
+World and regional maps use:
 
-## Unified interface system
+- 30×18 pixel-tile terrain fields
+- Persistent fog of war
+- Soft reveal areas around visited locations
+- Revealed route corridors after both endpoints are explored
+- Current, visited, known-only, and uncharted markers
+- Legends for terrain and marker states
+- The established parchment, charcoal, bronze, serif, and engraved-border UI theme
 
-- The title scene remains the visual reference for the game.
-- Non-title UI shares warm parchment text, bronze-gold accents, charcoal surfaces, engraved borders, deep shadows, subtle glow, and restrained motion.
-- World, Region, and Local map scales use the same interface language.
-- Atlas layouts include keyboard focus, responsive behavior, and reduced-motion handling.
-- Pressing **M** opens the Atlas during exploration.
-
-## Tactical combat architecture
-
-- Tactical encounters use temporary isolated biome arenas rather than copied exploration grids.
-- Supported biome families are Haven, wilds, fen, mine, crypt, and arcane.
-- Exploration entities do not leak into tactical rendering.
-- Combat movement does not change persistent exploration coordinates.
-- Victory and retreat restore the exploration position.
+Each new wilderness location also has local landmarks so the existing Local map remains useful throughout the road journey.
 
 ## Automated validation
 
-The Pages workflow requires:
-
-- `node --check` for every JavaScript override.
-- Runtime execution of `tests/world-atlas-v150-harness.js`.
-- Balanced CSS braces and required selectors for unified UI, base Atlas, and explored Atlas styles.
-- Presence of all Atlas runtime and stylesheet files in the assembled site.
-- Correct packaged-cartography → base Atlas → explored Atlas → fixes → bootstrap ordering.
-- No Atlas runtime inside `<head>`.
-
 The Atlas harness verifies:
 
-- Five new local maps have valid 30×18 dimensions.
-- Haven is registered as visited.
-- Whisperwood is known but not initially visited.
-- Fast travel to a known-but-unvisited destination is rejected.
-- Physical travel through Whisperwood, Lantern Road, and Aurelia records persistent reveal areas.
-- Return fast travel to a visited destination succeeds and advances time.
-- World and regional markup contain pixel terrain, fog layers, and legends.
-- Unvisited dungeons expose no fast-travel action.
+- All existing city maps and four new wilderness maps exist and have valid 30×18 dimensions.
+- Every portal is placed on walkable terrain.
+- Whisperwood no longer bypasses directly to the Lantern Road.
+- Every wilderness map contains a continuous walkable path between its entrances.
+- Every portal in the Haven-to-Aurelia chain targets the expected next map.
+- A new game cannot fast-travel to unvisited Whisperwood.
+- Physical travel records every intermediate location as visited.
+- Regional and world fog reveal data persists across the journey.
+- Fast travel back to Haven works only after the route is physically completed.
+- The complete return journey remains thirty hours.
+- World and regional maps still contain pixel terrain, fog, legends, and the new location labels.
 
 ## Required live regression checklist
 
+### Physical route
+
+- Leave Haven through the east road into Whisperwood.
+- Follow the clearly marked southern trail in Whisperwood.
+- Enter Southwood Trail at the southern map edge.
+- Continue through Mosswater Crossing, Ambermeadow, Eastwatch Approach, and the Lantern Road.
+- Enter Aurelia through the Golden Gate.
+- Confirm every map can be traversed in both directions.
+- Confirm no portal or blocking object prevents reaching the next exit.
+
 ### Atlas progression
 
-- Start a new character and confirm Haven is revealed.
-- Confirm Whisperwood is known but cannot be fast-traveled to before visiting.
-- Enter Whisperwood physically and confirm its terrain reveal persists after saving and reloading.
-- Continue through Lantern Road and confirm road/corridor fog reveal.
-- Enter Aurelia physically and confirm fast travel to previously visited settlements becomes available.
-- Confirm Aurelia cannot be reached from a fresh save through the Atlas.
-
-### Cartography presentation
-
-- World and Region maps display pixel terrain rather than only colored gradients.
-- World, Region, and Local each display a legend or map key.
-- Fog hides unseen terrain without hiding usable current/known markers.
-- Uncharted world regions do not leak names, biomes, or descriptions.
-- Labels remain readable without major overlap at 1920×1080, 1366×768, tablet, and phone widths.
+- Before visiting, intermediate destinations may be known but must not provide fast travel.
+- Entering each map should reveal its regional area and mark it visited.
+- Completed road segments should reveal fog corridors.
+- After reaching Aurelia, fast travel back to Haven should become available.
+- Saving and loading should preserve all visited locations and fog reveals.
 
 ### Existing systems
 
-- Local cartography still renders exact terrain, landmarks, people, enemies, discoveries, and percentages.
-- Existing saves load and migrate without losing visited locations.
 - Haven remains the new-game start.
-- Exploration input, doors, dialogue, inventory, combat, victory, retreat, and saving remain functional.
-- Title and unified interface remain unchanged outside Atlas additions.
+- Whisperwood, Lantern Mine, and Ashen Crypt still work.
+- Existing saves migrate without losing Atlas progress.
+- Exploration, combat, camps, signs, resources, chests, saving, and local maps remain functional.
+- Title screen and unified UI remain unchanged.
 
 ## Known risks and unfinished work
 
-1. The v1.5.2 Atlas requires live browser visual QA after deployment.
-2. The persistent reveal radius may need tuning after testing actual route progression.
-3. Existing v1.5.0 saves may contain overly broad `knownLocations`; this no longer grants travel, but labels may remain known.
-4. Regional travel records time and danger but does not yet generate route encounters or consume supplies.
-5. Future regions have terrain foundations only; their local networks and content are not built.
-6. Aurelia needs full city content and interiors.
-7. Procedural tactical arenas still need balance sampling.
-8. Music redistribution and attribution rights must be confirmed before commercial release.
+1. The new wilderness maps require live browser visual and collision QA after deployment.
+2. Enemy density and camp placement may need tuning after the first complete walk.
+3. Regional labels may need spacing adjustments now that four additional locations are present.
+4. Road encounters, supplies, weather consequences, secrets, side paths, dungeons, and quest content are intentionally deferred until the physical network is stable.
+5. Aurelia still needs substantial city content.
+6. Future world regions remain foundations only.
 
 ## Next development pass
 
-1. Merge v1.5.2 after workflow validation.
-2. Confirm Pages deployment succeeds.
-3. Run the Atlas progression and presentation checklist.
-4. Tune fog radii, map labels, terrain patterns, and legend placement from screenshots.
-5. Expand Aurelia with interiors, services, ambient residents, factions, and the first city quest line.
-6. Add travel encounters and supply use after map progression is stable.
+1. Confirm the complete physical Haven-to-Aurelia walk in the deployed game.
+2. Correct any blocked portal, unreadable sign, terrain issue, or Atlas label overlap.
+3. Add simple road events and ambient travelers after route stability is confirmed.
+4. Add optional side paths, hidden locations, dungeons, and secrets afterward.
+5. Expand Aurelia district content.
 
 ## Repository rules
 
-- `main` is the only authoritative production state.
-- Use branches and pull requests for meaningful gameplay or presentation changes.
-- Do not create a new numbered ZIP for routine CSS or JavaScript changes.
-- Do not commit temporary payload fragments or transport files.
-- Update `version.json`, `CHANGELOG.md`, and this file whenever the canonical checkpoint changes.
-- Make gameplay changes in small, reversible commits.
+- `main` is the authoritative production state.
+- Use branches and pull requests for meaningful changes.
+- Do not create a new numbered ZIP for routine JavaScript or CSS updates.
+- Do not commit temporary transport files.
+- Update `version.json`, `CHANGELOG.md`, and this file at each canonical checkpoint.
+- Keep gameplay changes small, reversible, and validated.

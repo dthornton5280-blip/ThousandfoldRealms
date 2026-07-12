@@ -23,6 +23,9 @@ jobs:
           test -f live-overrides/world-atlas-v150.js
           test -f live-overrides/world-atlas-v152-exploration.js
           test -f live-overrides/world-atlas-v152-exploration.css
+          test -f live-overrides/world-atlas-v152-travel-copy.js
+          test -f live-overrides/world-travel-network-v153.js
+          test -f live-overrides/world-travel-network-v153a-tiles.js
           test -f live-overrides/zz-world-atlas-v150-fixes.js
           test -f tests/world-atlas-v150-harness.js
 
@@ -95,13 +98,21 @@ jobs:
           path.write_text(text, encoding="utf-8")
 
           head = text.split("</head>", 1)[0]
-          if "world-atlas-v150.js" in head or "world-atlas-v152-exploration.js" in head:
+          runtime_files = (
+              "world-atlas-v150.js", "world-atlas-v152-exploration.js",
+              "world-atlas-v152-travel-copy.js", "world-travel-network-v153.js",
+              "world-travel-network-v153a-tiles.js",
+          )
+          if any(name in head for name in runtime_files):
               raise SystemExit("Atlas runtime loaded in head")
 
           markers = [
               text.find('src/ui/cartography_ui.js'),
               text.find('live-overrides/world-atlas-v150.js'),
               text.find('live-overrides/world-atlas-v152-exploration.js'),
+              text.find('live-overrides/world-atlas-v152-travel-copy.js'),
+              text.find('live-overrides/world-travel-network-v153.js'),
+              text.find('live-overrides/world-travel-network-v153a-tiles.js'),
               text.find('live-overrides/zz-world-atlas-v150-fixes.js'),
               text.find('src/main.js'),
           ]
