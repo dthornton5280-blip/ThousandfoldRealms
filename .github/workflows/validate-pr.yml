@@ -31,13 +31,17 @@ jobs:
         run: |
           set -euo pipefail
           while IFS= read -r file; do
-            echo "Checking $file"
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
-      - name: Run Atlas behavior harness
-        shell: bash
-        run: node tests/world-atlas-v150-harness.js
+      - name: Validate initial Atlas progression
+        run: node tests/world-atlas-v150-harness.js initial
+
+      - name: Validate physical and fast travel
+        run: node tests/world-atlas-v150-harness.js travel
+
+      - name: Validate Atlas rendering
+        run: node tests/world-atlas-v150-harness.js render
 
       - name: Validate Atlas stylesheets
         shell: bash
