@@ -2,6 +2,26 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.4.8-dev — Illustrated Title + Floating Menu
+
+### Added
+- The approved panoramic Thousandfold Realms artwork is now the production title-screen asset.
+- Subtle cinematic drift, light breathing, vignette, and ember motion bring the still illustration to life without changing the artwork.
+- Responsive title treatment preserves the full illustration on narrow portrait screens.
+
+### Changed
+- The old CSS-built gate scene and duplicate HTML title are hidden in favor of the finished illustrated title asset.
+- Start Game and Continue Game now appear as floating fantasy menu words over the landscape rather than inside a boxed website-style panel.
+- Hover, keyboard-focus, disabled-save, and reduced-motion states were restyled to match the illustrated title.
+
+### Fixed
+- Removed the visual card around the title menu.
+- Prevented the menu from covering or clipping the integrated Thousandfold Realms wordmark at common desktop sizes.
+
+### Validation
+- The optimized title art is integrity-checked by the browser loader before it is displayed.
+- All generated artwork data modules and title scripts are validated with `node --check` by the Pages deployment workflow.
+
 ## 1.4.7-dev — Direct Title Flow + Isolated Biome Arenas
 
 ### Added
