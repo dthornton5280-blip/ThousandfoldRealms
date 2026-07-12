@@ -1,0 +1,121 @@
+/* Thousandfold Realms v1.5.5-dev — field-first adaptive exploration HUD. */
+body:not(.tf-title-mode) .immersive-hud-toggle{display:none!important}
+body:not(.tf-title-mode) .immersive-hud-controls,
+body:not(.tf-title-mode) .immersive-hud-controls *{pointer-events:auto!important;user-select:none}
+body:not(.tf-title-mode) .immersive-hud-controls{
+  position:absolute;z-index:18;right:10px;bottom:8px;display:flex;flex-direction:column;align-items:flex-end;gap:6px
+}
+body:not(.tf-title-mode) .hud-control-trigger{
+  display:flex;align-items:baseline;gap:7px;min-width:82px;min-height:30px;padding:5px 9px!important;
+  border:1px solid rgba(222,181,103,.52)!important;background:rgba(11,13,13,.9)!important;
+  box-shadow:0 4px 13px rgba(0,0,0,.48)!important;color:#ecd69f!important;font-family:var(--realm-serif)!important;
+  font-size:.67rem!important;letter-spacing:.08em;text-transform:uppercase
+}
+body:not(.tf-title-mode) .hud-control-trigger small{color:#a89d86;font-family:var(--realm-mono);font-size:.48rem;letter-spacing:.04em;text-transform:none}
+body:not(.tf-title-mode) .hud[data-hud-mode="hidden"] .hud-control-trigger{border-color:rgba(232,192,112,.75)!important;opacity:.92}
+body:not(.tf-title-mode) .hud-control-menu{
+  width:min(310px,calc(100vw - 20px));padding:10px;border:1px solid rgba(221,179,99,.55);
+  background:radial-gradient(circle at 90% 0,rgba(129,88,38,.16),transparent 38%),rgba(12,14,14,.97);
+  box-shadow:0 12px 30px rgba(0,0,0,.66),inset 0 0 0 3px rgba(224,181,101,.035);backdrop-filter:blur(6px)
+}
+body:not(.tf-title-mode) .hud-control-menu header{display:flex;align-items:center;justify-content:space-between;padding:0 0 8px;border-bottom:1px solid rgba(216,174,95,.18)}
+body:not(.tf-title-mode) .hud-control-menu header strong{color:#ead49d;font-family:var(--realm-serif);font-size:.78rem;letter-spacing:.08em}
+body:not(.tf-title-mode) .hud-control-close{min-width:25px!important;min-height:25px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;color:#b8aa8c!important;font-size:1rem!important}
+body:not(.tf-title-mode) .hud-control-group{display:grid;gap:6px;padding:9px 0;border-bottom:1px solid rgba(216,174,95,.11)}
+body:not(.tf-title-mode) .hud-control-group>span{color:#928975;font-family:var(--realm-mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase}
+body:not(.tf-title-mode) .hud-mode-buttons,
+body:not(.tf-title-mode) .hud-section-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+body:not(.tf-title-mode) .hud-section-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}
+body:not(.tf-title-mode) .hud-control-menu [data-hud-mode],
+body:not(.tf-title-mode) .hud-control-menu [data-hud-section],
+body:not(.tf-title-mode) .hud-control-menu [data-hud-reset]{
+  min-width:0;min-height:31px;padding:5px 6px!important;border:1px solid rgba(171,151,111,.3)!important;
+  background:rgba(28,29,27,.72)!important;box-shadow:none!important;color:#bdb39d!important;font-size:.57rem!important;letter-spacing:.025em
+}
+body:not(.tf-title-mode) .hud-control-menu button.active{
+  border-color:rgba(226,184,101,.78)!important;background:linear-gradient(180deg,rgba(111,79,35,.55),rgba(68,51,28,.62))!important;
+  color:#f2ddb0!important;box-shadow:inset 0 0 10px rgba(233,181,82,.08)!important
+}
+body:not(.tf-title-mode) .hud-control-menu footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#8f8777;font-size:.52rem}
+body:not(.tf-title-mode) .hud-control-menu footer kbd{color:#e0b96a}
+body:not(.tf-title-mode) .hud-control-menu [data-hud-reset]{min-height:25px;padding:3px 7px!important}
+body:not(.tf-title-mode) .hud-layout-announcement{
+  position:absolute;right:0;bottom:36px;min-width:130px;padding:6px 9px;border:1px solid rgba(224,181,99,.36);
+  background:rgba(9,11,11,.93);color:#e5d0a0;font-size:.56rem;text-align:center;opacity:0;transform:translateY(4px);pointer-events:none!important;
+  transition:opacity .16s ease,transform .16s ease
+}
+body:not(.tf-title-mode) .hud-layout-announcement.visible{opacity:1;transform:translateY(0)}
+
+/* The normal HUD no longer stretches its bottom strip across the entire battlefield. */
+body:not(.tf-title-mode) .immersive-hud-bottom{
+  right:auto!important;width:min(760px,calc(100% - 124px));grid-template-columns:minmax(220px,380px) minmax(220px,360px)!important
+}
+body:not(.tf-title-mode) .immersive-hud-left,
+body:not(.tf-title-mode) .immersive-hud-right,
+body:not(.tf-title-mode) .immersive-hud-bottom{transition:opacity .18s ease,transform .18s ease}
+
+/* Compact mode keeps essential information while returning most of the playfield. */
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left{
+  left:8px;top:8px;width:204px;gap:4px;opacity:.86
+}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .hero-card{grid-template-columns:40px 1fr;padding:5px 6px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .hero-card canvas{width:36px;height:36px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .hero-card h2{font-size:.66rem;line-height:1.05}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .hero-card p{display:none}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .tag{padding:1px 4px;font-size:.46rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .meters{padding:5px;gap:3px 6px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .meter-row{font-size:.47rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .meter{height:5px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left .rested-panel{padding:5px;font-size:.5rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right{right:8px;top:8px;width:164px;opacity:.82}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right .world-panel{padding:5px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right .world-panel canvas{max-height:92px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right .world-head h3{font-size:.54rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right .world-head span{font-size:.44rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom{
+  left:8px;bottom:8px;width:min(350px,calc(100% - 108px));grid-template-columns:1fr!important;gap:4px;opacity:.84
+}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom .objective-panel{min-height:0;padding:5px 7px}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom .objective-panel h3{margin:0 0 2px;font-size:.49rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom .objective-panel p{font-size:.52rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-nearby{display:none}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"].hud-nearby-active .immersive-nearby{display:block}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-nearby .nearby-prompt{min-height:0;padding:5px 7px;font-size:.51rem}
+body:not(.tf-title-mode) .hud[data-hud-mode="compact"]~.canvas-help,
+body:not(.tf-title-mode) .canvas-frame[data-hud-mode="compact"] .canvas-help{padding:3px 7px;font-size:.49rem;opacity:.55}
+
+/* Selective sections and complete field view. */
+body:not(.tf-title-mode) .hud.hud-status-hidden .immersive-hud-left,
+body:not(.tf-title-mode) .hud.hud-map-hidden .immersive-hud-right,
+body:not(.tf-title-mode) .hud.hud-objective-hidden .immersive-hud-bottom,
+body:not(.tf-title-mode) .hud[data-hud-mode="hidden"] .immersive-hud-left,
+body:not(.tf-title-mode) .hud[data-hud-mode="hidden"] .immersive-hud-right,
+body:not(.tf-title-mode) .hud[data-hud-mode="hidden"] .immersive-hud-bottom{display:none!important}
+body:not(.tf-title-mode) .canvas-frame.hud-hints-hidden .canvas-help{display:none!important}
+
+@media(max-width:900px), (max-height:720px){
+  body:not(.tf-title-mode) .hud[data-hud-mode="full"] .immersive-hud-left{width:220px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="full"] .immersive-hud-right{width:178px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="full"] .immersive-hud-bottom{width:min(600px,calc(100% - 112px));grid-template-columns:1fr!important}
+  body:not(.tf-title-mode) .immersive-hud-controls{right:7px;bottom:6px}
+}
+@media(max-width:650px){
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left{width:176px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right{width:138px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right .world-panel canvas{max-height:76px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom{width:min(290px,calc(100% - 98px))}
+  body:not(.tf-title-mode) .hud-control-trigger{min-width:70px;padding:4px 7px!important}
+  body:not(.tf-title-mode) .hud-control-menu{width:min(292px,calc(100vw - 14px));padding:8px}
+  body:not(.tf-title-mode) .hud-section-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:430px){
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-left{width:158px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-right{width:122px}
+  body:not(.tf-title-mode) .hud[data-hud-mode="compact"] .immersive-hud-bottom{width:230px}
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.tf-title-mode) .immersive-hud-left,
+  body:not(.tf-title-mode) .immersive-hud-right,
+  body:not(.tf-title-mode) .immersive-hud-bottom,
+  body:not(.tf-title-mode) .hud-layout-announcement{transition:none!important}
+}

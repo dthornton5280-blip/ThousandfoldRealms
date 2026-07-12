@@ -1,6 +1,6 @@
 {
-  "version": "1.5.4-dev",
-  "buildName": "Directional Atlas + Cardinal Roads",
+  "version": "1.5.5-dev",
+  "buildName": "Adaptive Field HUD",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }

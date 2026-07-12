@@ -1,0 +1,49 @@
+name: Validate Adaptive HUD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-hud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify adaptive HUD files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f live-overrides/hud-responsive-v155.js
+          test -f live-overrides/hud-responsive-v155.css
+          test -f tests/hud-responsive-v155-harness.js
+
+      - name: Check adaptive HUD JavaScript
+        run: node --check live-overrides/hud-responsive-v155.js
+
+      - name: Validate adaptive HUD behavior contract
+        run: node tests/hud-responsive-v155-harness.js
+
+      - name: Verify deployment ordering assumptions
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css = Path('live-overrides/hud-responsive-v155.css').read_text(encoding='utf-8')
+          if css.count('{') != css.count('}'):
+              raise SystemExit('Adaptive HUD CSS has unbalanced braces')
+
+          names = sorted(path.name for path in Path('live-overrides').glob('*.js'))
+          hud = names.index('hud-responsive-v155.js')
+          atlas = names.index('world-atlas-v150.js')
+          if hud >= atlas:
+              raise SystemExit(f'Adaptive HUD must load before Atlas overrides: {hud} >= {atlas}')
+          PY
