@@ -39,6 +39,9 @@ jobs:
           test -f live-overrides/title-screen-v146.css
           test -f live-overrides/title-screen-v146.js
           test -f live-overrides/unified-realm-ui-v149.css
+          test -f live-overrides/world-atlas-v150.js
+          test -f live-overrides/world-atlas-v150.css
+          test -f tests/world-atlas-v150-harness.js
           test -f version.json
           test -f CHANGELOG.md
           test -f docs/CURRENT_STATE.md
@@ -54,24 +57,36 @@ jobs:
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
+          node tests/world-atlas-v150-harness.js
+
           # Catch incomplete CSS writes before deployment.
           python - <<'PY'
           from pathlib import Path
 
-          css = Path("live-overrides/unified-realm-ui-v149.css").read_text(encoding="utf-8")
-          if css.count("{") != css.count("}"):
-              raise SystemExit("Unified realm stylesheet has unbalanced braces")
-          required = (
-              "body:not(.tf-title-mode)",
-              ".creator-screen",
-              ".hud .panel",
-              ".dialogue-card",
-              ".combat-card",
-              "prefers-reduced-motion",
-          )
-          missing = [selector for selector in required if selector not in css]
-          if missing:
-              raise SystemExit(f"Unified realm stylesheet missing required sections: {missing}")
+          checks = {
+              "live-overrides/unified-realm-ui-v149.css": (
+                  "body:not(.tf-title-mode)",
+                  ".creator-screen",
+                  ".hud .panel",
+                  ".dialogue-card",
+                  ".combat-card",
+                  "prefers-reduced-motion",
+              ),
+              "live-overrides/world-atlas-v150.css": (
+                  ".atlas-level-tabs",
+                  ".atlas-world-map",
+                  ".atlas-region-map",
+                  ".atlas-location-node",
+                  "prefers-reduced-motion",
+              ),
+          }
+          for filename, required in checks.items():
+              css = Path(filename).read_text(encoding="utf-8")
+              if css.count("{") != css.count("}"):
+                  raise SystemExit(f"{filename} has unbalanced braces")
+              missing = [selector for selector in required if selector not in css]
+              if missing:
+                  raise SystemExit(f"{filename} is missing required sections: {missing}")
           PY
 
       - name: Assemble website
@@ -135,12 +150,16 @@ jobs:
           grep -q 'title-screen-v146.css' _site/index.html
           grep -q 'title-screen-v146.js' _site/index.html
           grep -q 'unified-realm-ui-v149.css' _site/index.html
+          grep -q 'world-atlas-v150.js' _site/index.html
+          grep -q 'world-atlas-v150.css' _site/index.html
           test -f _site/live-overrides/hud-interaction.css
           test -f _site/live-overrides/tactical-battlefields-v147.js
           test -f _site/live-overrides/tactical-presentation-v147.css
           test -f _site/live-overrides/title-screen-v146.css
           test -f _site/live-overrides/title-screen-v146.js
           test -f _site/live-overrides/unified-realm-ui-v149.css
+          test -f _site/live-overrides/world-atlas-v150.js
+          test -f _site/live-overrides/world-atlas-v150.css
 
           echo "Assembled canonical Thousandfold Realms build from one base package and Git-managed source overrides."
 
