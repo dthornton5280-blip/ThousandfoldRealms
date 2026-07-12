@@ -1,6 +1,6 @@
 {
-  "version": "1.5.1-dev",
-  "buildName": "Living Atlas Runtime Hotfix",
+  "version": "1.5.2-dev",
+  "buildName": "Explored Atlas + Persistent Fog",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
