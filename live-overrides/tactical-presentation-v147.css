@@ -1,0 +1,155 @@
+/* Thousandfold Realms v1.4.7-dev — full isolated tactical scene presentation */
+body.combat-running{
+  background:#070a0c;
+}
+body.combat-running .game-layout.combat-active{
+  max-width:none!important;
+  width:100%!important;
+  margin:0!important;
+}
+body.combat-running .game-layout.combat-active .canvas-frame{
+  position:relative;
+  width:100%;
+  height:100%!important;
+  min-height:0!important;
+  display:flex!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  overflow:hidden;
+  border-color:#5f594a;
+  background:
+    radial-gradient(circle at 50% 48%,#273027 0,#141a18 42%,#070a0c 100%)!important;
+  box-shadow:
+    0 0 0 1px rgba(225,184,92,.11) inset,
+    0 12px 36px rgba(0,0,0,.66);
+}
+body.combat-running .game-layout.combat-active .canvas-frame::before,
+body.combat-running .game-layout.combat-active .canvas-frame::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  top:0;
+  bottom:0;
+  width:11%;
+  min-width:52px;
+  pointer-events:none;
+  opacity:.42;
+  background:
+    linear-gradient(90deg,rgba(5,8,10,.78),rgba(5,8,10,0)),
+    repeating-linear-gradient(135deg,transparent 0 17px,rgba(221,182,91,.045) 17px 19px);
+}
+body.combat-running .game-layout.combat-active .canvas-frame::before{left:0}
+body.combat-running .game-layout.combat-active .canvas-frame::after{
+  right:0;
+  transform:scaleX(-1);
+}
+body.combat-running .game-layout.combat-active .canvas-frame>canvas#gameCanvas{
+  position:relative;
+  z-index:2;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:fill!important;
+  image-rendering:pixelated;
+  background:transparent!important;
+}
+body.combat-running .tactical-panel{z-index:8}
+body.combat-running .tactical-topbar{
+  top:8px;
+  left:50%;
+  right:auto;
+  width:min(1180px,calc(100% - 28px));
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(15,19,23,.95),rgba(8,11,14,.95));
+  border-color:#756643;
+  backdrop-filter:blur(3px);
+}
+body.combat-running .tactical-sidehud{
+  top:68px;
+  left:14px;
+  width:238px;
+  max-height:calc(100% - 174px);
+  overflow:auto;
+  background:linear-gradient(180deg,rgba(13,17,20,.94),rgba(8,11,14,.92));
+  border-color:#55584f;
+  backdrop-filter:blur(3px);
+}
+body.combat-running .tactical-actiondock{
+  left:50%;
+  right:auto;
+  bottom:9px;
+  width:min(1460px,calc(100% - 20px));
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(12,15,18,.96),rgba(6,9,11,.97));
+  border-color:#776744;
+  backdrop-filter:blur(4px);
+}
+body.combat-running .tactical-actiondock .tactical-actions{
+  min-width:0;
+}
+body.combat-running .action-slot,
+body.combat-running .dock-utility{
+  background:linear-gradient(180deg,#242a31,#171c21);
+}
+body.combat-running .action-slot:hover:not(:disabled),
+body.combat-running .dock-utility:hover:not(:disabled){
+  background:linear-gradient(180deg,#30363d,#20262b);
+}
+body.combat-running .canvas-help{
+  left:50%!important;
+  bottom:86px!important;
+  transform:translateX(-50%)!important;
+  width:auto!important;
+  max-width:70%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  opacity:.78;
+}
+body.combat-running .tactical-popover,
+body.combat-running .tactical-log-drawer{
+  right:8px;
+  bottom:74px;
+}
+
+@media(max-width:1050px){
+  body.combat-running .tactical-topbar{
+    width:calc(100% - 16px);
+  }
+  body.combat-running .tactical-sidehud{
+    left:8px;
+  }
+  body.combat-running .tactical-actiondock{
+    width:calc(100% - 12px);
+  }
+}
+@media(max-width:760px){
+  body.combat-running .game-layout.combat-active .canvas-frame::before,
+  body.combat-running .game-layout.combat-active .canvas-frame::after{
+    width:7%;
+    min-width:24px;
+  }
+  body.combat-running .tactical-sidehud{
+    top:96px;
+    left:6px;
+    width:200px;
+    max-height:calc(100% - 192px);
+  }
+  body.combat-running .tactical-actiondock{
+    bottom:5px;
+    width:calc(100% - 8px);
+  }
+  body.combat-running .canvas-help{display:none!important}
+}
+@media(max-width:540px){
+  body.combat-running .tactical-sidehud{
+    width:174px;
+    opacity:.94;
+  }
+  body.combat-running .tactical-topbar{
+    top:4px;
+    width:calc(100% - 8px);
+  }
+}
