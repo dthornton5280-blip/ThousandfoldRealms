@@ -32,11 +32,33 @@ jobs:
             PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
           fi
           test -f "$PACKAGE"
+          rm -rf _site
           mkdir -p _site
           unzip -q "$PACKAGE" -d _site
           touch _site/.nojekyll
           test -f _site/index.html
-          echo "Deploying $PACKAGE"
+
+          # Git is the active live source. Repository-managed overrides are
+          # layered over the packaged binary/assets on every deployment.
+          cp live-overrides/hud-interaction.css _site/live-hud-interaction.css
+          python - <<'PY'
+          from pathlib import Path
+
+          tag = '<link rel="stylesheet" href="./live-hud-interaction.css?v=20260712-1">'
+          for filename in ('index.html', '404.html'):
+              path = Path('_site') / filename
+              if not path.exists():
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if tag not in text:
+                  if '</head>' not in text:
+                      raise SystemExit(f'{filename} has no closing head tag')
+                  text = text.replace('</head>', f'{tag}</head>', 1)
+                  path.write_text(text, encoding='utf-8')
+          PY
+
+          grep -q 'live-hud-interaction.css' _site/index.html
+          echo "Deploying $PACKAGE with Git-managed live overrides"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
