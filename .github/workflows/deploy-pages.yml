@@ -128,8 +128,9 @@ jobs:
               f'<meta name="tf-build-name" content="{version["buildName"]}">'
           )
 
-          marker = "<!-- GIT_LIVE_OVERRIDES -->"
-          injection = marker + build_meta + css_tags + js_tags
+          head_marker = "<!-- GIT_LIVE_OVERRIDE_STYLES -->"
+          runtime_marker = "<!-- GIT_LIVE_OVERRIDE_RUNTIME -->"
+          main_script = '<script src="src/main.js"></script>'
 
           for filename in ("index.html", "404.html"):
               path = Path("_site") / filename
@@ -138,11 +139,18 @@ jobs:
               text = path.read_text(encoding="utf-8")
               if "</head>" not in text:
                   raise SystemExit(f"{filename} has no closing head tag")
-              text = text.replace("</head>", injection + "</head>", 1)
+              if main_script not in text:
+                  raise SystemExit(f"{filename} has no packaged main-script marker")
+
+              # Styles can load in head. Runtime overrides must load after all AO
+              # classes but before src/main.js creates the game instance.
+              text = text.replace("</head>", head_marker + build_meta + css_tags + "</head>", 1)
+              text = text.replace(main_script, runtime_marker + js_tags + main_script, 1)
               path.write_text(text, encoding="utf-8")
           PY
 
-          grep -q 'GIT_LIVE_OVERRIDES' _site/index.html
+          grep -q 'GIT_LIVE_OVERRIDE_STYLES' _site/index.html
+          grep -q 'GIT_LIVE_OVERRIDE_RUNTIME' _site/index.html
           grep -q 'tf-build' _site/index.html
           grep -q 'hud-interaction.css' _site/index.html
           grep -q 'tactical-battlefields-v147.js' _site/index.html
@@ -161,7 +169,28 @@ jobs:
           test -f _site/live-overrides/world-atlas-v150.js
           test -f _site/live-overrides/world-atlas-v150.css
 
-          echo "Assembled canonical Thousandfold Realms build from one base package and Git-managed source overrides."
+          python - <<'PY'
+          from pathlib import Path
+
+          text = Path("_site/index.html").read_text(encoding="utf-8")
+          head = text.split("</head>", 1)[0]
+          if "world-atlas-v150.js" in head:
+              raise SystemExit("Living Atlas runtime was injected into head before AO exists")
+
+          packaged_ui = text.find('src/ui/cartography_ui.js')
+          atlas_runtime = text.find('live-overrides/world-atlas-v150.js')
+          atlas_fixes = text.find('live-overrides/zz-world-atlas-v150-fixes.js')
+          game_bootstrap = text.find('src/main.js')
+          if min(packaged_ui, atlas_runtime, atlas_fixes, game_bootstrap) < 0:
+              raise SystemExit("Missing one or more runtime ordering markers")
+          if not packaged_ui < atlas_runtime < atlas_fixes < game_bootstrap:
+              raise SystemExit(
+                  "Runtime order invalid: packaged UI must load before Atlas, "
+                  "and Atlas must load before src/main.js"
+              )
+          PY
+
+          echo "Assembled canonical Thousandfold Realms build with overrides loaded before game bootstrap."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
