@@ -48,6 +48,7 @@ for(const file of [
   'live-overrides/world-travel-network-v153.js',
   'live-overrides/world-travel-network-v153a-tiles.js',
   'live-overrides/world-travel-network-v154-directional.js',
+  'live-overrides/world-travel-network-v154b-geography.js',
   'live-overrides/zz-world-atlas-v150-fixes.js',
   'live-overrides/zzz-world-directional-v154.js'
 ])vm.runInThisContext(fs.readFileSync(file,'utf8'),{filename:file});
@@ -75,6 +76,8 @@ for(let i=1;i<eastbound.length;i++){
   assert(previous&&current,`Missing atlas location in eastbound chain: ${eastbound[i]}`);
   assert(current.x>previous.x,`${current.name} must plot east of ${previous.name}.`);
 }
+assert(AO.ATLAS_LOCATIONS.mosswater_crossing.x>=55&&AO.ATLAS_LOCATIONS.mosswater_crossing.x<=62,'Mosswater Crossing must align with the regional river corridor.');
+assert(AO.ATLAS_LOCATIONS.lantern_mine.y<AO.ATLAS_LOCATIONS.whisperwood.y,'Lantern Mine must remain north of Whisperwood.');
 
 const forwardPortals=[
   ['haven','haven_to_wilds','wilds',29],
@@ -89,6 +92,20 @@ for(const [mapId,portalId,target,edgeX] of forwardPortals){
   const portal=AO.MAP_DEFS[mapId]?.portals?.find(item=>item.id===portalId);
   assert(portal&&portal.to===target,`Missing eastbound portal ${mapId}/${portalId} → ${target}.`);
   assert(portal.x===edgeX,`${mapId}/${portalId} must leave from the east edge.`);
+}
+
+const returnPortals=[
+  ['wilds','wilds_to_haven','haven',0],
+  ['southwood_trail','southwood_to_whisperwood','wilds',0],
+  ['mosswater_crossing','mosswater_to_southwood','southwood_trail',0],
+  ['ambermeadow','ambermeadow_to_mosswater','mosswater_crossing',0],
+  ['eastwatch_approach','eastwatch_to_ambermeadow','ambermeadow',0],
+  ['lantern_road','lantern_road_to_eastwatch','eastwatch_approach',0]
+];
+for(const [mapId,portalId,target,edgeX] of returnPortals){
+  const portal=AO.MAP_DEFS[mapId]?.portals?.find(item=>item.id===portalId);
+  assert(portal&&portal.to===target,`Missing westbound portal ${mapId}/${portalId} → ${target}.`);
+  assert(portal.x===edgeX,`${mapId}/${portalId} must leave from the west edge.`);
 }
 
 const crossings={
@@ -114,4 +131,4 @@ assert(AO.MAP_DEFS.wilds.portals.find(portal=>portal.id==='wilds_to_southwood')?
 const css=fs.readFileSync('live-overrides/world-atlas-v154-directional.css','utf8');
 for(const token of ['calc(100dvh - 300px)','overflow:auto','atlas-compass::before','atlas-compass::after'])assert(css.includes(token),`Directional Atlas CSS is missing ${token}.`);
 
-console.log('Directional Atlas harness passed: map coordinates, east/west exits, continuous roads, and fitted layout verified.');
+console.log('Directional Atlas harness passed: geography, east/west exits, continuous roads, river alignment, and fitted layout verified.');
