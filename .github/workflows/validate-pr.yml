@@ -1,0 +1,98 @@
+name: Validate Thousandfold Realms
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate source and Atlas behavior
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
+          test -f "$PACKAGE"
+          test -f live-overrides/world-atlas-v150.js
+          test -f live-overrides/world-atlas-v152-exploration.js
+          test -f live-overrides/world-atlas-v152-exploration.css
+          test -f live-overrides/zz-world-atlas-v150-fixes.js
+          test -f tests/world-atlas-v150-harness.js
+
+          while IFS= read -r file; do
+            node --check "$file"
+          done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
+
+          node tests/world-atlas-v150-harness.js
+
+          python - <<'PY'
+          from pathlib import Path
+
+          checks = {
+              "live-overrides/world-atlas-v150.css": (
+                  ".atlas-level-tabs", ".atlas-world-map", ".atlas-region-map",
+                  ".atlas-location-node", "prefers-reduced-motion",
+              ),
+              "live-overrides/world-atlas-v152-exploration.css": (
+                  ".atlas-pixel-grid", ".atlas-fog-layer", ".atlas-map-key",
+                  ".key-fog", "prefers-reduced-motion",
+              ),
+          }
+          for filename, required in checks.items():
+              css = Path(filename).read_text(encoding="utf-8")
+              if css.count("{") != css.count("}"):
+                  raise SystemExit(f"{filename} has unbalanced braces")
+              missing = [selector for selector in required if selector not in css]
+              if missing:
+                  raise SystemExit(f"{filename} is missing required sections: {missing}")
+          PY
+
+      - name: Verify assembled runtime order
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          unzip -q Thousandfold_Realms_Web_v1.4.4-dev.zip -d _site
+          mkdir -p _site/live-overrides
+          find live-overrides -maxdepth 1 -type f \( -name '*.css' -o -name '*.js' \) -exec cp {} _site/live-overrides/ \;
+
+          python - <<'PY'
+          from pathlib import Path
+
+          override_dir = Path("live-overrides")
+          css_tags = "".join(f'<link rel="stylesheet" href="./live-overrides/{path.name}">' for path in sorted(override_dir.glob("*.css")))
+          js_tags = "".join(f'<script src="./live-overrides/{path.name}"></script>' for path in sorted(override_dir.glob("*.js")))
+          main_script = '<script src="src/main.js"></script>'
+
+          path = Path("_site/index.html")
+          text = path.read_text(encoding="utf-8")
+          if "</head>" not in text or main_script not in text:
+              raise SystemExit("Packaged HTML markers are missing")
+          text = text.replace("</head>", css_tags + "</head>", 1)
+          text = text.replace(main_script, js_tags + main_script, 1)
+          path.write_text(text, encoding="utf-8")
+
+          head = text.split("</head>", 1)[0]
+          if "world-atlas-v150.js" in head or "world-atlas-v152-exploration.js" in head:
+              raise SystemExit("Atlas runtime loaded in head")
+
+          markers = [
+              text.find('src/ui/cartography_ui.js'),
+              text.find('live-overrides/world-atlas-v150.js'),
+              text.find('live-overrides/world-atlas-v152-exploration.js'),
+              text.find('live-overrides/zz-world-atlas-v150-fixes.js'),
+              text.find('src/main.js'),
+          ]
+          if min(markers) < 0 or markers != sorted(markers):
+              raise SystemExit(f"Invalid runtime order: {markers}")
+          PY
