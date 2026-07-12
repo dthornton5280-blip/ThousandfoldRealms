@@ -38,6 +38,7 @@ jobs:
           test -f live-overrides/tactical-presentation-v147.css
           test -f live-overrides/title-screen-v146.css
           test -f live-overrides/title-screen-v146.js
+          test -f live-overrides/unified-realm-ui-v149.css
           test -f version.json
           test -f CHANGELOG.md
           test -f docs/CURRENT_STATE.md
@@ -52,6 +53,26 @@ jobs:
           while IFS= read -r file; do
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
+
+          # Catch incomplete CSS writes before deployment.
+          python - <<'PY'
+          from pathlib import Path
+
+          css = Path("live-overrides/unified-realm-ui-v149.css").read_text(encoding="utf-8")
+          if css.count("{") != css.count("}"):
+              raise SystemExit("Unified realm stylesheet has unbalanced braces")
+          required = (
+              "body:not(.tf-title-mode)",
+              ".creator-screen",
+              ".hud .panel",
+              ".dialogue-card",
+              ".combat-card",
+              "prefers-reduced-motion",
+          )
+          missing = [selector for selector in required if selector not in css]
+          if missing:
+              raise SystemExit(f"Unified realm stylesheet missing required sections: {missing}")
+          PY
 
       - name: Assemble website
         shell: bash
@@ -113,11 +134,13 @@ jobs:
           grep -q 'tactical-presentation-v147.css' _site/index.html
           grep -q 'title-screen-v146.css' _site/index.html
           grep -q 'title-screen-v146.js' _site/index.html
+          grep -q 'unified-realm-ui-v149.css' _site/index.html
           test -f _site/live-overrides/hud-interaction.css
           test -f _site/live-overrides/tactical-battlefields-v147.js
           test -f _site/live-overrides/tactical-presentation-v147.css
           test -f _site/live-overrides/title-screen-v146.css
           test -f _site/live-overrides/title-screen-v146.js
+          test -f _site/live-overrides/unified-realm-ui-v149.css
 
           echo "Assembled canonical Thousandfold Realms build from one base package and Git-managed source overrides."
 

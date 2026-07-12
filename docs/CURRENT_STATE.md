@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.4.8-dev**
-- Build name: **Illustrated Title + Floating Menu**
-- Working branch: **feature/title-art-v148**
+- Version: **1.4.9-dev**
+- Build name: **Unified Realm Interface**
+- Working branch: **feature/unified-realm-ui-v149**
 - Canonical branch after merge: **main**
 - Deployment: GitHub Pages
 
@@ -27,15 +27,28 @@ Key active overrides:
 - `live-overrides/title-art-v148-0.js` through `title-art-v148-4.js`
 - `live-overrides/title-art-v148-loader.js`
 - `live-overrides/title-version-v148.js`
+- `live-overrides/unified-realm-ui-v149.css`
 
-The five generated-art modules are compiled production data for the approved title image. The loader joins and validates them before exposing the image to CSS. They are not temporary transport files.
+The five generated-art modules are compiled production data for the approved title image. The loader joins and validates them before exposing the image to CSS.
 
 The package's editable text source remains under `source/` for inspection and future migration. Binary art, audio, and font assets from the original build remain in the verified package.
+
+## Unified interface system
+
+- The title scene remains the visual reference for the entire game.
+- The non-title UI now shares warm parchment text, bronze-gold accents, charcoal surfaces, engraved borders, deep shadows, subtle glow, and restrained motion.
+- The unified stylesheet is scoped to `body:not(.tf-title-mode)` so the approved title artwork and floating title menu are not altered.
+- Shared button, input, dropdown, focus, disabled, selected, scrollbar, meter, and reduced-motion treatments are applied globally.
+- Character creation uses stronger fantasy hierarchy, bronze section dividers, deeper portrait framing, and selected-card glow.
+- Exploration HUD panels are darker and more transparent so the world remains visually dominant.
+- Inventory, equipment, quests, journal, shops, maps, codex, character pages, and settings inherit the same panel and typography language.
+- Dialogue uses cinematic framing, parchment body text, bronze speaker treatment, and integrated choices.
+- Combat and tactical overlays use the same charcoal-bronze hierarchy with clearer ability, meter, status, and action states.
+- Toasts, level-up, defeat, and system feedback are now visually consistent with the rest of the interface.
 
 ## Title and save flow
 
 - The approved Thousandfold Realms panorama is the full-screen title artwork.
-- The image includes the final title wordmark, so the old HTML title and CSS-built gate scene are hidden.
 - Start Game and Continue Game float directly over the landscape without a boxed menu panel.
 - Start Game resets the creator defaults and opens character creation directly.
 - Continue Game loads the latest save directly and disables itself when no save exists.
@@ -43,7 +56,6 @@ The package's editable text source remains under `source/` for inspection and fu
 - Back to Title remains available from character creation.
 - The title art uses subtle drift, lighting, vignette, and ember animation.
 - Reduced-motion settings disable title movement.
-- Portrait layouts preserve the complete 16:9 illustration at the top and move the menu below it.
 
 ## Tactical combat architecture
 
@@ -63,6 +75,7 @@ The package's editable text source remains under `source/` for inspection and fu
 - Direct Start Game and Continue Game behavior.
 - Save detection and disabled-state messaging.
 - Generated title-art integrity and completeness checks.
+- Unified non-title interface theme loaded through the live override pipeline.
 - Isolated seeded biome arena generation.
 - Tactical movement, cover, terrain cost, hazards, elevation, range, and line of sight.
 - Victory and retreat restore the exploration position.
@@ -71,52 +84,44 @@ The package's editable text source remains under `source/` for inspection and fu
 
 ## Required live regression checklist
 
-### Illustrated title
+### Character creation
 
-- The approved title artwork fills a 1920×1080 or 1648×928 desktop browser without distortion.
-- The integrated title remains visible and is not duplicated by HTML text.
-- Start Game and Continue Game appear as floating text, not inside a card.
-- Hover and keyboard-focus states remain readable without obscuring the artwork.
-- A fresh browser disables Continue Game.
-- Start Game opens character creation immediately.
-- Character creation does not show a redundant Continue Saved Game button.
-- Existing saves enable Continue Game and load correctly.
-- Back to Title returns cleanly.
-- Portrait and phone widths show the full artwork at the top with reachable menu controls.
+- The approved title remains unchanged when returning to the title screen.
+- Creator header, panels, choices, stats, inputs, and Begin the Oath button use the unified theme.
+- Selected race, class, and background cards remain clearly distinguishable.
+- All creator controls remain readable and clickable at desktop and phone widths.
 
-### Exploration
+### Exploration and RPG pages
 
-- Mouse and touch movement work beneath the HUD.
-- Doors and interactive entities remain clickable.
-- Drag and wheel input work.
-- HUD collapse control remains clickable.
+- HUD panels remain readable without blocking world interaction.
+- Mouse, touch, doors, drag, wheel, and HUD collapse controls continue to work.
+- Inventory, journal, character, skills, map, crafting, codex, settings, shops, and dialogue pages remain usable.
+- Focus-visible and hover states remain clear without excessive glow.
+- Scrollbars and long content areas remain usable.
 
 ### Tactical combat
 
 - Encounter opens on an isolated biome battlefield.
-- No exploration NPCs, camps, chests, buildings, or decorative entities leak into combat.
-- Arena is centered with no large right-side black cutout.
-- Player and enemies spawn on walkable, unoccupied tiles.
-- Movement, cover, elevation, hazards, and line of sight behave correctly.
-- Camera zoom, pan, recenter, and click-to-tile coordinates remain aligned.
-- Victory and retreat return the player to the stored world position.
-- Saving and loading during an encounter restore an isolated battlefield.
+- No exploration entities leak into combat.
+- Arena remains centered with no large right-side black cutout.
+- Tactical HUD, action dock, meters, statuses, and ability controls remain legible.
+- Movement, cover, elevation, hazards, line of sight, victory, retreat, save, and load behavior remain unchanged.
 
 ## Known risks and unfinished work
 
-1. The v1.4.8 title implementation needs live browser visual QA after Pages deployment.
-2. The optimized title image is currently compiled into repository-managed JavaScript data modules because the connected GitHub writer accepts UTF-8 text but not direct binary file uploads.
-3. Procedural arenas still need live sampling and balance tuning across every biome.
+1. The v1.4.9 stylesheet needs live visual QA across the creator, HUD, dialogue, RPG pages, and combat.
+2. Some dynamically generated content may use rare one-off classes that need a second styling pass after live screenshots.
+3. Procedural arenas still need sampling and balance tuning across every biome.
 4. The extracted `source/` tree is reference source; deployment still uses the verified package plus live overrides.
 5. Music redistribution and attribution rights must be confirmed before a commercial release.
 
 ## Next development pass
 
-1. Merge v1.4.8 after validation.
+1. Merge v1.4.9 after review.
 2. Confirm the Pages deployment succeeds.
-3. Run title-screen QA at desktop and phone sizes.
-4. Test at least one combat encounter in every biome family.
-5. Correct live visual issues before expanding content.
+3. Capture screenshots of character creation, exploration HUD, one dialogue, inventory, and one battle.
+4. Correct any spacing, contrast, or dynamic-class gaps found in live QA.
+5. Continue biome combat testing after the interface pass is stable.
 
 ## Repository rules
 

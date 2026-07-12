@@ -1,0 +1,6 @@
+/* v1.4.9-dev final cascade adjustments. */
+body:not(.tf-title-mode) .step-title span{
+  transform:none!important;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+body:not(.tf-title-mode) .step-title span::first-line{transform:none!important}

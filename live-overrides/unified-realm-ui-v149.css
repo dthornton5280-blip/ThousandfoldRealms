@@ -1,0 +1,474 @@
+/* Thousandfold Realms v1.4.9-dev — unified realm interface foundation. */
+
+body:not(.tf-title-mode){
+  --realm-void:#090a0b;
+  --realm-ink:#f2e6c7;
+  --realm-muted:#b8ad95;
+  --realm-faint:#7f7768;
+  --realm-gold:#d7ab58;
+  --realm-gold-bright:#f0ca7a;
+  --realm-bronze:#8e6c38;
+  --realm-line:rgba(210,173,101,.34);
+  --realm-line-strong:rgba(226,189,116,.58);
+  --realm-panel:rgba(20,20,18,.9);
+  --realm-panel-soft:rgba(27,26,22,.78);
+  --realm-panel-deep:rgba(10,11,11,.94);
+  --realm-crimson:#a94f49;
+  --realm-green:#789670;
+  --realm-blue:#6d8fa8;
+  --realm-purple:#81709c;
+  --realm-shadow:0 18px 45px rgba(0,0,0,.48);
+  --realm-soft-shadow:0 8px 22px rgba(0,0,0,.34);
+  --realm-serif:Georgia,"Times New Roman",serif;
+  --realm-ui:"Trebuchet MS",Verdana,sans-serif;
+  --realm-mono:"Courier New",monospace;
+  color:var(--realm-ink);
+  background:
+    radial-gradient(circle at 50% -10%,rgba(110,82,43,.16),transparent 40%),
+    linear-gradient(180deg,#11120f,#090a0b 60%);
+  font-family:var(--realm-ui);
+}
+
+body:not(.tf-title-mode),
+body:not(.tf-title-mode) button,
+body:not(.tf-title-mode) input,
+body:not(.tf-title-mode) select,
+body:not(.tf-title-mode) textarea{font-family:var(--realm-ui)}
+
+body:not(.tf-title-mode) h1,
+body:not(.tf-title-mode) h2,
+body:not(.tf-title-mode) h3,
+body:not(.tf-title-mode) h4,
+body:not(.tf-title-mode) .game-logo,
+body:not(.tf-title-mode) .speaker,
+body:not(.tf-title-mode) .eyebrow{font-family:var(--realm-serif)}
+
+body:not(.tf-title-mode) ::selection{background:rgba(214,170,87,.34);color:#fff7df}
+body:not(.tf-title-mode) *{scrollbar-width:thin;scrollbar-color:#7d6336 #11110f}
+body:not(.tf-title-mode) *::-webkit-scrollbar{width:10px;height:10px}
+body:not(.tf-title-mode) *::-webkit-scrollbar-track{background:#11110f}
+body:not(.tf-title-mode) *::-webkit-scrollbar-thumb{background:linear-gradient(#806438,#554221);border:2px solid #11110f}
+
+/* Shared panel language */
+body:not(.tf-title-mode) .panel,
+body:not(.tf-title-mode) .large-panel,
+body:not(.tf-title-mode) .dialogue-card,
+body:not(.tf-title-mode) .combat-card,
+body:not(.tf-title-mode) .level-card,
+body:not(.tf-title-mode) .rpg-menu-dropdown,
+body:not(.tf-title-mode) .atlas-key,
+body:not(.tf-title-mode) .chronicle-page>header{
+  position:relative;
+  color:var(--realm-ink);
+  border:1px solid var(--realm-line)!important;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.025),transparent 38%),
+    linear-gradient(180deg,var(--realm-panel-soft),var(--realm-panel-deep))!important;
+  box-shadow:var(--realm-soft-shadow)!important;
+  backdrop-filter:blur(6px) saturate(.92);
+}
+body:not(.tf-title-mode) .panel::before,
+body:not(.tf-title-mode) .large-panel::before,
+body:not(.tf-title-mode) .dialogue-card::before,
+body:not(.tf-title-mode) .combat-card::before,
+body:not(.tf-title-mode) .level-card::before{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border:1px solid rgba(218,177,100,.09);
+  pointer-events:none;
+}
+body:not(.tf-title-mode) .panel h2,
+body:not(.tf-title-mode) .panel h3,
+body:not(.tf-title-mode) .large-panel h2,
+body:not(.tf-title-mode) .dialogue-card h2,
+body:not(.tf-title-mode) .combat-card h2{color:var(--realm-ink);letter-spacing:.025em}
+body:not(.tf-title-mode) .panel p,
+body:not(.tf-title-mode) .panel small,
+body:not(.tf-title-mode) .large-panel p{color:var(--realm-muted)}
+
+/* Global controls */
+body:not(.tf-title-mode) button{
+  position:relative;
+  border:1px solid rgba(205,166,96,.38);
+  background:linear-gradient(180deg,rgba(55,48,36,.96),rgba(27,25,22,.96));
+  color:var(--realm-ink);
+  box-shadow:0 3px 0 rgba(0,0,0,.52),inset 0 1px rgba(255,255,255,.035);
+  border-radius:1px;
+  letter-spacing:.035em;
+  transition:border-color .16s ease,color .16s ease,background .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+body:not(.tf-title-mode) button:hover:not(:disabled),
+body:not(.tf-title-mode) button:focus-visible:not(:disabled){
+  color:#fff4d5;
+  border-color:var(--realm-gold);
+  background:linear-gradient(180deg,rgba(78,62,39,.98),rgba(34,29,23,.98));
+  box-shadow:0 4px 0 rgba(0,0,0,.58),0 0 16px rgba(216,171,88,.13),inset 0 1px rgba(255,255,255,.06);
+  transform:translateY(-1px);
+}
+body:not(.tf-title-mode) button:focus-visible{outline:1px solid rgba(244,207,133,.82);outline-offset:3px}
+body:not(.tf-title-mode) button:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 rgba(0,0,0,.65)}
+body:not(.tf-title-mode) button:disabled{opacity:.36;filter:saturate(.45)}
+body:not(.tf-title-mode) .primary{
+  color:#fff1c9;
+  border-color:rgba(232,190,111,.72);
+  background:linear-gradient(180deg,#70552f,#3e301e)!important;
+  box-shadow:0 3px 0 #160f09,0 0 18px rgba(214,169,83,.12)!important;
+}
+body:not(.tf-title-mode) .secondary{background:linear-gradient(180deg,#2b2a26,#191a19)!important}
+body:not(.tf-title-mode) input,
+body:not(.tf-title-mode) select,
+body:not(.tf-title-mode) textarea{
+  border:1px solid rgba(204,170,101,.34)!important;
+  background:rgba(7,8,8,.8)!important;
+  color:var(--realm-ink)!important;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.44);
+  outline:0;
+}
+body:not(.tf-title-mode) input:focus,
+body:not(.tf-title-mode) select:focus,
+body:not(.tf-title-mode) textarea:focus{border-color:var(--realm-gold)!important;box-shadow:0 0 0 2px rgba(215,171,88,.12),inset 0 2px 8px rgba(0,0,0,.45)}
+body:not(.tf-title-mode) kbd{
+  border:1px solid rgba(213,174,100,.3);
+  background:rgba(0,0,0,.28);
+  color:var(--realm-gold-bright)!important;
+  padding:.08em .34em;
+  border-radius:2px;
+  font-family:var(--realm-mono);
+}
+
+/* Character creator */
+body:not(.tf-title-mode) .creator-screen{
+  padding:clamp(14px,2vw,28px);
+  background:
+    linear-gradient(rgba(6,7,7,.72),rgba(7,8,8,.88)),
+    radial-gradient(circle at 75% 10%,rgba(126,87,42,.2),transparent 35%),
+    repeating-linear-gradient(135deg,rgba(255,255,255,.012) 0 1px,transparent 1px 9px);
+}
+body:not(.tf-title-mode) .creator-shell{max-width:1460px}
+body:not(.tf-title-mode) .creator-header{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--realm-line-strong)!important;
+  background:
+    radial-gradient(circle at 88% 50%,rgba(206,151,67,.13),transparent 29%),
+    linear-gradient(110deg,rgba(29,28,23,.96),rgba(10,11,11,.96))!important;
+  box-shadow:var(--realm-shadow)!important;
+  padding:clamp(18px,2.5vw,32px);
+}
+body:not(.tf-title-mode) .creator-header::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--realm-gold),transparent);
+  opacity:.65;
+}
+body:not(.tf-title-mode) .creator-header h1{
+  color:#f3dfae;
+  font-size:clamp(2.25rem,5.5vw,4.8rem);
+  line-height:.92;
+  text-shadow:0 4px 16px rgba(0,0,0,.7),0 0 22px rgba(215,171,88,.12);
+}
+body:not(.tf-title-mode) .creator-header p:last-child{color:var(--realm-muted)}
+body:not(.tf-title-mode) .eyebrow{color:var(--realm-gold);letter-spacing:.18em;font-weight:700}
+body:not(.tf-title-mode) .creator-grid{gap:18px;margin-top:18px}
+body:not(.tf-title-mode) .creator-preview,
+body:not(.tf-title-mode) .creator-options{border-color:var(--realm-line)!important}
+body:not(.tf-title-mode) .creator-preview canvas,
+body:not(.tf-title-mode) .character-grid canvas,
+body:not(.tf-title-mode) .hero-card canvas,
+body:not(.tf-title-mode) .dialogue-card canvas{
+  border:1px solid rgba(214,177,105,.34)!important;
+  background:
+    radial-gradient(circle,rgba(93,72,43,.18),transparent 55%),
+    #0d0f0f!important;
+  box-shadow:inset 0 0 28px rgba(0,0,0,.55);
+}
+body:not(.tf-title-mode) .build-summary{
+  color:var(--realm-muted);
+  border:1px solid rgba(209,171,97,.22)!important;
+  background:rgba(8,9,9,.62)!important;
+}
+body:not(.tf-title-mode) .step-title{margin-top:12px;margin-bottom:13px}
+body:not(.tf-title-mode) .step-title span{
+  border:1px solid var(--realm-gold)!important;
+  color:var(--realm-gold-bright)!important;
+  background:rgba(95,69,34,.28);
+  transform:rotate(45deg);
+  font-family:var(--realm-serif);
+}
+body:not(.tf-title-mode) .step-title span::first-line{transform:rotate(-45deg)}
+body:not(.tf-title-mode) .step-title h2{
+  color:#f2dfb3;
+  font-size:1.05rem;
+  letter-spacing:.045em;
+}
+body:not(.tf-title-mode) .step-title::after{
+  content:"";height:1px;flex:1;
+  background:linear-gradient(90deg,rgba(214,171,88,.55),transparent);
+}
+body:not(.tf-title-mode) .choice-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(194,160,95,.24)!important;
+  background:linear-gradient(145deg,rgba(35,34,30,.9),rgba(17,18,17,.95))!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.025);
+  transition:border-color .16s ease,background .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+body:not(.tf-title-mode) .choice-card::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--realm-gold),transparent);
+  transition:width .18s ease;
+}
+body:not(.tf-title-mode) .choice-card:hover,
+body:not(.tf-title-mode) .choice-card.selected{
+  border-color:rgba(225,183,101,.78)!important;
+  background:linear-gradient(145deg,rgba(61,49,30,.9),rgba(23,21,18,.98))!important;
+  box-shadow:0 0 20px rgba(211,163,77,.1),inset 0 1px rgba(255,255,255,.04);
+  transform:translateY(-1px);
+}
+body:not(.tf-title-mode) .choice-card:hover::after,
+body:not(.tf-title-mode) .choice-card.selected::after{width:72%}
+body:not(.tf-title-mode) .choice-card h3{font-family:var(--realm-serif);font-size:.92rem;letter-spacing:.025em}
+body:not(.tf-title-mode) .choice-card .sub,
+body:not(.tf-title-mode) .choice-card .bonus{color:var(--realm-gold)}
+body:not(.tf-title-mode) .choice-card p{color:var(--realm-muted)}
+body:not(.tf-title-mode) .appearance-row,
+body:not(.tf-title-mode) .creator-stat{
+  border:1px solid rgba(199,165,98,.23)!important;
+  background:rgba(20,20,18,.78)!important;
+}
+body:not(.tf-title-mode) .stat-head strong{color:var(--realm-gold-bright)}
+body:not(.tf-title-mode) .begin-btn{
+  font-family:var(--realm-serif);
+  font-size:1.08rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* Exploration shell and navigation */
+body:not(.tf-title-mode) .topbar{
+  border-bottom:1px solid rgba(212,174,102,.38)!important;
+  background:
+    linear-gradient(180deg,rgba(28,27,23,.97),rgba(12,13,13,.97))!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.36);
+}
+body:not(.tf-title-mode) .game-logo{
+  color:#e8c77f!important;
+  text-shadow:0 2px 10px rgba(0,0,0,.65),0 0 12px rgba(218,171,83,.12);
+}
+body:not(.tf-title-mode) .location{color:var(--realm-muted)}
+body:not(.tf-title-mode) .rpg-menu-toggle{border-color:rgba(216,177,102,.52)!important;background:linear-gradient(#3c3428,#1d1c19)!important}
+body:not(.tf-title-mode) .rpg-menu-dropdown{
+  border-color:var(--realm-line-strong)!important;
+  background:rgba(13,14,13,.97)!important;
+}
+body:not(.tf-title-mode) .rpg-menu-heading{
+  color:var(--realm-gold);
+  border-bottom:1px solid rgba(215,171,88,.2);
+  font-family:var(--realm-serif);
+}
+body:not(.tf-title-mode) .rpg-menu-item{background:rgba(26,26,23,.84)!important;border-color:rgba(198,162,94,.19)!important}
+body:not(.tf-title-mode) .rpg-menu-item:hover{background:rgba(66,52,32,.72)!important}
+body:not(.tf-title-mode) .canvas-frame{
+  border:1px solid rgba(209,171,99,.28)!important;
+  background:#080909!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.5)!important;
+}
+body:not(.tf-title-mode) .canvas-help{
+  color:rgba(238,221,187,.72)!important;
+  border-color:rgba(210,173,101,.28)!important;
+  background:rgba(8,9,9,.76)!important;
+  font-family:var(--realm-mono);
+}
+
+/* HUD */
+body:not(.tf-title-mode) .hud .panel{
+  border-color:rgba(211,171,96,.26)!important;
+  background:linear-gradient(145deg,rgba(27,27,23,.83),rgba(9,10,10,.88))!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.28)!important;
+}
+body:not(.tf-title-mode) .hero-card h2{font-family:var(--realm-serif);color:#f0dfb6}
+body:not(.tf-title-mode) .hero-card p{color:var(--realm-muted)}
+body:not(.tf-title-mode) .tag{border-color:rgba(218,178,103,.55)!important;color:var(--realm-gold-bright)!important;background:rgba(95,71,34,.2)}
+body:not(.tf-title-mode) .meter{
+  height:9px;
+  border:1px solid rgba(0,0,0,.7)!important;
+  background:rgba(0,0,0,.46)!important;
+  box-shadow:inset 0 1px 4px rgba(0,0,0,.75),0 0 0 1px rgba(211,170,95,.12);
+}
+body:not(.tf-title-mode) .meter i{box-shadow:inset 0 1px rgba(255,255,255,.12)}
+body:not(.tf-title-mode) .hp{background:linear-gradient(90deg,#4f704c,#8baa7c)!important}
+body:not(.tf-title-mode) .mana{background:linear-gradient(90deg,#425f75,#7696ae)!important}
+body:not(.tf-title-mode) .stamina{background:linear-gradient(90deg,#80602e,#c49b51)!important}
+body:not(.tf-title-mode) .xp{background:linear-gradient(90deg,#594a72,#8d79a5)!important}
+body:not(.tf-title-mode) .enemyhp{background:linear-gradient(90deg,#6e2d2b,#b5554e)!important}
+body:not(.tf-title-mode) .quick-info div{
+  border:1px solid rgba(204,167,98,.14);
+  background:rgba(6,7,7,.42)!important;
+}
+body:not(.tf-title-mode) .quick-info span,
+body:not(.tf-title-mode) .meter-row{color:var(--realm-muted)}
+body:not(.tf-title-mode) .objective-panel h3,
+body:not(.tf-title-mode) .event-log h3,
+body:not(.tf-title-mode) .quickbar-panel h3,
+body:not(.tf-title-mode) .world-head h3{color:var(--realm-gold)!important;font-family:var(--realm-serif);letter-spacing:.08em}
+body:not(.tf-title-mode) .log-line{border-color:rgba(207,169,98,.15)!important;color:#d7cbb0}
+body:not(.tf-title-mode) .nearby-prompt{color:var(--realm-muted)}
+body:not(.tf-title-mode) .immersive-hud-toggle{opacity:.62;background:rgba(19,18,16,.78)!important}
+
+/* RPG pages, inventory, journal and shops */
+body:not(.tf-title-mode) .overlay{background:rgba(3,4,4,.86)!important;backdrop-filter:blur(5px)}
+body:not(.tf-title-mode) .overlay.rpg-page-overlay{background:rgba(3,4,4,.97)!important}
+body:not(.tf-title-mode) .rpg-page-overlay .large-panel{
+  background:
+    radial-gradient(circle at 78% 0,rgba(122,83,37,.12),transparent 32%),
+    linear-gradient(135deg,#171713,#0b0c0c)!important;
+}
+body:not(.tf-title-mode) .large-panel>header{
+  border-bottom:1px solid rgba(218,177,102,.34)!important;
+  background:linear-gradient(90deg,rgba(57,45,28,.24),transparent 45%);
+}
+body:not(.tf-title-mode) .large-panel>header h2{
+  color:#f0dcae!important;
+  letter-spacing:.05em;
+  text-shadow:0 2px 9px rgba(0,0,0,.6);
+}
+body:not(.tf-title-mode) .rpg-page-tabs{
+  border-bottom:1px solid rgba(210,171,98,.22)!important;
+  background:#0b0c0c!important;
+}
+body:not(.tf-title-mode) .rpg-page-tabs button{background:transparent!important;border-color:transparent!important;box-shadow:none!important;color:var(--realm-muted)}
+body:not(.tf-title-mode) .rpg-page-tabs button:hover,
+body:not(.tf-title-mode) .rpg-page-tabs button.active{
+  color:var(--realm-gold-bright)!important;
+  border-bottom-color:var(--realm-gold)!important;
+  background:linear-gradient(180deg,transparent,rgba(101,73,34,.24))!important;
+}
+body:not(.tf-title-mode) .item-card,
+body:not(.tf-title-mode) .equipment-slot,
+body:not(.tf-title-mode) .quest-card,
+body:not(.tf-title-mode) .stat-box,
+body:not(.tf-title-mode) .shop-row,
+body:not(.tf-title-mode) .chronicle-list article,
+body:not(.tf-title-mode) .ability-card,
+body:not(.tf-title-mode) .talent-node,
+body:not(.tf-title-mode) .recipe-card,
+body:not(.tf-title-mode) .codex-card{
+  border:1px solid rgba(205,167,95,.22)!important;
+  background:linear-gradient(145deg,rgba(31,30,26,.86),rgba(14,15,14,.92))!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.02);
+}
+body:not(.tf-title-mode) .item-card:hover,
+body:not(.tf-title-mode) .shop-row:hover,
+body:not(.tf-title-mode) .quest-card:hover,
+body:not(.tf-title-mode) .ability-card:hover,
+body:not(.tf-title-mode) .recipe-card:hover{
+  border-color:rgba(224,183,104,.58)!important;
+  background:linear-gradient(145deg,rgba(51,42,27,.88),rgba(18,18,16,.95))!important;
+}
+body:not(.tf-title-mode) .item-card h4,
+body:not(.tf-title-mode) .quest-card h3,
+body:not(.tf-title-mode) .shop-row strong,
+body:not(.tf-title-mode) .equipment-slot strong{font-family:var(--realm-serif);color:#ead8ae}
+body:not(.tf-title-mode) .quest-card.tracked{border-color:var(--realm-gold)!important;box-shadow:inset 3px 0 0 var(--realm-gold),0 0 16px rgba(209,162,75,.08)!important}
+body:not(.tf-title-mode) .atlas-toolbar,
+body:not(.tf-title-mode) .atlas-key{background:rgba(14,15,14,.92)!important;border-color:rgba(206,168,96,.26)!important}
+body:not(.tf-title-mode) .atlas-toolbar strong,
+body:not(.tf-title-mode) .atlas-key h3{color:var(--realm-gold-bright)!important;font-family:var(--realm-serif)}
+
+/* Dialogue and narrative */
+body:not(.tf-title-mode) .dialogue-card{
+  border-color:rgba(224,184,106,.56)!important;
+  background:
+    radial-gradient(circle at 12% 50%,rgba(133,91,42,.12),transparent 32%),
+    linear-gradient(110deg,rgba(25,24,21,.97),rgba(10,11,11,.98))!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.68)!important;
+}
+body:not(.tf-title-mode) .dialogue-card>div{position:relative}
+body:not(.tf-title-mode) .dialogue-card>div::before{
+  content:"";position:absolute;left:0;top:18px;bottom:18px;width:1px;
+  background:linear-gradient(transparent,var(--realm-gold),transparent);opacity:.45
+}
+body:not(.tf-title-mode) .speaker{color:var(--realm-gold-bright)!important;letter-spacing:.16em}
+body:not(.tf-title-mode) .dialogue-card h2{color:#f5e5bf!important;font-size:1.45rem;text-shadow:0 2px 10px rgba(0,0,0,.65)}
+body:not(.tf-title-mode) .dialogue-card p{color:#d8cdb3;line-height:1.62}
+body:not(.tf-title-mode) .dialogue-choices button{
+  text-align:left;
+  border-left:2px solid rgba(213,171,94,.35);
+  background:linear-gradient(90deg,rgba(69,51,28,.24),rgba(17,17,15,.78))!important;
+}
+body:not(.tf-title-mode) .dialogue-choices button:hover{border-left-color:var(--realm-gold)!important;padding-left:1rem}
+
+/* Combat presentation */
+body:not(.tf-title-mode) .combat-card{
+  border-color:rgba(211,168,93,.48)!important;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(88,54,32,.13),transparent 42%),
+    linear-gradient(180deg,rgba(24,23,20,.98),rgba(8,9,9,.98))!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.7)!important;
+}
+body:not(.tf-title-mode) .combat-stage{
+  border:1px solid rgba(212,171,98,.25)!important;
+  background:radial-gradient(circle,rgba(62,50,35,.32),rgba(7,8,8,.9) 70%)!important;
+  box-shadow:inset 0 0 34px rgba(0,0,0,.55);
+}
+body:not(.tf-title-mode) .versus{font-family:var(--realm-serif);color:var(--realm-gold-bright);text-shadow:0 0 14px rgba(216,171,84,.22)}
+body:not(.tf-title-mode) .combat-turn-info,
+body:not(.tf-title-mode) .combat-log{
+  border-color:rgba(205,166,95,.22)!important;
+  background:rgba(6,7,7,.58)!important;
+}
+body:not(.tf-title-mode) .combat-turn-info{color:var(--realm-gold-bright)!important}
+body:not(.tf-title-mode) .ability-btn{
+  border-color:rgba(208,170,97,.26)!important;
+  background:linear-gradient(145deg,rgba(43,38,30,.9),rgba(16,17,16,.96))!important;
+}
+body:not(.tf-title-mode) .ability-btn:hover:not(:disabled){border-color:var(--realm-gold)!important;background:linear-gradient(145deg,rgba(76,58,34,.92),rgba(22,20,17,.98))!important}
+body:not(.tf-title-mode) .ability-btn strong{font-family:var(--realm-serif);color:#efdfb9}
+body:not(.tf-title-mode) .status-row,
+body:not(.tf-title-mode) .ability-btn .cost{color:var(--realm-gold)!important}
+body:not(.tf-title-mode) .tactical-topbar,
+body:not(.tf-title-mode) .tactical-sidehud,
+body:not(.tf-title-mode) .tactical-actiondock{
+  border-color:rgba(211,171,96,.3)!important;
+  background:linear-gradient(145deg,rgba(25,24,21,.92),rgba(8,9,9,.94))!important;
+  box-shadow:0 10px 26px rgba(0,0,0,.42)!important;
+}
+
+/* Toasts, levels and system feedback */
+body:not(.tf-title-mode) .toast{
+  border:1px solid var(--realm-gold)!important;
+  background:rgba(17,17,14,.96)!important;
+  color:#f6e8c3;
+  box-shadow:0 14px 38px rgba(0,0,0,.56),0 0 20px rgba(214,171,88,.13)!important;
+  font-family:var(--realm-serif);
+  letter-spacing:.04em;
+  animation:realmToastIn .22s ease-out;
+}
+body:not(.tf-title-mode) .level-card{
+  border-color:var(--realm-gold)!important;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(205,149,64,.18),transparent 38%),
+    linear-gradient(180deg,rgba(32,28,21,.98),rgba(10,11,11,.98))!important;
+}
+body:not(.tf-title-mode) .level-card h2{color:#f2dba7;font-family:var(--realm-serif);text-shadow:0 0 18px rgba(218,171,83,.18)}
+body:not(.tf-title-mode) .danger-text{color:#d97970!important}
+@keyframes realmToastIn{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* Mobile refinement */
+@media(max-width:760px){
+  body:not(.tf-title-mode) .creator-screen{padding:8px}
+  body:not(.tf-title-mode) .creator-header{padding:15px}
+  body:not(.tf-title-mode) .creator-header h1{font-size:clamp(2rem,11vw,3.2rem)}
+  body:not(.tf-title-mode) .creator-grid{gap:10px;margin-top:10px}
+  body:not(.tf-title-mode) .dialogue-card>div::before{display:none}
+  body:not(.tf-title-mode) .large-panel>header h2{font-size:1rem}
+  body:not(.tf-title-mode) .rpg-page-tabs button{font-size:.58rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body:not(.tf-title-mode) *,
+  body:not(.tf-title-mode) *::before,
+  body:not(.tf-title-mode) *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
