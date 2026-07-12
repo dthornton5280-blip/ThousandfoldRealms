@@ -75,7 +75,11 @@ jobs:
 
           grep -q 'GIT_LIVE_OVERRIDES' _site/index.html
           grep -q 'hud-interaction.css' _site/index.html
-          echo "Deploying $PACKAGE with Git-managed live overrides"
+          grep -q 'title-screen-v146.css' _site/index.html
+          grep -q 'title-screen-v146.js' _site/index.html
+          test -f _site/live-overrides/title-screen-v146.css
+          test -f _site/live-overrides/title-screen-v146.js
+          echo "Deploying $PACKAGE as v1.4.6-dev with Git-managed live overrides"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
