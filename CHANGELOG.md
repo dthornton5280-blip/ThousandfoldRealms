@@ -2,6 +2,32 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.2-dev — Explored Atlas + Persistent Fog
+
+### Added
+- Pixel-tile terrain on the World and Region maps so both scales visually relate to the existing local cartography.
+- Persistent world and regional fog-of-war reveal data stored in the save state.
+- Soft reveal areas around every physically visited destination and along completely explored routes.
+- World and regional legends covering terrain, current position, visited destinations, charted destinations, and unseen territory.
+- Named geographic features including mountain chains, forests, rivers, basins, roads, coasts, ruins, and city terrain.
+
+### Changed
+- Fast travel now unlocks only after the player physically reaches a destination.
+- A known or rumored location may appear on the atlas, but it cannot be used as a teleport destination.
+- New characters begin with Haven charted; neighboring destinations are learned through normal exploration rather than being pre-unlocked.
+- Regional route calculations for fast travel use only personally discovered road segments.
+- World details no longer reveal names, biomes, or descriptions for truly uncharted regions.
+
+### Preserved
+- Local-map fog, exploration percentages, landmarks, people, threats, discoveries, and legends remain intact.
+- Existing visited-location data migrates into the new persistent world and regional visibility layers.
+- Previously visited locations remain available for fast travel when a fully explored route connects them.
+
+### Validation
+- The Living Atlas harness rejects fast travel to known-but-unvisited destinations.
+- The harness verifies persistent reveal points, pixel terrain, fog layers, both legends, and a valid return journey after physical exploration.
+- Pages deployment validates the new runtime ordering and required fog/legend stylesheet sections.
+
 ## 1.5.1-dev — Living Atlas Runtime Hotfix
 
 ### Fixed
