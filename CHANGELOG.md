@@ -2,6 +2,30 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.4.9-dev — Unified Realm Interface
+
+### Added
+- A shared visual system for parchment text, bronze-gold accents, charcoal panels, borders, shadows, controls, spacing, and motion.
+- Unified fantasy styling for the character creator, exploration HUD, RPG pages, dialogue, combat, inventory, equipment, quests, shops, maps, notifications, and level-up screens.
+- Consistent hover, focus-visible, disabled, selected, and reduced-motion states across the interface.
+- Themed scrollbars, inputs, dropdowns, keyboard hints, meters, tabs, dialogue choices, and combat abilities.
+
+### Changed
+- Browser-like boxes and flat gray controls now use the same illustrated fantasy language established by the title screen.
+- Character creation now reads as an oath-forging screen with parchment headings, bronze dividers, deeper portrait framing, and selected-card glow.
+- Exploration HUD panels are darker, more transparent, and less visually intrusive over the world.
+- Full-screen RPG pages use a consistent charcoal, parchment, and bronze hierarchy instead of separate one-off styles.
+- Dialogue and combat overlays now use cinematic framing and stronger information hierarchy.
+
+### Preserved
+- Title artwork and floating title menu remain unchanged.
+- Save behavior, character creation logic, exploration controls, tactical rules, combat behavior, and content data are untouched.
+
+### Validation
+- The unified stylesheet is loaded last through the existing sorted live-override pipeline.
+- All selectors are scoped away from `body.tf-title-mode` so the approved title scene is not restyled.
+- Responsive and reduced-motion rules are included in the same theme layer.
+
 ## 1.4.8-dev — Illustrated Title + Floating Menu
 
 ### Added
@@ -77,6 +101,3 @@ All notable development checkpoints for Thousandfold Realms are recorded here.
 - Encounter budgeting and multi-enemy group scaling.
 
 ## 1.4.4-dev — Verified packaged base
-
-### Added
-- Original complete browser-playable package used as the verified asset and game base.
