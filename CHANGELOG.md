@@ -2,6 +2,31 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.3-dev — Physical Wilderness Road Network
+
+### Added
+- Four fully explorable wilderness maps between Whisperwood and the existing Lantern Road:
+  - Southwood Trail
+  - Mosswater Crossing
+  - Ambermeadow
+  - Eastwatch Approach
+- Continuous two-way portals from Haven through Whisperwood and every road map to Aurelia’s Golden Gate.
+- Distinct forest, river-crossing, meadow, and rocky approach terrain with camps, road signs, resources, enemies, landmarks, and small environmental details.
+- Regional Atlas locations and route segments for every intermediate travel map.
+- A clear east-road sign in Haven and a south-road sign in Whisperwood.
+
+### Changed
+- Whisperwood no longer jumps directly to the Lantern Road; the player must physically traverse the wilderness journey first.
+- The original thirty-hour Haven-to-Aurelia travel distance is now represented by multiple authored map segments rather than a hidden abstract route.
+- The Lantern Road’s western exit now connects to Eastwatch Approach.
+- Fast travel still unlocks only after a destination and its connecting route have been physically explored.
+
+### Validation
+- The Atlas harness checks every portal in the Haven-to-Aurelia chain.
+- Every intermediate map must be 30×18, use walkable portal tiles, and contain a continuous route between its entrances.
+- The harness physically visits all intermediate locations before validating the thirty-hour return fast-travel journey.
+- Pull-request and Pages workflows verify the new runtime files and their load order before game bootstrap.
+
 ## 1.5.2-dev — Explored Atlas + Persistent Fog
 
 ### Added
