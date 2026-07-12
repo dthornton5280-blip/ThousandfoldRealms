@@ -24,7 +24,7 @@ const AO=global.AO={
   UI:class{
     constructor(game){this.game=game;this.e={panelBody:{querySelectorAll:()=>[],querySelector:()=>null,insertAdjacentHTML(){},set innerHTML(value){this.value=value;},get innerHTML(){return this.value||'';}},panelTitle:{}};}
     renderMap(){}
-    closePanel(){}
+    closePanel(){if(this.game.state?.mode==='panel')this.game.state.mode='explore';}
   },
   WorldSystem:class{
     constructor(game){this.game=game;}
@@ -41,6 +41,7 @@ const AO=global.AO={
 };
 
 vm.runInThisContext(fs.readFileSync('live-overrides/world-atlas-v150.js','utf8'));
+vm.runInThisContext(fs.readFileSync('live-overrides/zz-world-atlas-v150-fixes.js','utf8'));
 
 const newMaps=['lantern_road','aurelia_gate','aurelia_market','aurelia_river','aurelia_citadel'];
 for(const mapId of newMaps){
@@ -50,17 +51,23 @@ for(const mapId of newMaps){
   if(grid.length!==18||grid.some(row=>row.length!==30))throw new Error(`Invalid map dimensions: ${mapId}`);
 }
 
+const wilds=AO.MapBuilders.wilds();
+for(let y=10;y<18;y++)if(wilds[y][24]!=='path')throw new Error(`Whisperwood southern trail is broken at 24,${y}.`);
+
 const game=new AO.Game();
-game.ui={closePanel(){},closeDialogue(){},dialogue(){},openPanel(){}};
+game.ui={closePanel(){if(game.state?.mode==='panel')game.state.mode='explore';},closeDialogue(){},dialogue(){},openPanel(){}};
 game.world=new AO.WorldSystem(game);
 game.newGame();
 game.world.load('haven',14,15);
 
 if(!game.state.atlas?.visitedLocations?.haven)throw new Error('Haven was not registered in the atlas.');
 if(!game.state.atlas?.knownLocations?.aurelia)throw new Error('Aurelia was not seeded as a known destination.');
-if(!game.atlasTravel('aurelia'))throw new Error('Regional travel to Aurelia failed.');
+
+game.state.mode='panel';
+if(!game.atlasTravel('aurelia'))throw new Error('Regional travel from the open atlas panel failed.');
+if(game.state.mode!=='explore')throw new Error('Atlas travel did not return the game to exploration mode.');
 if(game.state.world.mapId!=='aurelia_gate')throw new Error('Aurelia travel did not arrive at the Golden Gate.');
 if(game.state.atlas.travelHistory[0]?.hours!==30)throw new Error('Haven-to-Aurelia route should require 30 hours.');
 if(game.state.rest.day!==2||game.state.atlas.hourRemainder!==6)throw new Error('Regional travel time did not advance correctly.');
 
-console.log(`Living Atlas harness passed: ${newMaps.length} new maps, ${Object.keys(AO.ATLAS_LOCATIONS).length} regional locations, Aurelia travel verified.`);
+console.log(`Living Atlas harness passed: ${newMaps.length} new maps, ${Object.keys(AO.ATLAS_LOCATIONS).length} regional locations, panel travel and Aurelia arrival verified.`);
