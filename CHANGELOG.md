@@ -2,6 +2,43 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.0-dev — The Living Atlas
+
+### Added
+- A three-level atlas with **World**, **Region**, and **Local** map scales.
+- A stylized world map establishing seven major biome regions for future expansion.
+- A fully connected regional map for Last Lantern Vale with travel routes, times, danger ratings, discoveries, and current-position tracking.
+- Persistent atlas data for known locations, visited locations, discovered routes, travel history, and elapsed travel time.
+- Regional fast travel between known settlements and roads while preserving local dungeon entrances.
+- The `M` keyboard shortcut for opening the atlas during exploration.
+- The Lantern Road as a new explorable wilderness map connecting Whisperwood to Aurelia.
+- Aurelia, City of a Thousand Lanterns, built as four connected district maps:
+  - Golden Gate Ward
+  - Market Ward
+  - River Ward
+  - Citadel Heights
+- Four named Aurelia residents with city, route, district, coast, and world-atlas dialogue.
+- New city landmarks, signs, lanterns, markets, docks, civic spaces, road enemies, camp, and treasure.
+- A runtime harness validating map dimensions, atlas migration, regional travel, arrival, and travel-time advancement.
+
+### Changed
+- The existing detailed cartography screen now serves as the **Local** level of the Living Atlas rather than the only map view.
+- Whisperwood now includes a southern route to the Lantern Road.
+- Existing and new maps automatically register their parent location and region when visited.
+- Regional travel advances in-game time and records the journey in the save file.
+- The atlas uses the established parchment, charcoal, bronze, serif, engraved-border, and restrained-motion interface theme.
+
+### Preserved
+- Haven remains the starting town.
+- Existing Haven interiors, Whisperwood, Lantern Mine, Ashen Crypt, quests, combat, saves, title flow, and unified UI remain intact.
+- Dungeons cannot be bypassed through fast travel; they must still be entered from their connected local map.
+
+### Validation
+- Every new JavaScript override passes `node --check` before deployment.
+- The Living Atlas runtime harness verifies five new maps and the complete Haven-to-Aurelia route.
+- The Pages workflow validates the world and regional atlas stylesheet before deployment.
+- The assembled site must contain both Living Atlas override files.
+
 ## 1.4.9-dev — Unified Realm Interface
 
 ### Added
