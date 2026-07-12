@@ -15,25 +15,33 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Validate source and Atlas behavior
+      - name: Verify required files
         shell: bash
         run: |
           set -euo pipefail
-
-          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
-          test -f "$PACKAGE"
+          test -f Thousandfold_Realms_Web_v1.4.4-dev.zip
           test -f live-overrides/world-atlas-v150.js
           test -f live-overrides/world-atlas-v152-exploration.js
           test -f live-overrides/world-atlas-v152-exploration.css
           test -f live-overrides/zz-world-atlas-v150-fixes.js
           test -f tests/world-atlas-v150-harness.js
 
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
           while IFS= read -r file; do
+            echo "Checking $file"
             node --check "$file"
           done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
 
-          node tests/world-atlas-v150-harness.js
+      - name: Run Atlas behavior harness
+        shell: bash
+        run: node tests/world-atlas-v150-harness.js
 
+      - name: Validate Atlas stylesheets
+        shell: bash
+        run: |
           python - <<'PY'
           from pathlib import Path
 
