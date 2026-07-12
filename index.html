@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thousandfold Realms — Loading</title>
+<style>
+html,body{height:100%;margin:0;background:#0d0f11;color:#e9e1cf;font-family:Georgia,serif}
+main{height:100%;display:grid;place-items:center;text-align:center;padding:24px}
+strong{display:block;color:#f0c66e;font-size:clamp(1.5rem,4vw,2.6rem);letter-spacing:.08em;margin-bottom:12px}
+#status{color:#aaa491}
+</style>
+</head>
+<body><main><div><strong>THOUSANDFOLD REALMS</strong><div id="status">Preparing the realm…</div></div></main>
+<script>
+(async()=>{
+  const parts=[
+      'payload/part-000.txt',
+      'payload/part-001.txt',
+      'payload/part-002.txt',
+      'payload/part-003.txt',
+      'payload/part-004.txt',
+      'payload/part-005.txt',
+      'payload/part-006.txt',
+      'payload/part-007.txt',
+      'payload/part-008.txt',
+      'payload/part-009.txt',
+      'payload/part-010.txt',
+      'payload/part-011.txt',
+      'payload/part-012.txt',
+      'payload/part-013.txt'
+  ];
+  const status=document.getElementById('status');
+  try{
+    const texts=[];
+    for(let i=0;i<parts.length;i++){
+      status.textContent=`Loading game ${i+1} of ${parts.length}…`;
+      const r=await fetch(parts[i],{cache:'force-cache'});
+      if(!r.ok) throw new Error(`${parts[i]} returned ${r.status}`);
+      texts.push(await r.text());
+    }
+    status.textContent='Opening the realm…';
+    const raw=atob(texts.join(''));
+    const bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));
+    if(typeof DecompressionStream==='undefined') throw new Error('This browser does not support the required decompression feature.');
+    const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const html=await new Response(stream).text();
+    document.open();document.write(html);document.close();
+  }catch(err){
+    console.error(err);
+    status.textContent='The game could not load. Refresh the page or open it in a current version of Chrome, Edge, Firefox, or Safari.';
+  }
+})();
+</script></body></html>
