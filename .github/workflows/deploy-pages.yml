@@ -43,6 +43,9 @@ jobs:
           test -f live-overrides/world-atlas-v150.css
           test -f live-overrides/world-atlas-v152-exploration.js
           test -f live-overrides/world-atlas-v152-exploration.css
+          test -f live-overrides/world-atlas-v152-travel-copy.js
+          test -f live-overrides/world-travel-network-v153.js
+          test -f live-overrides/world-travel-network-v153a-tiles.js
           test -f tests/world-atlas-v150-harness.js
           test -f version.json
           test -f CHANGELOG.md
@@ -140,31 +143,44 @@ jobs:
           grep -q 'GIT_LIVE_OVERRIDE_RUNTIME' _site/index.html
           grep -q 'world-atlas-v150.js' _site/index.html
           grep -q 'world-atlas-v152-exploration.js' _site/index.html
-          grep -q 'world-atlas-v152-exploration.css' _site/index.html
+          grep -q 'world-atlas-v152-travel-copy.js' _site/index.html
+          grep -q 'world-travel-network-v153.js' _site/index.html
+          grep -q 'world-travel-network-v153a-tiles.js' _site/index.html
           test -f _site/live-overrides/world-atlas-v150.js
           test -f _site/live-overrides/world-atlas-v152-exploration.js
           test -f _site/live-overrides/world-atlas-v152-exploration.css
+          test -f _site/live-overrides/world-atlas-v152-travel-copy.js
+          test -f _site/live-overrides/world-travel-network-v153.js
+          test -f _site/live-overrides/world-travel-network-v153a-tiles.js
 
           python - <<'PY'
           from pathlib import Path
 
           text = Path("_site/index.html").read_text(encoding="utf-8")
           head = text.split("</head>", 1)[0]
-          if "world-atlas-v150.js" in head or "world-atlas-v152-exploration.js" in head:
-              raise SystemExit("Living Atlas runtime was injected into head before AO exists")
+          runtime_files = (
+              "world-atlas-v150.js", "world-atlas-v152-exploration.js",
+              "world-atlas-v152-travel-copy.js", "world-travel-network-v153.js",
+              "world-travel-network-v153a-tiles.js",
+          )
+          if any(name in head for name in runtime_files):
+              raise SystemExit("Atlas runtime was injected into head before AO exists")
 
-          packaged_ui = text.find('src/ui/cartography_ui.js')
-          atlas_runtime = text.find('live-overrides/world-atlas-v150.js')
-          exploration_runtime = text.find('live-overrides/world-atlas-v152-exploration.js')
-          atlas_fixes = text.find('live-overrides/zz-world-atlas-v150-fixes.js')
-          game_bootstrap = text.find('src/main.js')
-          if min(packaged_ui, atlas_runtime, exploration_runtime, atlas_fixes, game_bootstrap) < 0:
-              raise SystemExit("Missing one or more runtime ordering markers")
-          if not packaged_ui < atlas_runtime < exploration_runtime < atlas_fixes < game_bootstrap:
-              raise SystemExit("Invalid Atlas runtime order")
+          markers = [
+              text.find('src/ui/cartography_ui.js'),
+              text.find('live-overrides/world-atlas-v150.js'),
+              text.find('live-overrides/world-atlas-v152-exploration.js'),
+              text.find('live-overrides/world-atlas-v152-travel-copy.js'),
+              text.find('live-overrides/world-travel-network-v153.js'),
+              text.find('live-overrides/world-travel-network-v153a-tiles.js'),
+              text.find('live-overrides/zz-world-atlas-v150-fixes.js'),
+              text.find('src/main.js'),
+          ]
+          if min(markers) < 0 or markers != sorted(markers):
+              raise SystemExit(f"Invalid Atlas runtime order: {markers}")
           PY
 
-          echo "Assembled canonical Thousandfold Realms build with explored Atlas before game bootstrap."
+          echo "Assembled canonical Thousandfold Realms build with the physical road network before game bootstrap."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
