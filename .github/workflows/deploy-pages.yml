@@ -44,17 +44,19 @@ jobs:
           find live-overrides -maxdepth 1 -type f \( -name '*.css' -o -name '*.js' \) -exec cp {} _site/live-overrides/ \;
 
           python - <<'PY'
+          import os
           from pathlib import Path
 
+          revision = os.environ.get('GITHUB_SHA', 'dev')[:12]
           override_dir = Path('live-overrides')
           css_files = sorted(p.name for p in override_dir.glob('*.css'))
           js_files = sorted(p.name for p in override_dir.glob('*.js'))
           css_tags = ''.join(
-              f'<link rel="stylesheet" href="./live-overrides/{name}?v=${{GITHUB_SHA}}">'
+              f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">'
               for name in css_files
           )
           js_tags = ''.join(
-              f'<script src="./live-overrides/{name}?v=${{GITHUB_SHA}}"></script>'
+              f'<script src="./live-overrides/{name}?v={revision}"></script>'
               for name in js_files
           )
 
@@ -65,14 +67,9 @@ jobs:
               text = path.read_text(encoding='utf-8')
               marker = '<!-- GIT_LIVE_OVERRIDES -->'
               injection = marker + css_tags + js_tags
-              if marker in text:
-                  start = text.index(marker)
-                  end = start + len(marker)
-                  text = text[:start] + injection + text[end:]
-              else:
-                  if '</head>' not in text:
-                      raise SystemExit(f'{filename} has no closing head tag')
-                  text = text.replace('</head>', injection + '</head>', 1)
+              if '</head>' not in text:
+                  raise SystemExit(f'{filename} has no closing head tag')
+              text = text.replace('</head>', injection + '</head>', 1)
               path.write_text(text, encoding='utf-8')
           PY
 
