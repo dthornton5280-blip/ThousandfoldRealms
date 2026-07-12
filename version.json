@@ -1,0 +1,6 @@
+{
+  "version": "1.4.6-dev",
+  "buildName": "Biome Tactical + Animated Title Scene",
+  "canonicalBranch": "main",
+  "deploymentModel": "single verified package plus Git-managed overrides"
+}
