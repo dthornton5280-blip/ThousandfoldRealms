@@ -41,6 +41,8 @@ jobs:
           test -f live-overrides/unified-realm-ui-v149.css
           test -f live-overrides/world-atlas-v150.js
           test -f live-overrides/world-atlas-v150.css
+          test -f live-overrides/world-atlas-v152-exploration.js
+          test -f live-overrides/world-atlas-v152-exploration.css
           test -f tests/world-atlas-v150-harness.js
           test -f version.json
           test -f CHANGELOG.md
@@ -77,6 +79,13 @@ jobs:
                   ".atlas-world-map",
                   ".atlas-region-map",
                   ".atlas-location-node",
+                  "prefers-reduced-motion",
+              ),
+              "live-overrides/world-atlas-v152-exploration.css": (
+                  ".atlas-pixel-grid",
+                  ".atlas-fog-layer",
+                  ".atlas-map-key",
+                  ".key-fog",
                   "prefers-reduced-motion",
               ),
           }
@@ -160,6 +169,8 @@ jobs:
           grep -q 'unified-realm-ui-v149.css' _site/index.html
           grep -q 'world-atlas-v150.js' _site/index.html
           grep -q 'world-atlas-v150.css' _site/index.html
+          grep -q 'world-atlas-v152-exploration.js' _site/index.html
+          grep -q 'world-atlas-v152-exploration.css' _site/index.html
           test -f _site/live-overrides/hud-interaction.css
           test -f _site/live-overrides/tactical-battlefields-v147.js
           test -f _site/live-overrides/tactical-presentation-v147.css
@@ -168,29 +179,32 @@ jobs:
           test -f _site/live-overrides/unified-realm-ui-v149.css
           test -f _site/live-overrides/world-atlas-v150.js
           test -f _site/live-overrides/world-atlas-v150.css
+          test -f _site/live-overrides/world-atlas-v152-exploration.js
+          test -f _site/live-overrides/world-atlas-v152-exploration.css
 
           python - <<'PY'
           from pathlib import Path
 
           text = Path("_site/index.html").read_text(encoding="utf-8")
           head = text.split("</head>", 1)[0]
-          if "world-atlas-v150.js" in head:
+          if "world-atlas-v150.js" in head or "world-atlas-v152-exploration.js" in head:
               raise SystemExit("Living Atlas runtime was injected into head before AO exists")
 
           packaged_ui = text.find('src/ui/cartography_ui.js')
           atlas_runtime = text.find('live-overrides/world-atlas-v150.js')
+          exploration_runtime = text.find('live-overrides/world-atlas-v152-exploration.js')
           atlas_fixes = text.find('live-overrides/zz-world-atlas-v150-fixes.js')
           game_bootstrap = text.find('src/main.js')
-          if min(packaged_ui, atlas_runtime, atlas_fixes, game_bootstrap) < 0:
+          if min(packaged_ui, atlas_runtime, exploration_runtime, atlas_fixes, game_bootstrap) < 0:
               raise SystemExit("Missing one or more runtime ordering markers")
-          if not packaged_ui < atlas_runtime < atlas_fixes < game_bootstrap:
+          if not packaged_ui < atlas_runtime < exploration_runtime < atlas_fixes < game_bootstrap:
               raise SystemExit(
-                  "Runtime order invalid: packaged UI must load before Atlas, "
-                  "and Atlas must load before src/main.js"
+                  "Runtime order invalid: packaged UI, base Atlas, exploration Atlas, "
+                  "integration fixes, then src/main.js are required"
               )
           PY
 
-          echo "Assembled canonical Thousandfold Realms build with overrides loaded before game bootstrap."
+          echo "Assembled canonical Thousandfold Realms build with explored Atlas before game bootstrap."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
