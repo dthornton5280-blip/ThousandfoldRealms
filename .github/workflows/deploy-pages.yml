@@ -20,66 +20,100 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Prepare website
+      - name: Validate canonical source
         shell: bash
         run: |
-          PACKAGE="Thousandfold_Realms_Web_v1.4.5-dev.zip"
-          if [ ! -f "$PACKAGE" ]; then
-            PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
-          fi
+          set -euo pipefail
+
+          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
           test -f "$PACKAGE"
+          test -d live-overrides
+          test -f live-overrides/hud-interaction.css
+          test -f live-overrides/title-screen-v146.css
+          test -f live-overrides/title-screen-v146.js
+          test -f version.json
+          test -f CHANGELOG.md
+          test -f docs/CURRENT_STATE.md
+
+          # Temporary transport/assembly fragments must not return to main.
+          if find . -maxdepth 1 -type f \( -name 'v*_payload_*.txt' -o -name 'v*_js_*.txt' \) | grep -q .; then
+            echo "Temporary payload or JavaScript chunk files found in repository root."
+            exit 1
+          fi
+
+          # Validate every repository-managed JavaScript override.
+          while IFS= read -r file; do
+            node --check "$file"
+          done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
+
+      - name: Assemble website
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
           rm -rf _site
           mkdir -p _site
           unzip -q "$PACKAGE" -d _site
           touch _site/.nojekyll
           test -f _site/index.html
 
-          # Git is the active live source. Keep large binary assets in the
-          # packaged build, then overlay committed CSS/JS changes on deploy.
           mkdir -p _site/live-overrides
           find live-overrides -maxdepth 1 -type f \( -name '*.css' -o -name '*.js' \) -exec cp {} _site/live-overrides/ \;
 
           python - <<'PY'
+          import json
           import os
           from pathlib import Path
 
-          revision = os.environ.get('GITHUB_SHA', 'dev')[:12]
-          override_dir = Path('live-overrides')
-          css_files = sorted(p.name for p in override_dir.glob('*.css'))
-          js_files = sorted(p.name for p in override_dir.glob('*.js'))
-          css_tags = ''.join(
+          revision = os.environ.get("GITHUB_SHA", "dev")[:12]
+          version = json.loads(Path("version.json").read_text(encoding="utf-8"))
+          override_dir = Path("live-overrides")
+          css_files = sorted(path.name for path in override_dir.glob("*.css"))
+          js_files = sorted(path.name for path in override_dir.glob("*.js"))
+
+          css_tags = "".join(
               f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">'
               for name in css_files
           )
-          js_tags = ''.join(
+          js_tags = "".join(
               f'<script src="./live-overrides/{name}?v={revision}"></script>'
               for name in js_files
           )
+          build_meta = (
+              f'<meta name="tf-build" content="{version["version"]}">'
+              f'<meta name="tf-build-name" content="{version["buildName"]}">'
+          )
 
-          for filename in ('index.html', '404.html'):
-              path = Path('_site') / filename
+          marker = "<!-- GIT_LIVE_OVERRIDES -->"
+          injection = marker + build_meta + css_tags + js_tags
+
+          for filename in ("index.html", "404.html"):
+              path = Path("_site") / filename
               if not path.exists():
                   continue
-              text = path.read_text(encoding='utf-8')
-              marker = '<!-- GIT_LIVE_OVERRIDES -->'
-              injection = marker + css_tags + js_tags
-              if '</head>' not in text:
-                  raise SystemExit(f'{filename} has no closing head tag')
-              text = text.replace('</head>', injection + '</head>', 1)
-              path.write_text(text, encoding='utf-8')
+              text = path.read_text(encoding="utf-8")
+              if "</head>" not in text:
+                  raise SystemExit(f"{filename} has no closing head tag")
+              text = text.replace("</head>", injection + "</head>", 1)
+              path.write_text(text, encoding="utf-8")
           PY
 
           grep -q 'GIT_LIVE_OVERRIDES' _site/index.html
+          grep -q 'tf-build' _site/index.html
           grep -q 'hud-interaction.css' _site/index.html
           grep -q 'title-screen-v146.css' _site/index.html
           grep -q 'title-screen-v146.js' _site/index.html
+          test -f _site/live-overrides/hud-interaction.css
           test -f _site/live-overrides/title-screen-v146.css
           test -f _site/live-overrides/title-screen-v146.js
-          echo "Deploying $PACKAGE as v1.4.6-dev with Git-managed live overrides"
+
+          echo "Assembled canonical Thousandfold Realms build from one base package and Git-managed source overrides."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
