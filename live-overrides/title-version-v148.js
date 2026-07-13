@@ -1,5 +1,15 @@
-/* Thousandfold Realms v1.4.8-dev — title build label. */
-document.addEventListener('DOMContentLoaded',()=>{
+/* Thousandfold Realms — title build label sourced from canonical version.json. */
+(() => {
   const label=document.querySelector('.tf-title-version');
-  if(label)label.textContent='v1.4.8-dev';
-},{once:true});
+  if(!label)return;
+  label.textContent='Current development build';
+  fetch('./version.json',{cache:'no-store'})
+    .then(response=>{
+      if(!response.ok)throw new Error(`version metadata ${response.status}`);
+      return response.json();
+    })
+    .then(metadata=>{
+      if(metadata?.version)label.textContent=`v${metadata.version}`;
+    })
+    .catch(error=>console.warn('Could not read the canonical title version; using the development label.',error));
+})();

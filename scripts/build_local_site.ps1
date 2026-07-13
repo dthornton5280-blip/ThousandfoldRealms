@@ -21,10 +21,10 @@ Get-ChildItem $overrideSource -File |
   Copy-Item -Destination $overrideTarget
 
 $css = (Get-ChildItem $overrideSource -Filter "*.css" | Sort-Object Name | ForEach-Object {
-  "<link rel=`"stylesheet`" href=`"./live-overrides/$($_.Name)?v=local`">"
+  "<link rel=`"stylesheet`" href=`"./live-overrides/$($_.Name)?v=local-$($_.LastWriteTimeUtc.Ticks)`">"
 }) -join ""
 $js = (Get-ChildItem $overrideSource -Filter "*.js" | Sort-Object Name | ForEach-Object {
-  "<script src=`"./live-overrides/$($_.Name)?v=local`"></script>"
+  "<script src=`"./live-overrides/$($_.Name)?v=local-$($_.LastWriteTimeUtc.Ticks)`"></script>"
 }) -join ""
 $indexPath = Join-Path $site "index.html"
 $html = [IO.File]::ReadAllText($indexPath)
