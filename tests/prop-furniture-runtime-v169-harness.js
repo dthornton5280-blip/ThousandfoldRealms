@@ -46,8 +46,9 @@ for(const id of ['tavern_bar_stool_1','tavern_bar_stool_2','tavern_dining_chair_
 }
 for(const position of ['x:4,y:4','x:6,y:4','x:8,y:8','x:19,y:8','x:4,y:9','x:24,y:9','x:15,y:11'])check(runtime.includes(position),`logical seating position ${position} is missing`);
 
-check(runtime.includes('generated-props-atlas-v1612.b64?v=1612'),'exact atlas must use the v1.6.12 path and cache key');
-check(runtime.includes("fetch(url,{cache:'reload'})"),'exact runtime must bypass stale atlas cache');
+check(runtime.includes('generated-props-atlas-v1612.png?v=1612'),'exact atlas must use the v1.6.12 binary PNG path and cache key');
+check(!runtime.includes('generated-props-atlas-v1612.b64'),'runtime must not use the corrupted text atlas');
+check(runtime.includes('image.src=new URL(ATLAS_URL,document.baseURI).href'),'exact runtime must load the PNG directly');
 check(runtime.includes('imageSmoothingEnabled=false'),'prop sprites must render nearest-neighbor');
 check(runtime.includes('tfrExactPropsV1612'),'prop renderer and load hook must be idempotent');
 check(runtime.includes('if(Art.drawEntity(ctx,x,y,entity,mapId))return'),'exact prop art must draw before every prior icon fallback');
@@ -60,4 +61,4 @@ check(runtime.includes("setStatus('failed'"),'runtime failure must be observable
 check(!runtime.includes('ChatGPT Image Jul'),'uploaded preview filenames must not be runtime dependencies');
 check(!runtime.includes('contact-sheet'),'contact sheets must never load at runtime');
 
-console.log('v1.6.12 exact prop/furniture compatibility validated: exterior, tavern, cellar, inn, seating, save sync, collision, and renderer fallback protection passed.');
+console.log('v1.6.12 exact prop/furniture compatibility validated: binary atlas, exterior, tavern, cellar, inn, seating, save sync, collision, and renderer fallback protection passed.');
