@@ -1,0 +1,43 @@
+name: Validate Prop Collision and Ground Tiles v1.6.13
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-prop-collision-ground-tiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.13 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/render/prop_geometry_runtime_v1613.js
+          test -f source/src/render/ground_tile_runtime_v1613.js
+          test -f source/assets/thousandfold/tiles/tfr-ground-tiles-v1613.png
+          test -f source/assets/thousandfold/tiles/tfr-ground-tiles-v1613.json
+          test -f tests/prop-collision-ground-tiles-v1613-harness.js
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check source/src/main.js
+          node --check source/src/render/prop_geometry_runtime_v1613.js
+          node --check source/src/render/ground_tile_runtime_v1613.js
+          node --check tests/prop-collision-ground-tiles-v1613-harness.js
+
+      - name: Execute collision and ground tile regression
+        run: node tests/prop-collision-ground-tiles-v1613-harness.js
+
+      - name: Preserve exact prop and gameplay repairs
+        run: |
+          node tests/exact-prop-assets-v1612-harness.js
+          node tests/live-runtime-v167-harness.js
