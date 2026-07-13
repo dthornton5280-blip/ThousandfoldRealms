@@ -1,0 +1,47 @@
+name: Validate Haven Square and Starter Interiors
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-haven-composition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.3 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/data/haven_composition.js
+          test -f source/src/data/haven_detail_content.js
+          test -f source/src/render/haven_detail_art.js
+          test -f tests/haven-composition-v163-harness.js
+          test -f docs/V163_HAVEN_SQUARE_AND_INTERIORS.md
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/data/haven_composition.js
+          node --check source/src/data/haven_detail_content.js
+          node --check source/src/render/haven_detail_art.js
+          node --check tests/haven-composition-v163-harness.js
+
+      - name: Validate Haven composition and gameplay geometry
+        run: node tests/haven-composition-v163-harness.js
+
+      - name: Reject accidental concept-sheet slicing
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R "generated/a_high_resolution_pixel_art_tileset" source/src/data source/src/render
+          ! grep -R "Pixel Crawler - Free Pack" source/src/data/haven_composition.js source/src/render/haven_detail_art.js
