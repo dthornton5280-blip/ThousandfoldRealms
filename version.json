@@ -1,6 +1,6 @@
 {
-  "version": "1.6.11-dev",
-  "buildName": "Late-Loaded Authoritative Props",
+  "version": "1.6.12-dev",
+  "buildName": "Exact User Prop Assets",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
