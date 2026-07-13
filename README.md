@@ -4,7 +4,7 @@ Browser-playable development build of an original single-player pixel CRPG.
 
 ## Canonical state
 
-- **Current checkpoint:** `v1.5.8-dev — Canonical Source Build`
+- **Current checkpoint:** `v1.5.9-dev — Pixel Crawler Tavern Pilot`
 - **Production branch:** `main`
 - **Production source:** `source/`
 - **Deployment:** GitHub Pages from this repository
@@ -28,6 +28,13 @@ Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` be
 - Survival-based hunting and persistent wildlife resources
 - Isolated biome tactical battlefields
 - Dialogue, quests, inventory, equipment, shops, crafting, resources, camps, saves, and migration-safe persistent state
+- First external pixel-art pilot in the Black Lantern Tavern using a small derived Pixel Crawler runtime subset
+
+## Art integration
+
+The Black Lantern Tavern is the current graphics pilot. It uses selected Pixel Crawler - Free Pack art by Anokolisa for tavern floors, walls, rugs, stage tiles, furniture, Bran, and Lys.
+
+The complete downloaded pack and editable Aseprite files are not committed. Only the exact derived runtime subset used by the game is embedded in canonical source. Terms and creator information are recorded in `source/assets/third-party/pixel-crawler/NOTICE.txt`.
 
 ## Repository layout
 
@@ -35,6 +42,7 @@ Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` be
 - `source/styles.css` — core stylesheet
 - `source/src/` — canonical game code
 - `source/src/core/boot.js` — releases the page after successful startup
+- `source/src/render/assets.js` — original atlases and approved derived runtime art
 - `live-overrides/` — transitional systems awaiting controlled integration into source
 - `tests/` — focused runtime and architecture harnesses
 - `docs/` — current state, regression plans, and implementation notes
@@ -49,7 +57,7 @@ Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` be
 5. Open a pull request.
 6. Merge only after checks pass.
 
-Do not restore ZIP-based deployment. Do not clear player saves casually. Do not expose unfinished regions as reachable content.
+Do not restore ZIP-based deployment. Do not clear player saves casually. Do not expose unfinished regions as reachable content. Do not commit complete third-party asset packs when a small approved runtime subset is sufficient.
 
 ## Project handoff
 
