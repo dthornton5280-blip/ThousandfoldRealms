@@ -6,16 +6,18 @@ Move the first approved standalone generated objects into the real browser runti
 
 ## Runtime package
 
-The game now loads one compact transparent PNG:
+The game assembles one compact transparent 512 × 288 PNG from six ordered repository-hosted Base64 asset chunks:
 
-- `source/assets/thousandfold/generated/generated-proof-atlas.png`
-- 512 × 288 pixels
-- Nine named sprites
-- Explicit source rectangles and render metadata in `atlas-manifest.json`
-- Nearest-neighbor canvas rendering
-- Existing procedural art remains active until the image loads and whenever a sprite is absent
+- `source/assets/thousandfold/generated/generated-proof-atlas.part00.b64`
+- `source/assets/thousandfold/generated/generated-proof-atlas.part01.b64`
+- `source/assets/thousandfold/generated/generated-proof-atlas.part02.b64`
+- `source/assets/thousandfold/generated/generated-proof-atlas.part03.b64`
+- `source/assets/thousandfold/generated/generated-proof-atlas.part04.b64`
+- `source/assets/thousandfold/generated/generated-proof-atlas.part05.b64`
 
-The large concept sheets are not committed or loaded by the game.
+This stores the actual transparent atlas data in the repository despite the connector’s text-only file-write limitation. The browser fetches the six static files, joins them, decodes the PNG, and then renders its nine named sprites with nearest-neighbor canvas drawing. Explicit source rectangles and render metadata live in `atlas-manifest.json`.
+
+Existing procedural art remains active until the image is ready and whenever an asset is absent or fails to decode. The large concept sheets are not committed or loaded by the game.
 
 ## Live assets
 
@@ -52,7 +54,8 @@ The four Whisperwood scenery pieces replace existing small procedural tree or sh
 
 `tests/generated-sprite-assets-v165-harness.js` confirms:
 
-- PNG signature, exact atlas dimensions, and compact file size
+- All six chunks exist and decode into a valid PNG
+- Exact atlas dimensions and decoded byte count
 - Every crop remains inside the atlas with safe boundary padding
 - All nine sprites are registered and used
 - Generated drawing runs before procedural fallback
