@@ -83,19 +83,20 @@
   if(typeof document==='undefined'||document.querySelector('script[data-tfr-runtime-v167]'))return;
   const script=document.createElement('script');
   script.src='src/render/runtime_repairs_v167.js?v=167';
-  script.async=true;
+  script.async=false;
   script.dataset.tfrRuntimeV167='true';
   document.head.appendChild(script);
 })();
 
-/* v1.6.9 authoritative prop/furniture integration. This replaces the mistaken
-   v1.6.8 Haven nature showcase and waits for the final runtime renderer. */
+/* v1.6.10 direct prop/furniture render repair. The asset module keeps its stable
+   filename, but the query and data marker are new so Pages and the browser must
+   fetch the authoritative implementation again. */
 (() => {
   'use strict';
-  if(typeof document==='undefined'||document.querySelector('script[data-tfr-prop-furniture-v169]'))return;
+  if(typeof document==='undefined'||document.querySelector('script[data-tfr-prop-furniture-v1610]'))return;
   const script=document.createElement('script');
-  script.src='src/render/prop_furniture_runtime_v169.js?v=169';
-  script.async=true;
-  script.dataset.tfrPropFurnitureV169='true';
+  script.src='src/render/prop_furniture_runtime_v169.js?v=1610';
+  script.async=false;
+  script.dataset.tfrPropFurnitureV1610='true';
   document.head.appendChild(script);
 })();
