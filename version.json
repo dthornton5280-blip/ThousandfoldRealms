@@ -1,6 +1,6 @@
 {
-  "version": "1.5.6-dev",
-  "buildName": "Visible Patrols + Living Wildlife",
+  "version": "1.5.7-dev",
+  "buildName": "Reliable Enemy Patrols",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
