@@ -6,9 +6,13 @@
   const patch=(mapId,id,values)=>{const entry=object(mapId,id);if(entry)Object.assign(entry,values);};
 
   /* Final clear-floor corrections after every additive furnishing layer has run. */
+  patch('haven','market_stall_1',{x:6,y:9});
+  patch('haven','market_stall_2',{x:22,y:9});
+  patch('haven','haven_cache',{x:4,y:16});
   patch('haven','haven_banner_1',{x:12,y:7});
   patch('haven','haven_banner_2',{x:17,y:10});
   patch('arcane_shop','arcane_chest',{x:23,y:14});
+  if(AO.NPCS?.mira)Object.assign(AO.NPCS.mira,{x:14,y:9});
   if(AO.NPCS?.selene)Object.assign(AO.NPCS.selene,{x:15,y:6});
   if(AO.AMBIENT_ACTORS?.store_shopper)Object.assign(AO.AMBIENT_ACTORS.store_shopper,{x:5,y:7,route:[[5,7],[6,7],[6,8],[5,8]]});
   if(AO.AMBIENT_ACTORS?.arcane_scholar)Object.assign(AO.AMBIENT_ACTORS.arcane_scholar,{x:7,y:10,route:[[7,10],[8,10],[8,11],[7,11]]});
