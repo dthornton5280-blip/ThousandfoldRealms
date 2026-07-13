@@ -1,0 +1,51 @@
+name: Validate Haven Art and Living Interiors
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-haven-art:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify canonical art files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/data/haven_art_content.js
+          test -f source/src/systems/entity_geometry.js
+          test -f source/src/systems/footprint_interactions.js
+          test -f source/src/render/thousandfold_art.js
+          test -f source/src/render/thousandfold_renderer.js
+          test -f source/assets/generated/README.md
+          test -f tests/thousandfold-haven-art-v161-harness.js
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/data/haven_art_content.js
+          node --check source/src/systems/entity_geometry.js
+          node --check source/src/systems/footprint_interactions.js
+          node --check source/src/render/thousandfold_art.js
+          node --check source/src/render/thousandfold_renderer.js
+          node --check tests/thousandfold-haven-art-v161-harness.js
+
+      - name: Validate art, collisions, doors, interiors, and interactions
+        run: node tests/thousandfold-haven-art-v161-harness.js
+
+      - name: Reject concept-sheet deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! find source -type f \( -iname '*tileset*concept*.png' -o -iname '*asset*sheet*.png' \) | grep -q .
+          ! grep -R "PixelCrawlerArt.enabled *= *true" -n source live-overrides
