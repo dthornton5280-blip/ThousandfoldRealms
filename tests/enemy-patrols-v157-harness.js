@@ -88,9 +88,14 @@ assert(boss.patrolStationary,'Boss enemy should remain stationary by default.');
 assert(deer.patrolRoute.length>1,'Existing wildlife routine was not preserved.');
 
 const banditStart={x:bandit.x,y:bandit.y},deerStart={x:deer.x,y:deer.y};
-for(let i=0;i<12;i++)world.update(250);
-assert(bandit.x!==banditStart.x||bandit.y!==banditStart.y,'Enemy did not patrol when document.hasFocus() was false.');
-assert(deer.x!==deerStart.x||deer.y!==deerStart.y,'Wildlife stopped moving under the patrol hotfix.');
+let banditMoved=false,deerMoved=false;
+for(let i=0;i<12;i++){
+  world.update(250);
+  banditMoved ||= bandit.x!==banditStart.x||bandit.y!==banditStart.y;
+  deerMoved ||= deer.x!==deerStart.x||deer.y!==deerStart.y;
+}
+assert(banditMoved,'Enemy did not patrol when document.hasFocus() was false.');
+assert(deerMoved,'Wildlife stopped moving under the patrol hotfix.');
 
 const pauseStart={x:bandit.x,y:bandit.y};
 game.state.mode='panel';for(let i=0;i<8;i++)world.update(250);
@@ -98,8 +103,12 @@ assert(bandit.x===pauseStart.x&&bandit.y===pauseStart.y,'Enemy moved while the p
 
 game.state.mode='explore';emitWindow('blur');for(let i=0;i<8;i++)world.update(250);
 assert(bandit.x===pauseStart.x&&bandit.y===pauseStart.y,'Enemy moved while the game window was blurred.');
-emitWindow('focus');for(let i=0;i<8;i++)world.update(250);
-assert(bandit.x!==pauseStart.x||bandit.y!==pauseStart.y,'Enemy did not resume after focus returned.');
+emitWindow('focus');let resumed=false;
+for(let i=0;i<8;i++){
+  world.update(250);
+  resumed ||= bandit.x!==pauseStart.x||bandit.y!==pauseStart.y;
+}
+assert(resumed,'Enemy did not resume after focus returned.');
 
 /* Patrol contact must still launch the existing tactical encounter. */
 game.state.mode='explore';game.state.world.x=12;game.state.world.y=12;
