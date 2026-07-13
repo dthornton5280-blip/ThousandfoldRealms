@@ -20,8 +20,11 @@ for(const path of [
 ])run(path);
 
 const version=JSON.parse(read('version.json'));
-assert(version.version==='1.6.3-dev','Expected v1.6.3-dev.');
-assert(version.buildName==='Haven Square + Starter Interiors','Unexpected v1.6.3 build name.');
+const versionMatch=/^(\d+)\.(\d+)\.(\d+)-dev$/.exec(version.version||'');
+assert(versionMatch,'Expected a semantic development checkpoint.');
+const numericVersion=Number(versionMatch[1])*10000+Number(versionMatch[2])*100+Number(versionMatch[3]);
+assert(numericVersion>=10603,'Haven composition requires v1.6.3-dev or later.');
+assert(version.buildName,'Current build name is missing.');
 assert(AO.HavenComposition?.version==='v163','Haven composition runtime did not install.');
 
 const solidTiles=new Set(['tree','roof','stonewall','woodwall']);
@@ -131,4 +134,4 @@ const index=read('source/index.html');
 const order=['src/data/haven_art_content.js','src/data/tavern_composition.js','src/data/haven_composition.js','src/data/haven_detail_content.js','src/systems/audio.js','src/render/thousandfold_art.js','src/render/haven_detail_art.js','src/render/sprites.js','src/ui/dialogue_portraits.js','src/main.js'];
 for(let i=1;i<order.length;i++)assert(index.indexOf(order[i])>index.indexOf(order[i-1]),`Canonical runtime order is wrong around ${order[i]}.`);
 
-console.log('Haven v1.6.3 harness passed: square roads, storefront approaches, interior aisles, blockers, NPCs, routines, doors, detail art, and canonical script order are coherent.');
+console.log(`Haven v1.6.3 regression passed at ${version.version}: square roads, storefront approaches, interior aisles, blockers, NPCs, routines, doors, detail art, and canonical script order remain coherent.`);
