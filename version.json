@@ -1,6 +1,6 @@
 {
-  "version": "1.6.9-dev",
-  "buildName": "Authoritative Prop + Furniture Integration",
+  "version": "1.6.10-dev",
+  "buildName": "Direct Prop Renderer Priority",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
