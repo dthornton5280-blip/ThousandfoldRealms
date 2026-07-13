@@ -77,9 +77,7 @@
   map.composition={version:'v162',entranceAisle:{x1:12,x2:16,y1:7,y2:16},zones:['bar','stage','dining','hearth','service','cellar']};
 })();
 
-/* v1.6.7 live repair bootstrap. A new filename deliberately bypasses stale
-   GitHub Pages JavaScript while the module waits for the canonical game and
-   renderer before installing assets, collision, and tactical input repairs. */
+/* v1.6.7 collision and tactical repair remains isolated and cache-busted. */
 (() => {
   'use strict';
   if(typeof document==='undefined'||document.querySelector('script[data-tfr-runtime-v167]'))return;
@@ -90,15 +88,14 @@
   document.head.appendChild(script);
 })();
 
-/* v1.6.8 visible asset placement. This is intentionally separate from the
-   combat/collision repair so the visual pass can be cache-busted and validated
-   without risking the established runtime fixes. */
+/* v1.6.9 authoritative prop/furniture integration. This replaces the mistaken
+   v1.6.8 Haven nature showcase and waits for the final runtime renderer. */
 (() => {
   'use strict';
-  if(typeof document==='undefined'||document.querySelector('script[data-tfr-visible-assets-v168]'))return;
+  if(typeof document==='undefined'||document.querySelector('script[data-tfr-prop-furniture-v169]'))return;
   const script=document.createElement('script');
-  script.src='src/render/visible_generated_assets_v168.js?v=168';
+  script.src='src/render/prop_furniture_runtime_v169.js?v=169';
   script.async=true;
-  script.dataset.tfrVisibleAssetsV168='true';
+  script.dataset.tfrPropFurnitureV169='true';
   document.head.appendChild(script);
 })();
