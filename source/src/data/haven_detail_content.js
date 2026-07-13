@@ -1,9 +1,17 @@
-/* Thousandfold Realms v1.6.3-dev — final art tags and portrait roles for Haven. */
+/* Thousandfold Realms v1.6.3-dev — final art tags, placement corrections, and portrait roles for Haven. */
 (() => {
   'use strict';
   if(!window.AO||!AO.MAP_DEFS)return;
   const object=(mapId,id)=>AO.MAP_DEFS?.[mapId]?.objects?.find(entry=>entry.id===id);
   const patch=(mapId,id,values)=>{const entry=object(mapId,id);if(entry)Object.assign(entry,values);};
+
+  /* Final clear-floor corrections after every additive furnishing layer has run. */
+  patch('haven','haven_banner_1',{x:12,y:7});
+  patch('haven','haven_banner_2',{x:17,y:10});
+  patch('arcane_shop','arcane_chest',{x:23,y:14});
+  if(AO.NPCS?.selene)Object.assign(AO.NPCS.selene,{x:15,y:6});
+  if(AO.AMBIENT_ACTORS?.store_shopper)Object.assign(AO.AMBIENT_ACTORS.store_shopper,{x:5,y:7,route:[[5,7],[6,7],[6,8],[5,8]]});
+  if(AO.AMBIENT_ACTORS?.arcane_scholar)Object.assign(AO.AMBIENT_ACTORS.arcane_scholar,{x:7,y:10,route:[[7,10],[8,10],[8,11],[7,11]]});
 
   patch('chapel','chapel_statue_1',{name:'Lantern-Bearer Statue',artId:'lantern_statue',description:'A weathered traveler shelters a stone lantern against an unseen wind.'});
   patch('chapel','chapel_statue_2',{name:'Lantern-Bearer Statue',artId:'lantern_statue',description:'The second figure faces the first across the nave, hands open beneath its light.'});
