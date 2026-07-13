@@ -44,12 +44,11 @@ jobs:
           node --check tests/thousandfold-haven-art-v161-harness.js
           node --check tests/footprint-game-v161-harness.js
 
-      - name: Validate art, collisions, doors, interiors, and interactions
-        shell: bash
-        run: |
-          set -euo pipefail
-          node tests/thousandfold-haven-art-v161-harness.js
-          node tests/footprint-game-v161-harness.js
+      - name: Validate art, collisions, doors, interiors, and searches
+        run: node tests/thousandfold-haven-art-v161-harness.js
+
+      - name: Validate multi-tile E interactions
+        run: node tests/footprint-game-v161-harness.js
 
       - name: Reject concept-sheet deployment
         shell: bash
