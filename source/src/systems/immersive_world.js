@@ -1,4 +1,4 @@
-/* Thousandfold Realms v1.4.2 — broad interaction footprints and lightweight ambient routines. */
+/* Thousandfold Realms v1.6.2-dev — broad interactions and footprint-safe ambient routines. */
 const ImmersiveWorldBase=AO.WorldSystem;
 AO.WorldSystem=class extends ImmersiveWorldBase{
   load(mapId,x=null,y=null){
@@ -30,7 +30,8 @@ AO.WorldSystem=class extends ImmersiveWorldBase{
       e.activityFrame=((e.activityFrame||0)+dt)%1200;e.nextAmbientMove=(e.nextAmbientMove??e.moveEvery??1400)-dt;
       if(e.nextAmbientMove>0||!e.route?.length)continue;e.nextAmbientMove=e.moveEvery||1400;
       const nextIndex=((e.routeIndex||0)+1)%e.route.length,next=e.route[nextIndex];if(!next)continue;
-      const blocked=(next[0]===player.x&&next[1]===player.y)||!this.isTerrainWalkable(next[0],next[1])||this.entities.some(o=>o!==e&&!o.hidden&&o.blocking!==false&&o.x===next[0]&&o.y===next[1]);
+      const occupied=this.entities.some(o=>o!==e&&!o.hidden&&o.blocking!==false&&(AO.EntityGeometry?.contains?AO.EntityGeometry.contains(o,next[0],next[1]):o.x===next[0]&&o.y===next[1]));
+      const blocked=(next[0]===player.x&&next[1]===player.y)||!this.isTerrainWalkable(next[0],next[1])||occupied;
       if(blocked)continue;const dx=next[0]-e.x,dy=next[1]-e.y;e.facing=Math.abs(dx)>Math.abs(dy)?(dx<0?'left':'right'):(dy<0?'up':'down');e.x=next[0];e.y=next[1];e.routeIndex=nextIndex;
     }
   }
