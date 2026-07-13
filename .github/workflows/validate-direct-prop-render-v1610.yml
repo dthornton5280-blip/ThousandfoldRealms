@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          show-progress: false
 
       - name: Verify exact prop files
         shell: bash
@@ -36,7 +38,26 @@ jobs:
           node --check tests/exact-prop-assets-v1612-harness.js
 
       - name: Execute exact atlas and runtime regression
-        run: node tests/exact-prop-assets-v1612-harness.js
+        id: exact_prop_test
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          node tests/exact-prop-assets-v1612-harness.js 2>&1 | tee exact-prop-test.log
+
+      - name: Upload exact prop test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-prop-test-log
+          path: exact-prop-test.log
+          if-no-files-found: error
+
+      - name: Fail when exact prop regression failed
+        if: steps.exact_prop_test.outcome == 'failure'
+        run: |
+          cat exact-prop-test.log
+          exit 1
 
       - name: Preserve gameplay repairs
         run: node tests/live-runtime-v167-harness.js
