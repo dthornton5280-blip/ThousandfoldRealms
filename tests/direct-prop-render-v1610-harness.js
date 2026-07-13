@@ -19,9 +19,11 @@ check(composition.includes("script.dataset.tfrPropFurnitureV1610='true'"),'v1.6.
 check(composition.includes('script.async=false'),'dynamic repair modules must execute in deterministic insertion order');
 
 const directCall="AO.PropFurnitureArtV169?.drawEntity?.(ctx,e.x*32,e.y*32,e,world.map.id)";
+const pixelEntityCall='AO.PixelCrawlerArt?.enabled&&AO.PixelCrawlerArt.drawEntity';
+const iconCall='AO.SpriteFactory.icon(ctx,e.x*32,e.y*32';
 check(rendererSource.includes(directCall),'canonical renderer must call the approved prop renderer directly');
-check(rendererSource.indexOf(directCall)<rendererSource.indexOf('AO.PixelCrawlerArt?.enabled'),'approved props must render before Pixel Crawler art');
-check(rendererSource.indexOf(directCall)<rendererSource.indexOf('AO.SpriteFactory.icon(ctx,e.x*32'),'approved props must render before icon fallbacks');
+check(rendererSource.indexOf(directCall)<rendererSource.indexOf(pixelEntityCall),'approved props must render before Pixel Crawler entities');
+check(rendererSource.indexOf(directCall)<rendererSource.indexOf(iconCall),'approved props must render before icon fallbacks');
 
 for(const token of [
   "haven_delivery_cart:'haven_cart_wood_sacks'",
