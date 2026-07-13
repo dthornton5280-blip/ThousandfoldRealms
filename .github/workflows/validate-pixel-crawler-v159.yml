@@ -1,0 +1,38 @@
+name: Validate Pixel Crawler Tavern Art
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pixel-crawler-tavern:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify art integration files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/render/assets.js
+          test -f source/src/render/renderer.js
+          test -f source/assets/third-party/pixel-crawler/NOTICE.txt
+          test -f tests/pixel-crawler-tavern-v159-harness.js
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/render/assets.js
+          node --check source/src/render/renderer.js
+          node --check tests/pixel-crawler-tavern-v159-harness.js
+
+      - name: Validate embedded runtime and tavern scope
+        run: node tests/pixel-crawler-tavern-v159-harness.js
