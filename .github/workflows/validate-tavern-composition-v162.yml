@@ -1,0 +1,40 @@
+name: Validate Tavern Composition and Dialogue Portraits
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-tavern-composition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.2 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/data/tavern_composition.js
+          test -f source/src/ui/dialogue_portraits.js
+          test -f tests/tavern-composition-v162-harness.js
+          grep -q 'src/data/tavern_composition.js' source/index.html
+          grep -q 'src/ui/dialogue_portraits.js' source/index.html
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/data/tavern_composition.js
+          node --check source/src/ui/dialogue_portraits.js
+          node --check source/src/systems/immersive_world.js
+          node --check tests/tavern-composition-v162-harness.js
+
+      - name: Validate layout, collisions, routes, and portraits
+        run: node tests/tavern-composition-v162-harness.js
