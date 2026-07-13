@@ -2,113 +2,79 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.6-dev**
-- Build name: **Visible Patrols + Living Wildlife**
-- Working branch: **feature/visible-patrols-wildlife-v156**
-- Canonical branch after merge: **main**
-- Deployment: GitHub Pages
+- Version: **1.5.8-dev**
+- Build name: **Canonical Source Build**
+- Working branch: **refactor/canonical-source-v158**
+- Canonical production branch after merge: **main**
+- Deployment: **GitHub Pages**
 
-## Active architecture
+## Production architecture
 
-The live game is assembled from the verified packaged base:
+The live website is now assembled directly from the editable `source/` directory.
 
-`Thousandfold_Realms_Web_v1.4.4-dev.zip`
+### Authoritative source
 
-Maintained systems and presentation changes live in `live-overrides/` and load after the packaged classes exist but before `src/main.js` creates the game.
+- `source/index.html` — canonical document shell and baked current title screen
+- `source/styles.css` — original core stylesheet
+- `source/src/` — canonical game data, systems, rendering, UI, and bootstrap files
+- `source/src/main.js` — constructs and starts the game
+- `source/src/core/boot.js` — removes the boot shield only after the title, creator, or game screen is genuinely visible
 
-Key current overrides include:
+### Transitional modules
 
-- Illustrated title and unified realm UI
-- Isolated tactical battlefields
-- Living Atlas, persistent fog, and visited-only fast travel
-- Physical and directionally accurate Haven-to-Aurelia wilderness roads
-- Adaptive Full, Compact, and Hidden exploration HUD modes
-- `live-overrides/zzzz-visible-patrols-wildlife-v156.js` for visible patrols and wildlife
+`live-overrides/` still contains newer systems that have not yet been folded into their final files under `source/`.
 
-The `zzzz-` prefix intentionally places the visible-entity layer after the Atlas and final directional corrections while still loading before game bootstrap.
+They remain supported temporarily because they currently contain the approved title presentation, tactical battlefields, unified UI, Living Atlas, physical road network, adaptive HUD, visible wildlife, and reliable enemy patrol behavior.
 
-## Encounter model
+The Pages workflow copies `source/` directly, then injects transitional CSS in the document head and transitional JavaScript after the source classes exist but before `src/main.js` creates the game.
 
-Standard combat is now world-represented rather than triggered by invisible step-count rolls.
+### Historical package
 
-### Visible hostile rules
+`Thousandfold_Realms_Web_v1.4.4-dev.zip` is no longer part of production deployment.
 
-- Ordinary enemies exist as visible blocking entities on local maps.
-- They move independently in real time; they do not receive a movement turn when the player moves.
-- Their default behavior is a deterministic patrol or guard routine.
-- They do not randomly wander, automatically seek the player, or dynamically chase by default.
-- Existing road enemies use explicit short patrol circuits.
-- Enemies without an authored patrol receive a deterministic short back-and-forth route derived from their map and spawn.
-- Bosses, quest enemies, and entities marked as guards remain stationary unless explicitly authored otherwise.
-- Contact caused by the player or by a patrol starts the existing tactical encounter system.
-- Scripted ambushes and authored story encounters remain available, but routine step-based random battles are disabled.
+It may remain in the repository as a historical backup, but the workflow must never unzip or deploy it again.
 
-### Examination pause rules
+## Startup behavior
 
-Enemy and animal routines pause when:
+The current title screen is baked into `source/index.html` rather than being created after the old page becomes visible.
 
-- The game is not in exploration mode.
-- A panel, dialogue, combat, level-up, or defeat screen is open.
-- The adaptive HUD control menu is open.
-- The broader RPG menu state is active.
-- The browser tab is hidden.
-- The browser window loses focus.
+The page begins with:
 
-This lets the player safely read, inspect, compare equipment, use the Atlas, or manage the HUD without the world advancing behind the interface.
+- A critical inline boot shield
+- `tf-title-mode`
+- `tf-booting`
+- The legacy creator hidden
+- The game screen hidden
+- The current title screen already present in the DOM
 
-## Wildlife model
+After all game and transitional modules initialize, `source/src/core/boot.js` waits until a real game screen is visible, removes `tf-booting`, publishes `data-tf-ready="true"`, and hides the boot shield.
 
-### Town wildlife
+This prevents the old creator, old HUD, or partial interface from flashing during refresh.
 
-Town animals are intentionally sparse and contextual:
+The browser title is now simply **Thousandfold Realms** rather than **Brand Migration v1.4.4**.
 
-- One cat near Haven’s inn area.
-- One dog in Aurelia’s market district.
-- One gull near Aurelia’s river district.
+## Save compatibility
 
-Town animals are flavor-only, follow small routines, and cannot be hunted.
+Existing saves continue to use the same local-storage save keys and migration-safe state defaults.
 
-### Wilderness wildlife
+The canonical-source conversion does not clear saves and does not intentionally reset:
 
-The initial wilderness set includes:
+- Characters
+- Inventory and equipment
+- Quests
+- Defeated enemies
+- Atlas discoveries
+- Persistent fog
+- Visited locations and discovered roads
+- Enemy and animal positions
+- Hunting and respawn state
+- HUD preferences
 
-- Deer in Whisperwood, Southwood Trail, and the Lantern Road.
-- A marsh bird at Mosswater Crossing.
-- A hare in Ambermeadow.
-- A fox at Eastwatch Approach.
+Save migrations should remain silent unless player input is required.
 
-Wildlife appears deterministically on some in-game days rather than occupying every map at all times. Each animal follows a small repeated route that can be watched and timed.
+## Current playable geography
 
-The player can:
-
-- Observe an animal’s routine and record the first observation.
-- Attempt a Survival hunt where appropriate.
-- Gain Wild Game Meat, Animal Hide, or Wild Feathers from a successful hunt.
-- See the animal flee after a failed attempt.
-
-Hunted animals remain absent for several in-game days before they may return. Animal position, routine progress, observations, hunt state, and respawn timing persist in the save.
-
-## Adaptive HUD
-
-Exploration HUD modes remain:
-
-- **Full** — all selected HUD sections visible.
-- **Compact** — reduced vitals, map, objective, and prompt coverage.
-- **Hidden** — clear field view with a small HUD control tab.
-
-Vitals, minimap, objective, and hints can be toggled independently. Pressing `H` cycles the display modes, and preferences persist between sessions.
-
-## Living Atlas and physical geography
-
-The Atlas retains three levels:
-
-1. **World** — major regions, terrain, charted frontiers, and persistent fog.
-2. **Region** — settlements, wilderness maps, roads, dungeons, legends, and route information.
-3. **Local** — the exact playable 30×18 map with local visibility and markers.
-
-Fast travel requires a physically visited destination and personally discovered connecting route segments.
-
-The current complete physical journey remains:
+The complete physical route remains:
 
 1. Haven of the Last Lantern
 2. Whisperwood
@@ -119,93 +85,157 @@ The current complete physical journey remains:
 7. The Lantern Road
 8. Aurelia — Golden Gate Ward
 
-Eastbound exits advance toward Aurelia; westbound exits return toward Haven. Lantern Mine and Ashen Crypt remain side branches from Whisperwood.
+Eastbound exits advance toward Aurelia, and westbound exits return toward Haven.
 
-## Persistent state
+Lantern Mine and Ashen Crypt remain physical side branches from Whisperwood.
 
-Current save migration and state include:
+The six additional world regions remain charted future regions until complete physical routes and playable content are authored.
 
-- Defeated enemies
-- Enemy and animal current positions
-- Patrol or routine index
-- Observed animals
-- Hunted animals and respawn day
-- Atlas discoveries and fog reveal points
-- Visited destinations and discovered roads
-- HUD preferences in local storage
-- Existing quests, inventory, equipment, resources, doors, chests, and discoveries
+## Living Atlas
 
-## Automated validation
+The Atlas includes:
 
-Existing validation covers:
+1. **World** — major regions, persistent fog, and charted frontiers
+2. **Region** — settlements, wilderness maps, roads, dungeons, and route information
+3. **Local** — the exact playable 30×18 map with local visibility and markers
 
-- Atlas progression, persistent fog, legends, and visited-only fast travel
-- Physical Haven-to-Aurelia roads and portal continuity
-- Cardinally accurate eastbound and westbound geography
-- Adaptive HUD persistence and unobstructed input
+Fast travel requires:
 
-The v1.5.6 visible-entity harness additionally verifies:
+- A physically visited destination
+- A personally discovered connecting route
 
-- Ordinary random encounters are disabled.
-- Town wildlife appears contextually and remains non-huntable.
-- Wilderness wildlife can appear on deterministic in-game days.
-- Enemies receive predictable routines.
-- Patrols pause while the player examines a panel.
-- Patrols advance independently during normal exploration.
-- Patrol collision starts tactical combat.
-- Hunting grants resources and records persistent respawn state.
-- New wildlife resource items are registered.
+World, regional, and local directions must agree with the actual playable exits.
 
-## Required live regression checklist
+## Encounter model
 
-### Patrols
+### Ordinary enemies
 
-- Watch an enemy for several seconds without moving and confirm it follows a short repeatable route.
-- Open Inventory, Character, Journal, Atlas, dialogue, and HUD controls; confirm patrols stop.
-- Change browser tabs and confirm patrols do not advance while unfocused.
-- Return to exploration and confirm movement resumes.
-- Time movement around a patrol and confirm it can be avoided.
-- Walk into an enemy and confirm tactical combat starts.
-- Allow an enemy patrol to enter the player’s tile and confirm tactical combat starts.
-- Confirm defeated enemies remain removed according to existing defeat persistence.
+- Exist visibly on local maps
+- Follow short deterministic patrol or guard routines
+- Move independently in real time
+- Do not receive a movement turn when the player moves
+- Do not randomly wander or chase by default
+- Can be watched and avoided by timing movement
+- Start tactical combat through player contact or patrol contact
 
-### Wildlife
+### Stationary encounters
 
-- Confirm Haven contains only the intended small flavor animal rather than a crowded population.
-- Visit the wilderness maps over multiple in-game days and confirm wildlife is occasional.
-- Observe an animal and confirm its routine is understandable.
-- Attempt a hunt and confirm success grants resources while failure causes the animal to flee.
-- Save and reload after moving, observing, or hunting an animal and confirm state persists.
-- Advance several in-game days and confirm hunted wildlife can return after its respawn delay.
+Bosses, explicit guards, authored story encounters, the Stone Troll, and the Ember Warden may remain stationary.
 
-### Existing systems
+### Pause behavior
 
-- Confirm no invisible encounter triggers occur merely from walking a fixed number of steps.
-- Confirm scripted, boss, quest, and stationary guard encounters still function.
-- Confirm Atlas, fog, physical travel, adaptive HUD, tactical arenas, camps, resources, quests, saving, and loading still work.
+Enemy and animal movement pauses while:
 
-## Known risks and unfinished work
+- The game is not in exploration mode
+- Inventory, Character, Journal, Atlas, dialogue, combat, level-up, or defeat screens are open
+- HUD controls are open
+- The browser tab is hidden
+- The browser window is genuinely blurred
 
-1. The new patrol speeds, routes, and wildlife appearance rates require live visual and gameplay tuning.
-2. Only the current Haven-to-Aurelia maps have an initial wildlife population; future regions need their own contextual species and routines.
-3. Hunting currently uses a compact interaction and Survival check rather than a dedicated hunting minigame.
-4. Wildlife resources are registered and collectible but are not yet deeply integrated into cooking, crafting, merchants, or quests.
-5. Existing enemy spawn layouts were not originally authored for moving patrols, so some routes may need map-specific adjustment after live testing.
-6. Aurelia and the six future world regions still require substantial settlement, quest, dungeon, and content expansion.
+### Random encounters
 
-## Next development pass
+Routine step-count random battles are disabled.
 
-1. Live-test patrol timing, collision, pause behavior, and animal interaction throughout the existing route.
-2. Correct any patrol that blocks a narrow road or uses an awkward route.
-3. Tune wildlife frequency so animals remain occasional.
-4. Begin the Drowned Fen as the first complete additional region, using visible patrols and contextual wildlife from the start.
-5. Add cooking, leatherwork, fletching, hunting quests, and regional wildlife rewards during region content expansion.
+Scripted ambushes and authored contextual events remain allowed.
+
+## Wildlife
+
+### Town flavor
+
+Town animals remain sparse and contextual:
+
+- One cat around Haven
+- One dog in Aurelia’s market
+- One gull around Aurelia’s river district
+
+Town animals cannot be hunted.
+
+### Wilderness wildlife
+
+Current wildlife includes deer, hares, foxes, and marsh birds.
+
+Wildlife:
+
+- Appears occasionally according to deterministic in-game-day rules
+- Follows a small repeated routine
+- Can be observed
+- Can be hunted through a Survival interaction where appropriate
+- Can provide Wild Game Meat, Animal Hide, or Wild Feathers
+- Persists observations, movement, hunting state, and respawn timing
+
+## Adaptive HUD
+
+The exploration HUD retains:
+
+- **Full** mode
+- **Compact** mode
+- **Hidden** mode
+- Independent Vitals, Map, Objective, and Hints controls
+- `H` keyboard cycling
+- Persistent browser preferences
+
+## Validation
+
+The current automated checks cover:
+
+- Canonical source deployment
+- Removal of ZIP deployment dependency
+- Baked title markup
+- Boot-shield behavior and ordering
+- Absence of legacy “Brand Migration” branding
+- Atlas progression and fog persistence
+- Physical route connectivity
+- Cardinal direction consistency
+- Visited-only fast travel
+- Visible wildlife and hunting
+- Reliable enemy patrols
+- Examination and browser-focus pause behavior
+- Tactical combat on patrol contact
+- JavaScript syntax across source, overrides, and tests
+- CSS brace balance
+
+## Live regression checklist
+
+After the v1.5.8 Pages deployment:
+
+1. Refresh the game and confirm only the boot shield and current title appear.
+2. Confirm no old character creator, old HUD, or “Brand Migration” page flashes.
+3. Confirm Continue loads the existing save.
+4. Confirm Start Game opens the current character creator.
+5. Confirm the title version displays `1.5.8-dev`.
+6. Confirm Atlas, fog, physical travel, HUD modes, patrols, wildlife, hunting, tactical combat, dialogue, inventory, quests, saving, and loading still work.
+7. Confirm unknown Pages routes return the same canonical game shell through `404.html`.
+
+## Known transitional work
+
+The game is now deployed from canonical editable source, but many newer systems still live in `live-overrides/`.
+
+Future cleanup should fold them into source in controlled groups:
+
+1. Title presentation and unified UI
+2. Living Atlas and directional geography
+3. Physical wilderness-road content
+4. Adaptive HUD
+5. Visible wildlife and enemy patrols
+6. Tactical battlefield presentation
+
+Each group should be integrated into source only after focused tests prove identical behavior.
+
+## Next content pass
+
+After live confirmation of v1.5.8:
+
+1. Fix any remaining startup or save-loading regression.
+2. Tune enemy patrol routes that block narrow passages.
+3. Begin the Drowned Fen as the first complete additional region.
+4. Build the region as a full vertical slice: physical border route, wilderness maps, settlement, NPCs, shops, quests, dungeons, enemies, wildlife, resources, landmarks, fog, and regional Atlas data.
 
 ## Repository rules
 
-- `main` is the authoritative production state.
+- `main` is production.
+- Read `AGENTS.md` before modifying the repository.
+- Build from `source/`; never restore ZIP-based deployment.
 - Use branches and pull requests for meaningful changes.
-- Do not create numbered ZIPs for routine JavaScript or CSS updates.
-- Do not commit temporary transport files.
-- Update `version.json`, `CHANGELOG.md`, and this file at each canonical checkpoint.
-- Keep gameplay changes small, reversible, and covered by focused validation.
+- Preserve existing saves.
+- Add focused validation for regressions.
+- Update `version.json`, `CHANGELOG.md`, and this file at canonical checkpoints.
