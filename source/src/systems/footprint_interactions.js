@@ -99,7 +99,9 @@
       this.game.state.mode='dialogue';this.game.ui.dialogue(title,text,[{label:'Continue',action:()=>this.game.ui.closeDialogue()}],null,'Discovery');
     }
     searchObject(entity){
-      const spec=entity.searchable===true?{}:entity.searchable,state=this.game.state.world,seed=hash(`${this.game.state.player.name||'hero'}:${state.mapId}:${entity.id}`),roll=(seed%10000)/10000,found=roll<(spec.chance??0.45);
+      const spec=entity.searchable===true?{}:entity.searchable,state=this.game.state.world,title=entity.name||AO.Util.title(entity.kind||'Object');
+      if(state.searchedDecor[entity.id]){this.showObjectResult(title,spec.emptyText||'You find nothing else of use.');return;}
+      const seed=hash(`${this.game.state.player.name||'hero'}:${state.mapId}:${entity.id}`),roll=(seed%10000)/10000,found=roll<(spec.chance??0.45);
       let text=spec.emptyText||'Dust, old scraps, and nothing worth carrying.';
       if(found){
         const loot=normalizeLoot(spec.loot),rewards=[];
@@ -108,17 +110,20 @@
         text=spec.foundText||`You uncover ${rewards.join(' and ')||'something useful'}.`;
         if(spec.xp)this.game.progression.grantXp(spec.xp);
       }
-      state.searchedDecor[entity.id]={found,day:this.game.state.rest?.day||1};AO.events.emit('playerChanged');this.showObjectResult(entity.name||AO.Util.title(entity.kind||'Object'),text);
+      state.searchedDecor[entity.id]={found,day:this.game.state.rest?.day||1};AO.events.emit('playerChanged');this.showObjectResult(title,text);
     }
     useObject(entity){
-      const action=entity.useAction,p=this.game.state.player,rewards=[];
+      const action=entity.useAction,p=this.game.state.player,state=this.game.state.world,title=entity.name||AO.Util.title(entity.kind||'Object'),day=this.game.state.rest?.day||1;
+      if(action.oncePerDay&&state.usedDecor[entity.id]===day){this.showObjectResult(title,action.usedText||'Nothing more happens today.');return;}
+      if(!action.oncePerDay&&state.usedDecor[entity.id]){this.showObjectResult(title,action.usedText||'Nothing more happens.');return;}
+      const rewards=[];
       if(action.hp){const gain=Math.max(0,Math.min(action.hp,p.maxHp-p.hp));p.hp+=gain;if(gain)rewards.push(`${gain} health`);}
       if(action.mana){const gain=Math.max(0,Math.min(action.mana,p.maxMana-p.mana));p.mana+=gain;if(gain)rewards.push(`${gain} mana`);}
       if(action.stamina){const gain=Math.max(0,Math.min(action.stamina,p.maxStamina-p.stamina));p.stamina+=gain;if(gain)rewards.push(`${gain} stamina`);}
       if(action.item&&AO.ITEMS[action.item]){this.game.inventory.add(action.item,action.qty||1);rewards.push(AO.ITEMS[action.item].name);}
       if(action.xp)this.game.progression.grantXp(action.xp);
-      this.game.state.world.usedDecor[entity.id]=action.oncePerDay?(this.game.state.rest?.day||1):true;AO.events.emit('playerChanged');
-      const text=action.text||(rewards.length?`You recover ${rewards.join(', ')}.`:'You take a quiet moment with it.');this.showObjectResult(entity.name||AO.Util.title(entity.kind||'Object'),text);
+      state.usedDecor[entity.id]=action.oncePerDay?day:true;AO.events.emit('playerChanged');
+      const text=action.text||(rewards.length?`You recover ${rewards.join(', ')}.`:'You take a quiet moment with it.');this.showObjectResult(title,text);
     }
   };
 })();
