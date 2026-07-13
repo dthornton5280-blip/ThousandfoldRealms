@@ -9,7 +9,11 @@ const boot = fs.readFileSync('source/src/core/boot.js', 'utf8');
 const workflow = fs.readFileSync('.github/workflows/deploy-pages.yml', 'utf8');
 const version = JSON.parse(fs.readFileSync('version.json', 'utf8'));
 
-assert(version.version === '1.5.8-dev', 'Canonical source version was not bumped to 1.5.8-dev.');
+const match = /^(\d+)\.(\d+)\.(\d+)-dev$/.exec(version.version || '');
+assert(match, 'Current development version is not a valid semantic dev checkpoint.');
+const numericVersion = Number(match[1]) * 10000 + Number(match[2]) * 100 + Number(match[3]);
+assert(numericVersion >= 10508, 'Canonical source architecture requires version 1.5.8-dev or later.');
+assert(version.deploymentModel === 'canonical source plus transitional Git-managed overrides', 'Canonical source deployment model metadata changed unexpectedly.');
 assert(index.includes('<title>Thousandfold Realms</title>'), 'Canonical page title is missing.');
 assert(!index.includes('Brand Migration'), 'Legacy migration branding remains in source/index.html.');
 assert(index.includes('id="tfBootScreen"'), 'Canonical boot shield is missing.');
@@ -34,4 +38,4 @@ const mainIndex = index.indexOf('<script src="src/main.js"></script>');
 const bootIndex = index.indexOf('<script src="src/core/boot.js"></script>');
 assert(mainIndex >= 0 && bootIndex > mainIndex, 'Canonical boot release must load after main.js.');
 
-console.log('Canonical source v1.5.8 harness passed: direct source deployment, baked current title, protected boot, preserved saves, and no legacy ZIP dependency.');
+console.log(`Canonical source architecture harness passed at ${version.version}: direct source deployment, baked current title, protected boot, preserved saves, and no legacy ZIP dependency.`);

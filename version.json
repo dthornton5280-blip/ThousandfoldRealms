@@ -1,6 +1,6 @@
 {
-  "version": "1.5.8-dev",
-  "buildName": "Canonical Source Build",
+  "version": "1.5.9-dev",
+  "buildName": "Pixel Crawler Tavern Pilot",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }

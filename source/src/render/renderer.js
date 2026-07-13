@@ -1,6 +1,7 @@
 AO.Renderer = class {
   constructor(game,canvas){this.game=game;this.canvas=canvas;this.ctx=canvas.getContext('2d');this.ctx.imageSmoothingEnabled=false;}
   tile(ctx,x,y,tile,theme){
+    if(AO.PixelCrawlerArt?.drawTile(ctx,tile,x,y,theme)) return true;
     if(AO.Assets?.drawTile(ctx,tile,x,y,theme)) return true;
     const s=AO.CONFIG.tile,px=x*s,py=y*s,parity=(x+y)%2,palettes={
       haven:{grass:['#445947','#485e4a'],cobble:['#77746d','#807c74'],roof:['#5f4140','#684744'],tree:['#243a2d','#294232']},
@@ -34,6 +35,7 @@ AO.Renderer = class {
     drawables.push({id:'__player',type:'player',x:this.game.state.world.x,y:this.game.state.world.y,_player:true});
     drawables.sort((a,b)=>(a.y-b.y)||((a._player?2:a.type==='npc'||a.type==='enemy'?1:0)-(b._player?2:b.type==='npc'||b.type==='enemy'?1:0)));
     for(const e of drawables){
+      if(!e._player&&AO.PixelCrawlerArt?.drawEntity(ctx,e,world.map.id,performance.now()))continue;
       if(e._player)AO.SpriteFactory.character(ctx,e.x*32,e.y*32,AO.Util.visualFor(r.visual,p.appearance),c.visual,1,{selected:true,player:p,moving,animFrame,facing:world.facing});
       else if(['decor','door','camp','chest','resource','sign'].includes(e.type)&&!(e.type==='door'&&e.integratedBuildingDoor))AO.SpriteFactory.icon(ctx,e.x*32,e.y*32,e.type,e);
       else if(e.type==='npc')AO.SpriteFactory.npc(ctx,e.x*32,e.y*32,e.visual,1,{idleFrame:Math.floor(performance.now()/520+e.x+e.y)%2});

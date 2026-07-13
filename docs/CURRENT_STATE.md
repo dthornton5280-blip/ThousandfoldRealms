@@ -2,75 +2,111 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.8-dev**
-- Build name: **Canonical Source Build**
-- Working branch: **refactor/canonical-source-v158**
+- Version: **1.5.9-dev**
+- Build name: **Pixel Crawler Tavern Pilot**
+- Working branch: **feature/pixel-crawler-tavern-v159**
 - Canonical production branch after merge: **main**
 - Deployment: **GitHub Pages**
 
 ## Production architecture
 
-The live website is now assembled directly from the editable `source/` directory.
+The live website is assembled directly from the editable `source/` directory.
 
 ### Authoritative source
 
 - `source/index.html` — canonical document shell and baked current title screen
-- `source/styles.css` — original core stylesheet
-- `source/src/` — canonical game data, systems, rendering, UI, and bootstrap files
+- `source/styles.css` — core stylesheet
+- `source/src/` — canonical data, systems, rendering, UI, and bootstrap code
 - `source/src/main.js` — constructs and starts the game
-- `source/src/core/boot.js` — removes the boot shield only after the title, creator, or game screen is genuinely visible
+- `source/src/core/boot.js` — removes the boot shield only after a real screen is visible
+- `source/src/render/assets.js` — original atlases plus the first Pixel Crawler pilot runtime
+- `source/src/render/renderer.js` — canonical exploration renderer and art-layer selection
 
 ### Transitional modules
 
-`live-overrides/` still contains newer systems that have not yet been folded into their final files under `source/`.
+`live-overrides/` still contains approved systems that have not yet been folded into their final files under `source/`, including the title presentation, unified UI, Living Atlas, physical road network, adaptive HUD, visible wildlife, reliable enemy patrol behavior, and tactical battlefield presentation.
 
-They remain supported temporarily because they currently contain the approved title presentation, tactical battlefields, unified UI, Living Atlas, physical road network, adaptive HUD, visible wildlife, and reliable enemy patrol behavior.
-
-The Pages workflow copies `source/` directly, then injects transitional CSS in the document head and transitional JavaScript after the source classes exist but before `src/main.js` creates the game.
+Pages copies `source/` directly, then injects transitional CSS in the document head and transitional JavaScript after source classes exist but before `src/main.js` creates the game.
 
 ### Historical package
 
-`Thousandfold_Realms_Web_v1.4.4-dev.zip` is no longer part of production deployment.
+`Thousandfold_Realms_Web_v1.4.4-dev.zip` is historical only. Production must never unzip or deploy it again.
 
-It may remain in the repository as a historical backup, but the workflow must never unzip or deploy it again.
+## Pixel-art integration
+
+### Current pilot
+
+The Black Lantern Tavern is the first playable area using selected Pixel Crawler - Free Pack art by Anokolisa.
+
+The pilot currently replaces tavern-specific rendering for:
+
+- Wood floor variants
+- Stone border tiles
+- Rug tiles
+- Raised-stage tiles
+- Bar counter
+- Dining tables
+- Kegs
+- Fireplace / furnace art
+- Bran Hollow
+- Lys of the Lantern
+
+The renderer checks `AO.PixelCrawlerArt` before the existing atlas and procedural fallback, but only when the active map uses `theme: tavern`.
+
+### Repository redistribution boundary
+
+The repository does not contain the complete downloaded pack or any editable Aseprite source files.
+
+`source/src/render/assets.js` contains one compact derived PNG data URI with only the pieces used by the tavern pilot. The creator notice and supplied terms are recorded in:
+
+`source/assets/third-party/pixel-crawler/NOTICE.txt`
+
+### Preserved gameplay
+
+The visual pilot does not change:
+
+- Tavern map geometry
+- Collision tiles
+- Doors or cellar access
+- NPC IDs, dialogue, shops, quests, or quest markers
+- Player position or save structure
+- Atlas and fast-travel state
+- Other maps, NPCs, enemies, or tactical arenas
+
+If the third-party art fails to load, the existing atlas and procedural rendering remain available.
+
+### Next art milestones
+
+1. Live-tune tavern object scale, anchoring, and visual overlap.
+2. Add directional player animation and a reusable character-sprite definition system.
+3. Convert Haven exterior buildings, paths, trees, props, and contextual NPCs.
+4. Convert Whisperwood and road maps with coherent outdoor tiles and trees.
+5. Convert Lantern Mine and Ashen Crypt with dungeon walls, floors, props, and matching enemies.
+6. Add region-specific art packs as Drowned Fen and later regions are built.
 
 ## Startup behavior
 
-The current title screen is baked into `source/index.html` rather than being created after the old page becomes visible.
+The page begins with the current title screen already present and all unfinished screens hidden behind the critical boot shield.
 
-The page begins with:
+`source/src/core/boot.js` waits until the title, creator, or game screen is genuinely visible, removes `tf-booting`, publishes `data-tf-ready="true"`, and hides the boot shield.
 
-- A critical inline boot shield
-- `tf-title-mode`
-- `tf-booting`
-- The legacy creator hidden
-- The game screen hidden
-- The current title screen already present in the DOM
-
-After all game and transitional modules initialize, `source/src/core/boot.js` waits until a real game screen is visible, removes `tf-booting`, publishes `data-tf-ready="true"`, and hides the boot shield.
-
-This prevents the old creator, old HUD, or partial interface from flashing during refresh.
-
-The browser title is now simply **Thousandfold Realms** rather than **Brand Migration v1.4.4**.
+The browser title is **Thousandfold Realms**. Legacy “Brand Migration” presentation is not part of the canonical page.
 
 ## Save compatibility
 
-Existing saves continue to use the same local-storage save keys and migration-safe state defaults.
+Existing saves continue to use the same local-storage keys and migration-safe defaults.
 
-The canonical-source conversion does not clear saves and does not intentionally reset:
+The current art integration does not clear or intentionally reset:
 
 - Characters
 - Inventory and equipment
 - Quests
 - Defeated enemies
-- Atlas discoveries
-- Persistent fog
-- Visited locations and discovered roads
+- Atlas discoveries and fog
+- Visited locations and roads
 - Enemy and animal positions
 - Hunting and respawn state
 - HUD preferences
-
-Save migrations should remain silent unless player input is required.
 
 ## Current playable geography
 
@@ -85,11 +121,9 @@ The complete physical route remains:
 7. The Lantern Road
 8. Aurelia — Golden Gate Ward
 
-Eastbound exits advance toward Aurelia, and westbound exits return toward Haven.
+Eastbound exits advance toward Aurelia; westbound exits return toward Haven. Lantern Mine and Ashen Crypt remain physical side branches from Whisperwood.
 
-Lantern Mine and Ashen Crypt remain physical side branches from Whisperwood.
-
-The six additional world regions remain charted future regions until complete physical routes and playable content are authored.
+The six additional world regions remain charted future regions until complete routes and playable content are authored.
 
 ## Living Atlas
 
@@ -99,12 +133,7 @@ The Atlas includes:
 2. **Region** — settlements, wilderness maps, roads, dungeons, and route information
 3. **Local** — the exact playable 30×18 map with local visibility and markers
 
-Fast travel requires:
-
-- A physically visited destination
-- A personally discovered connecting route
-
-World, regional, and local directions must agree with the actual playable exits.
+Fast travel requires a physically visited destination and a personally discovered connecting route. World, regional, and local directions must agree with physical exits.
 
 ## Encounter model
 
@@ -113,122 +142,63 @@ World, regional, and local directions must agree with the actual playable exits.
 - Exist visibly on local maps
 - Follow short deterministic patrol or guard routines
 - Move independently in real time
-- Do not receive a movement turn when the player moves
+- Do not move because the player moved
 - Do not randomly wander or chase by default
 - Can be watched and avoided by timing movement
 - Start tactical combat through player contact or patrol contact
 
-### Stationary encounters
+Bosses, explicit guards, and authored story encounters may remain stationary.
 
-Bosses, explicit guards, authored story encounters, the Stone Troll, and the Ember Warden may remain stationary.
+Enemy and animal movement pauses while menus, Atlas, dialogue, combat, HUD controls, or other examination screens are open, and while the browser tab is hidden or the window is blurred.
 
-### Pause behavior
-
-Enemy and animal movement pauses while:
-
-- The game is not in exploration mode
-- Inventory, Character, Journal, Atlas, dialogue, combat, level-up, or defeat screens are open
-- HUD controls are open
-- The browser tab is hidden
-- The browser window is genuinely blurred
-
-### Random encounters
-
-Routine step-count random battles are disabled.
-
-Scripted ambushes and authored contextual events remain allowed.
+Routine step-count random battles remain disabled. Scripted contextual encounters remain allowed.
 
 ## Wildlife
 
-### Town flavor
-
-Town animals remain sparse and contextual:
-
-- One cat around Haven
-- One dog in Aurelia’s market
-- One gull around Aurelia’s river district
-
-Town animals cannot be hunted.
-
-### Wilderness wildlife
-
-Current wildlife includes deer, hares, foxes, and marsh birds.
-
-Wildlife:
-
-- Appears occasionally according to deterministic in-game-day rules
-- Follows a small repeated routine
-- Can be observed
-- Can be hunted through a Survival interaction where appropriate
-- Can provide Wild Game Meat, Animal Hide, or Wild Feathers
-- Persists observations, movement, hunting state, and respawn timing
+Town animals remain sparse and non-huntable. Wilderness deer, hares, foxes, and marsh birds appear occasionally, follow small routines, can be observed, and may support Survival-based hunting and resources.
 
 ## Adaptive HUD
 
-The exploration HUD retains:
+The exploration HUD retains Full, Compact, and Hidden modes; independent Vitals, Map, Objective, and Hints controls; `H` keyboard cycling; and persistent browser preferences.
 
-- **Full** mode
-- **Compact** mode
-- **Hidden** mode
-- Independent Vitals, Map, Objective, and Hints controls
-- `H` keyboard cycling
-- Persistent browser preferences
+## Automated validation
 
-## Validation
+Current checks cover:
 
-The current automated checks cover:
-
-- Canonical source deployment
-- Removal of ZIP deployment dependency
-- Baked title markup
-- Boot-shield behavior and ordering
-- Absence of legacy “Brand Migration” branding
-- Atlas progression and fog persistence
-- Physical route connectivity
-- Cardinal direction consistency
+- Canonical source deployment and boot ordering
+- Absence of ZIP deployment and legacy branding
+- Atlas progression, fog, roads, and cardinal consistency
 - Visited-only fast travel
-- Visible wildlife and hunting
-- Reliable enemy patrols
-- Examination and browser-focus pause behavior
+- Wildlife and hunting
+- Reliable enemy patrols and examination pauses
 - Tactical combat on patrol contact
-- JavaScript syntax across source, overrides, and tests
-- CSS brace balance
+- JavaScript syntax and CSS balance
+- Pixel Crawler atlas PNG validity
+- Tavern-only art scoping
+- Pixel-art furniture and Bran rendering
+- Fallback preservation for unrelated maps and NPCs
+- Third-party creator notice and redistribution boundaries
 
-## Live regression checklist
+## Required live regression checklist
 
-After the v1.5.8 Pages deployment:
+After the v1.5.9 Pages deployment:
 
-1. Refresh the game and confirm only the boot shield and current title appear.
-2. Confirm no old character creator, old HUD, or “Brand Migration” page flashes.
-3. Confirm Continue loads the existing save.
-4. Confirm Start Game opens the current character creator.
-5. Confirm the title version displays `1.5.8-dev`.
-6. Confirm Atlas, fog, physical travel, HUD modes, patrols, wildlife, hunting, tactical combat, dialogue, inventory, quests, saving, and loading still work.
-7. Confirm unknown Pages routes return the same canonical game shell through `404.html`.
+1. Hard-refresh and confirm the boot shield and current title appear without legacy UI flashes.
+2. Continue an existing save and enter the Black Lantern Tavern.
+3. Confirm floor, wall, rug, stage, bar, tables, kegs, fireplace, Bran, and Lys use the new art.
+4. Confirm the player, doors, chest, signs, quest markers, dialogue, shop, and cellar access still work.
+5. Confirm furniture visuals align closely enough with their collision tiles to remain readable.
+6. Leave the tavern and confirm Haven and all other maps retain their existing visuals.
+7. Save, reload, and re-enter the tavern.
+8. Confirm Atlas, fog, HUD modes, patrols, wildlife, tactical combat, inventory, quests, and travel still function.
 
-## Known transitional work
+## Known risks
 
-The game is now deployed from canonical editable source, but many newer systems still live in `live-overrides/`.
-
-Future cleanup should fold them into source in controlled groups:
-
-1. Title presentation and unified UI
-2. Living Atlas and directional geography
-3. Physical wilderness-road content
-4. Adaptive HUD
-5. Visible wildlife and enemy patrols
-6. Tactical battlefield presentation
-
-Each group should be integrated into source only after focused tests prove identical behavior.
-
-## Next content pass
-
-After live confirmation of v1.5.8:
-
-1. Fix any remaining startup or save-loading regression.
-2. Tune enemy patrol routes that block narrow passages.
-3. Begin the Drowned Fen as the first complete additional region.
-4. Build the region as a full vertical slice: physical border route, wilderness maps, settlement, NPCs, shops, quests, dungeons, enemies, wildlife, resources, landmarks, fog, and regional Atlas data.
+1. This is a visual pilot, so some furniture may need scale or anchor adjustments after live inspection.
+2. Bran and Lys currently use single-frame sprites with a subtle idle bob rather than full directional animation.
+3. The player remains procedural, so the tavern temporarily mixes the new NPC style with the existing player style.
+4. The complete third-party pack is intentionally not committed; new pieces must be extracted into small derived runtime subsets as they are approved.
+5. Other maps remain on the existing atlas until converted deliberately.
 
 ## Repository rules
 
@@ -237,5 +207,6 @@ After live confirmation of v1.5.8:
 - Build from `source/`; never restore ZIP-based deployment.
 - Use branches and pull requests for meaningful changes.
 - Preserve existing saves.
+- Include only approved runtime subsets of third-party art and retain license notices.
 - Add focused validation for regressions.
 - Update `version.json`, `CHANGELOG.md`, and this file at canonical checkpoints.

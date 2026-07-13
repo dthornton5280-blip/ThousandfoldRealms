@@ -2,6 +2,32 @@
 
 Canonical development checkpoints for Thousandfold Realms are recorded here. Detailed implementation notes and regression plans live under `docs/` and in the merged pull requests.
 
+## 1.5.9-dev — Pixel Crawler Tavern Pilot
+
+### Added
+- The first third-party pixel-art runtime integrated directly into canonical source.
+- A compact derived atlas made only from the Pixel Crawler - Free Pack assets used by the Black Lantern Tavern pilot.
+- Pixel-art floor, wall, rug, raised-stage, counter, table, keg, fireplace, and tavern NPC rendering.
+- New art for Bran Hollow and Lys of the Lantern inside the tavern.
+- `source/assets/third-party/pixel-crawler/NOTICE.txt` with creator credit, supplied terms, and repository redistribution boundaries.
+- A focused art-runtime harness and GitHub Actions workflow.
+
+### Changed
+- The renderer now asks the Pixel Crawler art layer for tavern tiles and entities before using the existing game atlas or procedural fallback.
+- The pilot is restricted to `theme: tavern`; Haven, wilderness maps, other interiors, dungeons, tactical arenas, and the player sprite remain unchanged.
+- The new runtime is embedded as a small PNG data URI so the public repository contains only the exact derived subset used by the game, not the complete downloaded asset pack.
+
+### Preserved
+- Tavern layout, collisions, doors, NPC identities, dialogue, shop behavior, quest markers, cellar access, saves, and Atlas behavior.
+- Crisp nearest-neighbor canvas rendering and procedural fallbacks when the third-party runtime cannot load.
+
+### Validation
+- Confirms the embedded payload decodes to a valid PNG.
+- Rejects truncated placeholders in the committed runtime.
+- Confirms tavern-only tile and furniture rendering.
+- Confirms Bran uses the pilot sprite while unrelated NPCs retain their existing rendering.
+- Confirms creator notice and redistribution limits are present.
+
 ## 1.5.8-dev — Canonical Source Build
 
 ### Added

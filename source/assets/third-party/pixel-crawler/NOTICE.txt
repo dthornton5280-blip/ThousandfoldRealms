@@ -1,0 +1,16 @@
+Pixel Crawler - Free Pack
+Creator: Anokolisa
+Contact: AnomalyPixel@gmail.com
+Patreon: https://www.patreon.com/Anokolisa
+Twitter: https://twitter.com/Anokolisa
+
+Thousandfold Realms uses a small, derived runtime subset of this pack for the Black Lantern Tavern visual pilot. The repository does not include the complete pack or editable Aseprite source files.
+
+Terms supplied with Pixel Crawler - Free Pack:
+
+1. Credit is not required, but is appreciated.
+2. The artwork may be altered in shape, color, or pattern.
+3. The assets may not be resold or marketed as an asset pack or standalone final product without the creator's authorization.
+4. The assets may be used in commercial products, study projects, and other projects where they are functional.
+
+The creator of the assets has no direct relationship with projects that use them.
