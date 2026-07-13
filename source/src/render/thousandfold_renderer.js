@@ -6,7 +6,7 @@
   if(!window.AO||!AO.Renderer||!AO.SpriteFactory)return;
 
   const TILE=32;
-  const ATLAS_SRC='assets/thousandfold/generated/generated-proof-atlas.png';
+  const ATLAS_CHUNKS=Array.from({length:6},(_,index)=>`assets/thousandfold/generated/generated-proof-atlas.part${String(index).padStart(2,'0')}.b64`);
   const SPRITES={
     haven_tree_deciduous_green:{x:4,y:4,w:96,h:112,anchor:'bottomCenter'},
     haven_tree_evergreen:{x:104,y:4,w:80,h:112,anchor:'bottomCenter'},
@@ -21,20 +21,28 @@
 
   const GeneratedArt={
     image:null,ready:false,failed:false,loading:false,
-    init(){
+    async init(){
       if(this.ready||this.loading)return;
       this.loading=true;
-      const image=new Image();
-      image.decoding='async';
-      image.onload=()=>{
-        this.image=image;this.ready=true;this.failed=false;this.loading=false;
-        AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
-      };
-      image.onerror=()=>{
-        this.failed=true;this.loading=false;
-        console.warn('Thousandfold Realms generated sprite atlas failed to load; procedural fallback remains active.');
-      };
-      image.src=ATLAS_SRC;
+      try{
+        const responses=await Promise.all(ATLAS_CHUNKS.map(path=>fetch(path,{cache:'force-cache'})));
+        for(const response of responses)if(!response.ok)throw new Error(`atlas chunk ${response.status}`);
+        const base64=(await Promise.all(responses.map(response=>response.text()))).join('').replace(/\s+/g,'');
+        const image=new Image();
+        image.decoding='async';
+        image.onload=()=>{
+          this.image=image;this.ready=true;this.failed=false;this.loading=false;
+          AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
+        };
+        image.onerror=()=>this.fail();
+        image.src=`data:image/png;base64,${base64}`;
+      }catch(error){
+        this.fail(error);
+      }
+    },
+    fail(error){
+      this.failed=true;this.loading=false;
+      console.warn('Thousandfold Realms generated sprite atlas failed to load; procedural fallback remains active.',error||'');
     },
     sprite(id){return SPRITES[id]||null;},
     glow(ctx,cx,cy,r){
