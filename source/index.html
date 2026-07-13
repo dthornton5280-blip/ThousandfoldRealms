@@ -3,15 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Thousandfold Realms: Brand Migration v1.4.4</title>
+  <meta name="theme-color" content="#080c10">
+  <title>Thousandfold Realms</title>
+  <style id="tf-critical-boot">
+    html,body{margin:0;min-height:100%;background:#080c10;color:#ead8aa}
+    body.tf-booting{overflow:hidden}
+    body.tf-booting> :not(#tfBootScreen):not(script){visibility:hidden!important}
+    #tfBootScreen{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,#182329 0,#0b1115 42%,#050709 100%);font-family:Georgia,'Times New Roman',serif;text-align:center;letter-spacing:.08em}
+    #tfBootScreen[hidden]{display:none}
+    .tf-boot-mark{width:min(76vw,620px);padding:28px 24px;border-top:1px solid rgba(213,170,88,.45);border-bottom:1px solid rgba(213,170,88,.45)}
+    .tf-boot-title{display:block;color:#e7c67b;font-size:clamp(1.55rem,4vw,3.25rem);font-weight:700;text-shadow:0 2px 20px rgba(216,164,64,.22)}
+    .tf-boot-copy{display:block;margin-top:12px;color:#bba985;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase}
+    .tf-boot-lantern{display:block;width:8px;height:8px;margin:18px auto 0;border-radius:50%;background:#f2c768;box-shadow:0 0 9px #e4a947,0 0 28px rgba(228,169,71,.65);animation:tfBootPulse 1.3s ease-in-out infinite alternate}
+    @keyframes tfBootPulse{to{opacity:.55;transform:scale(.82)}}
+    @media(prefers-reduced-motion:reduce){.tf-boot-lantern{animation:none}}
+  </style>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div id="creator" class="screen creator-screen">
+<body class="tf-title-mode tf-booting">
+  <div id="tfBootScreen" role="status" aria-live="polite">
+    <div class="tf-boot-mark">
+      <span class="tf-boot-title">THOUSANDFOLD REALMS</span>
+      <span class="tf-boot-copy">Lighting the last lantern</span>
+      <span class="tf-boot-lantern" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <div id="tfTitleScreen" class="screen hidden">
+    <div class="tf-title-ambience" aria-hidden="true">
+      <span class="tf-title-stars"></span>
+      <span class="tf-title-mist tf-title-mist-a"></span>
+      <span class="tf-title-mist tf-title-mist-b"></span>
+      <span class="tf-title-distant-ridges"></span>
+      <span class="tf-title-near-ridges"></span>
+    </div>
+    <main class="tf-title-shell">
+      <section class="tf-title-hero">
+        <div class="tf-title-brand">
+          <p class="tf-title-eyebrow">A SINGLE-PLAYER PIXEL CRPG</p>
+          <h1 class="tf-title-logo"><span>THOUSANDFOLD</span><span>REALMS</span></h1>
+          <p class="tf-title-tagline">A lantern-lit oath. A thousand roads. One hero against the dark between worlds.</p>
+        </div>
+        <div class="tf-title-scene" aria-hidden="true">
+          <span class="tf-title-moon"></span><span class="tf-title-ruin tf-title-ruin-left"></span><span class="tf-title-ruin tf-title-ruin-right"></span><span class="tf-title-gate"></span><span class="tf-title-road"></span><span class="tf-title-pines"></span><span class="tf-title-hero-silhouette"></span><span class="tf-title-lantern-glow"></span><span class="tf-title-lantern-post"></span><span class="tf-title-embers"></span>
+        </div>
+      </section>
+      <section class="tf-title-menu" aria-label="Main menu">
+        <div class="tf-title-menu-header"><p class="tf-title-eyebrow">THE LAST LANTERN AWAITS</p><h2>Begin your journey</h2><p>Create a hero and enter the realms, or return immediately to your latest save.</p></div>
+        <div class="tf-title-menu-buttons"><button id="tfTitleStart" class="tf-title-primary">Start Game</button><button id="tfTitleContinue" class="tf-title-continue">Continue Game</button></div>
+        <small id="tfTitleSaveHint" class="tf-title-save-hint">Checking for a saved journey…</small>
+        <div class="tf-title-version">Current development build</div>
+      </section>
+    </main>
+  </div>
+
+  <div id="creator" class="screen creator-screen hidden">
     <div class="creator-shell">
       <header class="creator-header">
         <div><p class="eyebrow">ORIGINAL SINGLE-PLAYER VOXEL-PIXEL CRPG</p><h1>THOUSANDFOLD REALMS</h1><p>Forge one hero. Shape a thousandfold story.</p></div>
-        <button id="continueBtn" class="secondary hidden">Continue Saved Game</button>
+        <div><button id="continueBtn" class="secondary hidden" aria-hidden="true" tabindex="-1">Continue Saved Game</button><button id="tfBackToTitle" class="secondary tf-back-to-title">Back to Title</button></div>
       </header>
       <div class="creator-grid">
         <section class="creator-preview panel">
@@ -20,18 +70,11 @@
           <div id="buildSummary" class="build-summary"></div>
         </section>
         <section class="creator-options panel">
-          <div class="step-title"><span>1</span><h2>Choose a Race</h2></div>
-          <div id="raceFilters" class="race-filters" aria-label="Race categories"></div>
-          <div id="raceChoices" class="choice-grid race-grid"></div>
-          <div class="step-title"><span>2</span><h2>Choose a Class</h2></div>
-          <div id="classChoices" class="choice-grid class-grid"></div>
-          <div class="step-title"><span>3</span><h2>Choose a Background</h2></div>
-          <div id="backgroundChoices" class="choice-grid background-grid"></div>
-          <div class="step-title"><span>4</span><h2>Customize Appearance</h2></div>
-          <div id="appearanceChoices" class="appearance-choices"></div>
-          <div class="step-title"><span>5</span><h2>Shape Your Attributes</h2></div>
-          <div class="stat-head"><span>Point buy</span><strong id="pointsRemaining">24 points remaining</strong><button id="recommendedBtn" class="tiny">Recommended</button></div>
-          <div id="creatorStats" class="creator-stats"></div>
+          <div class="step-title"><span>1</span><h2>Choose a Race</h2></div><div id="raceFilters" class="race-filters" aria-label="Race categories"></div><div id="raceChoices" class="choice-grid race-grid"></div>
+          <div class="step-title"><span>2</span><h2>Choose a Class</h2></div><div id="classChoices" class="choice-grid class-grid"></div>
+          <div class="step-title"><span>3</span><h2>Choose a Background</h2></div><div id="backgroundChoices" class="choice-grid background-grid"></div>
+          <div class="step-title"><span>4</span><h2>Customize Appearance</h2></div><div id="appearanceChoices" class="appearance-choices"></div>
+          <div class="step-title"><span>5</span><h2>Shape Your Attributes</h2></div><div class="stat-head"><span>Point buy</span><strong id="pointsRemaining">24 points remaining</strong><button id="recommendedBtn" class="tiny">Recommended</button></div><div id="creatorStats" class="creator-stats"></div>
           <button id="beginBtn" class="primary begin-btn">Begin the Oath</button>
         </section>
       </div>
@@ -41,41 +84,17 @@
   <div id="gameScreen" class="screen game-screen hidden">
     <header class="topbar">
       <div><span class="game-logo">THOUSANDFOLD REALMS</span><span id="locationName" class="location">Haven</span></div>
-      <nav>
-        <button data-panel="inventory">Inventory <kbd>I</kbd></button>
-        <button data-panel="journal">Journal <kbd>J</kbd></button>
-        <button data-panel="character">Character <kbd>C</kbd></button>
-        <button data-panel="skills">Skills <kbd>K</kbd></button>
-        <button data-panel="map">Map <kbd>M</kbd></button>
-        <button data-panel="crafting">Craft <kbd>G</kbd></button>
-        <button data-panel="codex">Codex <kbd>B</kbd></button>
-        <button data-panel="settings">Settings <kbd>O</kbd></button>
-        <button id="campBtn">Camp <kbd>R</kbd></button>
-        <button id="saveBtn">Save</button>
-        <button id="loadBtn">Load</button>
-      </nav>
+      <nav><button data-panel="inventory">Inventory <kbd>I</kbd></button><button data-panel="journal">Journal <kbd>J</kbd></button><button data-panel="character">Character <kbd>C</kbd></button><button data-panel="skills">Skills <kbd>K</kbd></button><button data-panel="map">Map <kbd>M</kbd></button><button data-panel="crafting">Craft <kbd>G</kbd></button><button data-panel="codex">Codex <kbd>B</kbd></button><button data-panel="settings">Settings <kbd>O</kbd></button><button id="campBtn">Camp <kbd>R</kbd></button><button id="saveBtn">Save</button><button id="loadBtn">Load</button></nav>
     </header>
     <main class="game-layout">
-      <section class="canvas-frame">
-        <canvas id="gameCanvas" width="960" height="576" aria-label="Thousandfold Realms game world"></canvas>
-        <div class="canvas-help">Click to move or interact • WASD / Arrow keys • E interacts • R camps outdoors • Open a door, then use it again to enter</div>
-      </section>
+      <section class="canvas-frame"><canvas id="gameCanvas" width="960" height="576" aria-label="Thousandfold Realms game world"></canvas><div class="canvas-help">Click to move or interact • WASD / Arrow keys • E interacts • R camps outdoors • Open a door, then use it again to enter</div></section>
       <aside class="hud">
         <div class="hero-card panel"><canvas id="hudPortrait" width="96" height="96"></canvas><div><h2 id="hudName"></h2><p id="hudBuild"></p><span id="hudLevel" class="tag"></span></div></div>
-        <div class="panel meters">
-          <div class="meter-row"><span>Health</span><strong id="hpText"></strong></div><div class="meter"><i id="hpBar" class="hp"></i></div>
-          <div class="meter-row"><span>Mana</span><strong id="manaText"></strong></div><div class="meter"><i id="manaBar" class="mana"></i></div>
-          <div class="meter-row"><span>Stamina</span><strong id="staminaText"></strong></div><div class="meter"><i id="staminaBar" class="stamina"></i></div>
-          <div class="meter-row"><span>Experience</span><strong id="xpText"></strong></div><div class="meter"><i id="xpBar" class="xp"></i></div>
-        </div>
-        <div class="panel quick-info">
-          <div><span>Gold</span><strong id="goldText">0</strong></div><div><span>Armor</span><strong id="acText">10</strong></div><div><span>Day</span><strong id="dayText">1</strong></div><div><span>Quest</span><strong id="trackedQuest">Explore Haven</strong></div>
-        </div>
+        <div class="panel meters"><div class="meter-row"><span>Health</span><strong id="hpText"></strong></div><div class="meter"><i id="hpBar" class="hp"></i></div><div class="meter-row"><span>Mana</span><strong id="manaText"></strong></div><div class="meter"><i id="manaBar" class="mana"></i></div><div class="meter-row"><span>Stamina</span><strong id="staminaText"></strong></div><div class="meter"><i id="staminaBar" class="stamina"></i></div><div class="meter-row"><span>Experience</span><strong id="xpText"></strong></div><div class="meter"><i id="xpBar" class="xp"></i></div></div>
+        <div class="panel quick-info"><div><span>Gold</span><strong id="goldText">0</strong></div><div><span>Armor</span><strong id="acText">10</strong></div><div><span>Day</span><strong id="dayText">1</strong></div><div><span>Quest</span><strong id="trackedQuest">Explore Haven</strong></div></div>
         <div id="restedPanel" class="panel rested-panel hidden"><strong>Well Rested</strong><span id="restedText"></span></div>
         <div class="panel world-panel"><div class="world-head"><h3>Local Map</h3><span id="timeWeather">08:00 • Clear</span></div><canvas id="miniMap" width="240" height="144" aria-label="Local minimap"></canvas><div id="nearbyPrompt" class="nearby-prompt">Move near something to interact.</div></div>
-        <div class="panel quickbar-panel"><h3>Prepared Actions</h3><div id="quickbar" class="quickbar"></div></div>
-        <div class="panel objective-panel"><h3>Current Objective</h3><p id="objectiveText">Speak with the people of Haven.</p></div>
-        <div class="panel event-log"><h3>Chronicle</h3><div id="eventLog"></div></div>
+        <div class="panel quickbar-panel"><h3>Prepared Actions</h3><div id="quickbar" class="quickbar"></div></div><div class="panel objective-panel"><h3>Current Objective</h3><p id="objectiveText">Speak with the people of Haven.</p></div><div class="panel event-log"><h3>Chronicle</h3><div id="eventLog"></div></div>
       </aside>
     </main>
   </div>
@@ -90,6 +109,6 @@
   <script src="src/core/namespace.js"></script><script src="src/core/utils.js"></script><script src="src/core/save.js"></script>
   <script src="src/data/races.js"></script><script src="src/data/backgrounds.js"></script><script src="src/data/classes.js"></script><script src="src/data/abilities.js"></script><script src="src/data/spells.js"></script><script src="src/data/items.js"></script><script src="src/data/quests.js"></script><script src="src/data/actors.js"></script><script src="src/data/maps.js"></script><script src="src/data/expansion_content.js"></script><script src="src/data/world_visuals.js"></script><script src="src/data/immersive_world.js"></script>
   <script src="src/systems/audio.js"></script><script src="src/systems/pathfinding.js"></script><script src="src/systems/inventory.js"></script><script src="src/systems/progression.js"></script><script src="src/systems/quests.js"></script><script src="src/systems/world.js"></script><script src="src/systems/combat.js"></script><script src="src/systems/expansion_systems.js"></script><script src="src/systems/tactical_combat.js"></script><script src="src/systems/tactical_battlefields.js"></script><script src="src/systems/tactical_world.js"></script><script src="src/systems/immersive_world.js"></script>
-  <script src="src/render/assets.js"></script><script src="src/render/sprites.js"></script><script src="src/render/renderer.js"></script><script src="src/render/expansion_renderer.js"></script><script src="src/render/world_polish.js"></script><script src="src/render/tactical_renderer.js"></script><script src="src/render/immersive_world.js"></script><script src="src/ui/ui.js"></script><script src="src/ui/expansion_ui.js"></script><script src="src/ui/layout_polish.js"></script><script src="src/ui/tactical_ui.js"></script><script src="src/ui/audio_ui.js"></script><script src="src/ui/cartography_ui.js"></script><script src="src/ui/immersive_ui.js"></script><script src="src/core/game.js"></script><script src="src/core/expansion_game.js"></script><script src="src/core/tactical_game.js"></script><script src="src/main.js"></script>
+  <script src="src/render/assets.js"></script><script src="src/render/sprites.js"></script><script src="src/render/renderer.js"></script><script src="src/render/expansion_renderer.js"></script><script src="src/render/world_polish.js"></script><script src="src/render/tactical_renderer.js"></script><script src="src/render/immersive_world.js"></script><script src="src/ui/ui.js"></script><script src="src/ui/expansion_ui.js"></script><script src="src/ui/layout_polish.js"></script><script src="src/ui/tactical_ui.js"></script><script src="src/ui/audio_ui.js"></script><script src="src/ui/cartography_ui.js"></script><script src="src/ui/immersive_ui.js"></script><script src="src/core/game.js"></script><script src="src/core/expansion_game.js"></script><script src="src/core/tactical_game.js"></script><script src="src/main.js"></script><script src="src/core/boot.js"></script>
 </body>
 </html>
