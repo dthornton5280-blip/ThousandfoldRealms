@@ -1,6 +1,6 @@
 {
-  "version": "1.6.2-dev",
-  "buildName": "Tavern Composition + Dialogue Portraits",
+  "version": "1.6.3-dev",
+  "buildName": "Haven Square + Starter Interiors",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
