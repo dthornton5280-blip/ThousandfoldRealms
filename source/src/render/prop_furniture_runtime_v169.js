@@ -1,13 +1,12 @@
-/* Thousandfold Realms v1.6.9-dev — authoritative prop/furniture runtime integration.
-   Reverts the mistaken Haven showcase trees, binds the approved cart/bench/sign,
-   tavern, cellar, and inn furniture assets to real authored objects, and draws them
-   ahead of every procedural fallback for both new games and existing saves. */
+/* Thousandfold Realms v1.6.11-dev — authoritative prop/furniture runtime.
+   Loaded after the canonical renderer so approved sprites cannot be skipped by
+   early data-script timing or overwritten by Pixel Crawler/procedural fallbacks. */
 (() => {
   'use strict';
   if(typeof window==='undefined'||!window.AO)return;
 
   const TILE=32;
-  const ATLAS_URL='assets/thousandfold/generated/generated-props-atlas-v166.b64?v=169';
+  const ATLAS_URL='assets/thousandfold/generated/generated-props-atlas-v166.b64?v=1611';
   const MISTAKEN_HAVEN_IDS=[
     'haven_generated_oak_north','haven_generated_evergreen_north',
     'haven_generated_autumn_south','haven_generated_bush_south'
@@ -47,10 +46,12 @@
     },
     inn:{
       inn_table_1:'tavern_table_square',inn_table_2:'tavern_table_square',
-      inn_guest_chair_1:'tavern_chair_wood',inn_guest_chair_2:'tavern_chair_wood'
+      inn_guest_chair_1:'tavern_chair_wood',inn_guest_chair_2:'tavern_chair_wood',
+      inn_shelf_guestbook:'tavern_shelf_bottles',inn_crates_linen:'haven_crate_wood'
     },
     inn_upper:{
-      upper_hall_table:'tavern_table_square',upper_hall_stool:'tavern_stool_wood'
+      upper_hall_table:'tavern_table_square',upper_hall_stool:'tavern_stool_wood',
+      upper_shelf_1:'tavern_shelf_bottles',upper_shelf_2:'tavern_shelf_bottles'
     }
   };
 
@@ -66,9 +67,22 @@
 
   const deepCopy=value=>AO.Util?.deepCopy?AO.Util.deepCopy(value):JSON.parse(JSON.stringify(value));
   const mapObjects=mapId=>AO.MAP_DEFS?.[mapId]?.objects||[];
-  const assetFor=(mapId,entity)=>BINDINGS[mapId]?.[entity?.id]
-    ||((['tavern','inn','inn_upper'].includes(mapId)&&entity?.kind==='chair')?'tavern_chair_wood':null)
-    ||((['tavern','inn','inn_upper'].includes(mapId)&&entity?.kind==='stool')?'tavern_stool_wood':null);
+  const shelfMaps=new Set(['tavern','inn','inn_upper','general_store','arcane_shop']);
+  const crateMaps=new Set(['tavern','tavern_cellar','inn','inn_upper','general_store','arcane_shop']);
+  const seatingMaps=new Set(['tavern','inn','inn_upper']);
+  const patchMaps=new Set([...Object.keys(BINDINGS),...shelfMaps,...crateMaps]);
+
+  const assetFor=(mapId,entity)=>{
+    if(!entity)return null;
+    const explicit=BINDINGS[mapId]?.[entity.id];
+    if(explicit)return explicit;
+    if(seatingMaps.has(mapId)&&entity.kind==='chair')return 'tavern_chair_wood';
+    if(seatingMaps.has(mapId)&&entity.kind==='stool')return 'tavern_stool_wood';
+    if(shelfMaps.has(mapId)&&entity.kind==='shelf')return 'tavern_shelf_bottles';
+    if(crateMaps.has(mapId)&&entity.kind==='crates')return 'haven_crate_wood';
+    if((mapId==='tavern'||mapId==='tavern_cellar')&&entity.kind==='keg'&&entity.id!=='tavern_keg_1')return 'tavern_barrel_oak';
+    return null;
+  };
 
   const applyBinding=(mapId,entity)=>{
     const assetId=assetFor(mapId,entity),sprite=SPRITES[assetId];
@@ -77,7 +91,7 @@
     entity.generatedArtW=sprite.w;entity.generatedArtH=sprite.h;entity.generatedArtAnchor=sprite.anchor;
     if(assetId==='tavern_hanging_lantern'){entity.blocking=false;entity.artLight=54;entity.collisionFootprint=[];}
     if(assetId==='haven_signpost_wood_dual'){entity.blocking=false;entity.collisionFootprint=[];}
-    if(['cellar_keg_1','cellar_keg_2','cellar_crates'].includes(entity.id)){
+    if(assetId==='tavern_barrel_oak'||assetId==='haven_crate_wood'){
       entity.collisionFootprint=[{x:0,y:0}];
       entity.interactionFootprint=[{x:0,y:0}];
     }
@@ -100,10 +114,10 @@
 
   const patchDefinitions=()=>{
     removeMistakenNature();ensureAuthoredFurniture();
-    for(const mapId of Object.keys(BINDINGS))for(const entity of mapObjects(mapId))applyBinding(mapId,entity);
+    for(const mapId of patchMaps)for(const entity of mapObjects(mapId))applyBinding(mapId,entity);
     AO.PropFurnitureContentV169={
-      installed:true,version:'1.6.9-dev',assetIds:Object.keys(SPRITES),
-      maps:Object.keys(BINDINGS),removedEntityIds:[...MISTAKEN_HAVEN_IDS],
+      installed:true,version:'1.6.11-dev',assetIds:Object.keys(SPRITES),
+      maps:[...patchMaps],removedEntityIds:[...MISTAKEN_HAVEN_IDS],
       authoredFurnitureIds:AUTHORED_FURNITURE.map(entry=>entry.id)
     };
   };
@@ -113,13 +127,16 @@
     patchDefinitions();removeMistakenNature(world);
     const mapId=world.map.id,definitions=mapObjects(mapId);let changed=false;
     for(const spec of AUTHORED_FURNITURE.filter(entry=>entry.mapId===mapId)){
-      if(!world.entities.some(entity=>entity.id===spec.id)){world.entities.push(deepCopy(definitions.find(entity=>entity.id===spec.id)));changed=true;}
+      if(!world.entities.some(entity=>entity.id===spec.id)){
+        const definition=definitions.find(entity=>entity.id===spec.id);
+        if(definition){world.entities.push(deepCopy(definition));changed=true;}
+      }
     }
     for(const entity of world.entities){
-      const definition=definitions.find(entry=>entry.id===entity.id);
-      if(!definition)continue;
+      const definition=definitions.find(entry=>entry.id===entity.id)||entity;
       const assetId=assetFor(mapId,definition);if(!assetId)continue;
       const before=`${entity.generatedArtId||''}:${entity.generatedArtW||0}:${entity.generatedArtH||0}:${JSON.stringify(entity.collisionFootprint||[])}`;
+      applyBinding(mapId,definition);
       Object.assign(entity,{
         generatedArtId:definition.generatedArtId,generatedArtW:definition.generatedArtW,
         generatedArtH:definition.generatedArtH,generatedArtAnchor:definition.generatedArtAnchor,
@@ -135,20 +152,30 @@
   };
 
   const Art={
-    image:null,ready:false,loading:false,failed:false,
+    image:null,ready:false,loading:false,failed:false,lastError:null,
     async init(){
       if(this.ready||this.loading)return;this.loading=true;
+      document.documentElement.dataset.tfrProps='loading';
       try{
         const response=await fetch(ATLAS_URL,{cache:'reload'});
-        if(!response.ok)throw new Error(`v1.6.9 prop atlas ${response.status}`);
+        if(!response.ok)throw new Error(`v1.6.11 prop atlas ${response.status}`);
         const encoded=(await response.text()).replace(/\s+/g,'');
         const image=new Image();image.decoding='async';
-        image.onload=()=>{this.image=image;this.ready=true;this.failed=false;this.loading=false;syncWorld(window.game?.world);AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');};
+        image.onload=()=>{
+          this.image=image;this.ready=true;this.failed=false;this.loading=false;this.lastError=null;
+          document.documentElement.dataset.tfrProps='ready';
+          syncWorld(window.game?.world);AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
+        };
         image.onerror=()=>this.fail(new Error('decoded prop atlas image failed'));
         image.src=`data:image/png;base64,${encoded}`;
       }catch(error){this.fail(error);}
     },
-    fail(error){this.failed=true;this.loading=false;console.warn('Thousandfold Realms v1.6.9 furniture atlas failed; established fallback art remains active.',error||'');},
+    fail(error){
+      this.failed=true;this.loading=false;this.lastError=String(error?.message||error||'unknown error');
+      document.documentElement.dataset.tfrProps='failed';
+      console.warn('Thousandfold Realms v1.6.11 furniture atlas failed; established fallback art remains active.',error||'');
+      window.game?.toast?.('Approved prop art failed to load; fallback art is active.');
+    },
     drawEntity(ctx,x,y,entity,mapId){
       const assetId=assetFor(mapId,entity),sprite=SPRITES[assetId];
       if(!ctx||!entity||!sprite||!this.ready||!this.image)return false;
@@ -165,39 +192,39 @@
   };
 
   const installRenderHook=()=>{
-    if(!AO.SpriteFactory?.icon||AO.SpriteFactory.icon.tfrPropFurnitureV169)return false;
+    if(!AO.SpriteFactory?.icon||AO.SpriteFactory.icon.tfrPropFurnitureV1611)return false;
     const prior=AO.SpriteFactory.icon;
     const wrapped=function(ctx,x,y,type,entity={}){
       const mapId=window.game?.world?.map?.id;
       if(Art.drawEntity(ctx,x,y,entity,mapId))return;
       return prior.call(this,ctx,x,y,type,entity);
     };
-    wrapped.tfrPropFurnitureV169=true;AO.SpriteFactory.icon=wrapped;return true;
+    wrapped.tfrPropFurnitureV1611=true;AO.SpriteFactory.icon=wrapped;return true;
   };
 
   const installLoadHook=()=>{
     const proto=AO.WorldSystem?.prototype;
-    if(!proto?.load||proto.load.tfrPropFurnitureV169)return false;
+    if(!proto?.load||proto.load.tfrPropFurnitureV1611)return false;
     const prior=proto.load;
     const wrapped=function(...args){const result=prior.apply(this,args);syncWorld(this);return result;};
-    wrapped.tfrPropFurnitureV169=true;proto.load=wrapped;return true;
+    wrapped.tfrPropFurnitureV1611=true;proto.load=wrapped;return true;
   };
 
-  patchDefinitions();Art.init();
+  patchDefinitions();
   AO.PropFurnitureArtV169=Art;
+  AO.PropFurnitureArtV1611=Art;
+  Art.init();
+  installRenderHook();installLoadHook();
 
   let attempts=0;
   const timer=setInterval(()=>{
     patchDefinitions();
     if(window.game)syncWorld(window.game.world);
-    const finalRendererReady=Boolean(AO.GeneratedSpriteContent?.installed);
-    const olderRepairReady=Boolean(AO.SpriteFactory?.icon?.tfrGeneratedPropsV167)||attempts>160;
-    const rendered=finalRendererReady&&olderRepairReady&&installRenderHook();
-    const loaded=installLoadHook();
-    if(Art.ready&&finalRendererReady&&(rendered||AO.SpriteFactory?.icon?.tfrPropFurnitureV169)&&(loaded||AO.WorldSystem?.prototype?.load?.tfrPropFurnitureV169)){
+    installRenderHook();installLoadHook();
+    if(Art.ready&&AO.SpriteFactory?.icon&&AO.WorldSystem?.prototype?.load){
       syncWorld(window.game?.world);clearInterval(timer);
     }else if(++attempts>520){
-      console.warn('Thousandfold Realms v1.6.9 prop integration timed out; established fallback art remains active.');clearInterval(timer);
+      console.warn('Thousandfold Realms v1.6.11 prop integration timed out; established fallback art remains active.');clearInterval(timer);
     }
   },25);
 })();
