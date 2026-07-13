@@ -89,3 +89,16 @@
   script.dataset.tfrRuntimeV167='true';
   document.head.appendChild(script);
 })();
+
+/* v1.6.8 visible asset placement. This is intentionally separate from the
+   combat/collision repair so the visual pass can be cache-busted and validated
+   without risking the established runtime fixes. */
+(() => {
+  'use strict';
+  if(typeof document==='undefined'||document.querySelector('script[data-tfr-visible-assets-v168]'))return;
+  const script=document.createElement('script');
+  script.src='src/render/visible_generated_assets_v168.js?v=168';
+  script.async=true;
+  script.dataset.tfrVisibleAssetsV168='true';
+  document.head.appendChild(script);
+})();
