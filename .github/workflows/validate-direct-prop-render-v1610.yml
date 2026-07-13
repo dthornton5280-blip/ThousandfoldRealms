@@ -27,7 +27,7 @@ jobs:
           test -f source/src/render/renderer.js
           test -f source/src/render/prop_furniture_runtime_v1612.js
           test -f tests/exact-prop-assets-v1612-harness.js
-          test -f source/assets/thousandfold/generated/generated-props-atlas-v1612.b64
+          test -f source/assets/thousandfold/generated/generated-props-atlas-v1612.png
 
       - name: Check JavaScript syntax
         run: |
@@ -45,7 +45,7 @@ jobs:
           set -o pipefail
           {
             printf 'atlas-sha256: '
-            tr -d '\r\n\t ' < source/assets/thousandfold/generated/generated-props-atlas-v1612.b64 | base64 -d | sha256sum
+            sha256sum source/assets/thousandfold/generated/generated-props-atlas-v1612.png
             node tests/exact-prop-assets-v1612-harness.js
           } 2>&1 | tee exact-prop-test.log
 
