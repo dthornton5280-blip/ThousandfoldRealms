@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.9-dev**
-- Build name: **Pixel Crawler Tavern Pilot**
-- Working branch: **feature/pixel-crawler-tavern-v159**
+- Version: **1.6.0-dev**
+- Build name: **Asset Catalog + Stable Tavern Rollback**
+- Working branch: **fix/pixel-art-catalog-v160**
 - Canonical production branch after merge: **main**
 - Deployment: **GitHub Pages**
 
@@ -14,89 +14,166 @@ The live website is assembled directly from the editable `source/` directory.
 
 ### Authoritative source
 
-- `source/index.html` — canonical document shell and baked current title screen
+- `source/index.html` — canonical document shell and baked title screen
 - `source/styles.css` — core stylesheet
 - `source/src/` — canonical data, systems, rendering, UI, and bootstrap code
-- `source/src/main.js` — constructs and starts the game
+- `source/src/main.js` — creates and starts the game
 - `source/src/core/boot.js` — removes the boot shield only after a real screen is visible
-- `source/src/render/assets.js` — original atlases plus the first Pixel Crawler pilot runtime
-- `source/src/render/renderer.js` — canonical exploration renderer and art-layer selection
+- `source/src/render/assets.js` — original game atlases plus the preserved v1.5.9 Pixel Crawler proof runtime
+- `source/src/render/renderer.js` — canonical exploration renderer and explicit art-layer feature gate
 
 ### Transitional modules
 
-`live-overrides/` still contains approved systems that have not yet been folded into their final files under `source/`, including the title presentation, unified UI, Living Atlas, physical road network, adaptive HUD, visible wildlife, reliable enemy patrol behavior, and tactical battlefield presentation.
+`live-overrides/` still contains approved systems awaiting controlled integration into source, including the title presentation, unified UI, Living Atlas, physical road network, adaptive HUD, visible wildlife, reliable enemy patrols, and tactical battlefield presentation.
 
-Pages copies `source/` directly, then injects transitional CSS in the document head and transitional JavaScript after source classes exist but before `src/main.js` creates the game.
+Pages copies `source/` directly, injects transitional CSS in the document head, and injects transitional JavaScript after source classes exist but before `src/main.js` creates the game.
 
-### Historical package
+The historical `Thousandfold_Realms_Web_v1.4.4-dev.zip` is not used by production.
 
-`Thousandfold_Realms_Web_v1.4.4-dev.zip` is historical only. Production must never unzip or deploy it again.
+## Pixel-art status
 
-## Pixel-art integration
+### Stable live rendering
 
-### Current pilot
+The visually incorrect v1.5.9 Pixel Crawler tavern pilot is disabled by default.
 
-The Black Lantern Tavern is the first playable area using selected Pixel Crawler - Free Pack art by Anokolisa.
+The renderer only calls the preserved pilot when:
 
-The pilot currently replaces tavern-specific rendering for:
+```js
+AO.PixelCrawlerArt?.enabled === true
+```
 
-- Wood floor variants
-- Stone border tiles
-- Rug tiles
-- Raised-stage tiles
-- Bar counter
-- Dining tables
-- Kegs
-- Fireplace / furnace art
-- Bran Hollow
-- Lys of the Lantern
+Because the runtime does not enable itself, the Black Lantern Tavern returns to the previous stable atlas/procedural visuals. Gameplay state, collisions, doors, NPCs, dialogue, shops, quests, cellar access, saves, and Atlas behavior remain unchanged.
 
-The renderer checks `AO.PixelCrawlerArt` before the existing atlas and procedural fallback, but only when the active map uses `theme: tavern`.
+The v1.5.9 embedded runtime remains in source only as:
 
-### Repository redistribution boundary
+- Proof that a compact derived PNG atlas can load in the browser
+- A reference for the future asset loader
+- A reversible historical experiment
 
-The repository does not contain the complete downloaded pack or any editable Aseprite source files.
+It must not be re-enabled until a replacement atlas passes visual review.
 
-`source/src/render/assets.js` contains one compact derived PNG data URI with only the pieces used by the tavern pilot. The creator notice and supplied terms are recorded in:
+### Reviewed Pixel Crawler pack
+
+The supplied pack contains:
+
+- **181 PNG files**
+- **127 animation sheets**
+- **5 environment/autotile source sheets**
+- **42 player animation sheets**
+- **19 NPC animation sheets**
+- **24 enemy animation sheets**
+- Large trees, furniture, structures, crafting stations, props, weapons, and a tavern mockup
+
+The reviewed metadata is stored in:
+
+- `docs/pixel-crawler/asset_manifest.json`
+- `docs/PIXEL_CRAWLER_ART_DIRECTION.md`
+
+A complete local catalog can be regenerated from a user-owned ZIP with:
+
+```bash
+python -m pip install pillow
+python tools/catalog_pixel_crawler.py \
+  "/path/to/Pixel Crawler - Free Pack 2.11.zip" \
+  --output build/pixel-crawler-catalog
+```
+
+The tool produces a full manifest and labeled previews without extracting or committing the complete source pack.
+
+## Approved art strategy
+
+The project will use a **hybrid, purpose-built atlas pipeline**.
+
+### Use Pixel Crawler where it is strongest
+
+- Player animations
+- Selected NPCs
+- Skeleton and orc enemy families
+- Trees and vegetation
+- Crafting and cooking stations
+- Selected furniture and props
+- Weapons after anchor mapping
+
+### Reconstruct rather than directly slice
+
+The following sheets use a 16px source grid, connected/autotile layouts, modular pieces, or irregular packing:
+
+- `Floors_Tiles.png`
+- `Wall_Tiles.png`
+- `Wall_Variations.png`
+- `Dungeon_Tiles.png`
+- `Water_tiles.png`
+- `Interior_Walls_01.png`
+- `Interior_Props_01.png`
+- `Furniture.png`
+
+They must not be treated as independent 32×32 tiles.
+
+Production art will be repacked into project-specific atlases with explicit:
+
+- Source rectangles
+- Anchors
+- Visual footprints
+- Collision footprints
+- Interaction points
+- Render layers
+- Animation frames and timing
+- Direction metadata
+
+### Custom and generated art
+
+Custom or generated art is appropriate for:
+
+- Unique buildings and landmarks
+- Drowned Fen architecture and vegetation
+- Region-specific wildlife and enemies
+- Bosses
+- Shrines, statues, signs, and quest objects
+- Missing transition pieces after the visual language is established
+
+Generated images should be created as individual objects or small controlled families. Large unlabeled sprite sheets and exact autotile matrices are not considered production-ready without manual cleanup, validation, and repacking.
+
+## Next art milestone
+
+The next graphics pass is a controlled **Black Lantern Tavern rebuild**, not a direct reactivation of the v1.5.9 pilot.
+
+Required order:
+
+1. Use the pack mockup only as a composition reference.
+2. Redesign the tavern around a real bar, dining area, hearth, small performance area, entrance, and cellar access.
+3. Build a compact Haven-interiors atlas from explicitly approved crops.
+4. Support a 16px visual subgrid over the existing 32px gameplay grid.
+5. Store collision separately from visual dimensions.
+6. Render ground, walls, furniture, actors, foreground pieces, lighting, and UI in distinct layers.
+7. Review live screenshots before merging the replacement.
+
+After the tavern is successful, the same pipeline can expand to Haven exterior, Whisperwood, road maps, Lantern Mine, Ashen Crypt, Aurelia, and future regions.
+
+## Third-party redistribution boundary
+
+The public repository must not contain:
+
+- The complete downloaded Pixel Crawler pack
+- Editable Aseprite sources
+- Unused original sheets
+- A repackaged asset download
+
+It may contain only approved runtime derivatives actually used by the game, along with:
+
+- Creator attribution
+- Supplied license terms
+- Source provenance
+- Crop and transformation records
+
+The current notice remains at:
 
 `source/assets/third-party/pixel-crawler/NOTICE.txt`
 
-### Preserved gameplay
-
-The visual pilot does not change:
-
-- Tavern map geometry
-- Collision tiles
-- Doors or cellar access
-- NPC IDs, dialogue, shops, quests, or quest markers
-- Player position or save structure
-- Atlas and fast-travel state
-- Other maps, NPCs, enemies, or tactical arenas
-
-If the third-party art fails to load, the existing atlas and procedural rendering remain available.
-
-### Next art milestones
-
-1. Live-tune tavern object scale, anchoring, and visual overlap.
-2. Add directional player animation and a reusable character-sprite definition system.
-3. Convert Haven exterior buildings, paths, trees, props, and contextual NPCs.
-4. Convert Whisperwood and road maps with coherent outdoor tiles and trees.
-5. Convert Lantern Mine and Ashen Crypt with dungeon walls, floors, props, and matching enemies.
-6. Add region-specific art packs as Drowned Fen and later regions are built.
-
-## Startup behavior
-
-The page begins with the current title screen already present and all unfinished screens hidden behind the critical boot shield.
-
-`source/src/core/boot.js` waits until the title, creator, or game screen is genuinely visible, removes `tf-booting`, publishes `data-tf-ready="true"`, and hides the boot shield.
-
-The browser title is **Thousandfold Realms**. Legacy “Brand Migration” presentation is not part of the canonical page.
-
 ## Save compatibility
 
-Existing saves continue to use the same local-storage keys and migration-safe defaults.
+Existing saves continue using the same local-storage keys and migration-safe defaults.
 
-The current art integration does not clear or intentionally reset:
+Art changes must not clear or reset:
 
 - Characters
 - Inventory and equipment
@@ -123,82 +200,50 @@ The complete physical route remains:
 
 Eastbound exits advance toward Aurelia; westbound exits return toward Haven. Lantern Mine and Ashen Crypt remain physical side branches from Whisperwood.
 
-The six additional world regions remain charted future regions until complete routes and playable content are authored.
+The six additional world regions remain charted future regions until full physical routes and playable content are authored.
 
-## Living Atlas
+## Current gameplay rules
 
-The Atlas includes:
-
-1. **World** — major regions, persistent fog, and charted frontiers
-2. **Region** — settlements, wilderness maps, roads, dungeons, and route information
-3. **Local** — the exact playable 30×18 map with local visibility and markers
-
-Fast travel requires a physically visited destination and a personally discovered connecting route. World, regional, and local directions must agree with physical exits.
-
-## Encounter model
-
-### Ordinary enemies
-
-- Exist visibly on local maps
-- Follow short deterministic patrol or guard routines
-- Move independently in real time
-- Do not move because the player moved
-- Do not randomly wander or chase by default
-- Can be watched and avoided by timing movement
-- Start tactical combat through player contact or patrol contact
-
-Bosses, explicit guards, and authored story encounters may remain stationary.
-
-Enemy and animal movement pauses while menus, Atlas, dialogue, combat, HUD controls, or other examination screens are open, and while the browser tab is hidden or the window is blurred.
-
-Routine step-count random battles remain disabled. Scripted contextual encounters remain allowed.
-
-## Wildlife
-
-Town animals remain sparse and non-huntable. Wilderness deer, hares, foxes, and marsh birds appear occasionally, follow small routines, can be observed, and may support Survival-based hunting and resources.
-
-## Adaptive HUD
-
-The exploration HUD retains Full, Compact, and Hidden modes; independent Vitals, Map, Objective, and Hints controls; `H` keyboard cycling; and persistent browser preferences.
+- Fast travel requires physically visiting destinations and discovering connecting routes.
+- Fog-of-war persists.
+- Ordinary enemies are visible and follow readable real-time routines.
+- Ordinary enemies do not chase or randomly wander by default.
+- Enemy and animal movement pauses while the player examines interfaces or leaves the active browser context.
+- Routine step-count random battles remain disabled.
+- Town animals remain sparse flavor; wilderness wildlife is occasional and can support hunting and resources.
+- Adaptive HUD Full, Compact, and Hidden modes remain available.
+- Tactical combat uses isolated biome battlefields.
 
 ## Automated validation
 
-Current checks cover:
+Current validation covers:
 
 - Canonical source deployment and boot ordering
 - Absence of ZIP deployment and legacy branding
-- Atlas progression, fog, roads, and cardinal consistency
+- Atlas progression, fog, physical roads, and cardinal consistency
 - Visited-only fast travel
 - Wildlife and hunting
 - Reliable enemy patrols and examination pauses
 - Tactical combat on patrol contact
-- JavaScript syntax and CSS balance
-- Pixel Crawler atlas PNG validity
-- Tavern-only art scoping
-- Pixel-art furniture and Bran rendering
-- Fallback preservation for unrelated maps and NPCs
+- JavaScript and Python syntax
+- CSS balance
+- Pixel Crawler feature gating
+- Stable tavern fallback restoration
+- Reviewed pack counts and source-grid interpretation
 - Third-party creator notice and redistribution boundaries
+- Catalog-tool behavior without complete-pack extraction
 
-## Required live regression checklist
+## Live regression checklist
 
-After the v1.5.9 Pages deployment:
+After the v1.6.0 Pages deployment:
 
-1. Hard-refresh and confirm the boot shield and current title appear without legacy UI flashes.
-2. Continue an existing save and enter the Black Lantern Tavern.
-3. Confirm floor, wall, rug, stage, bar, tables, kegs, fireplace, Bran, and Lys use the new art.
-4. Confirm the player, doors, chest, signs, quest markers, dialogue, shop, and cellar access still work.
-5. Confirm furniture visuals align closely enough with their collision tiles to remain readable.
-6. Leave the tavern and confirm Haven and all other maps retain their existing visuals.
-7. Save, reload, and re-enter the tavern.
-8. Confirm Atlas, fog, HUD modes, patrols, wildlife, tactical combat, inventory, quests, and travel still function.
-
-## Known risks
-
-1. This is a visual pilot, so some furniture may need scale or anchor adjustments after live inspection.
-2. Bran and Lys currently use single-frame sprites with a subtle idle bob rather than full directional animation.
-3. The player remains procedural, so the tavern temporarily mixes the new NPC style with the existing player style.
-4. The complete third-party pack is intentionally not committed; new pieces must be extracted into small derived runtime subsets as they are approved.
-5. Other maps remain on the existing atlas until converted deliberately.
+1. Hard-refresh and confirm the current title appears without legacy UI flashes.
+2. Continue an existing save.
+3. Enter the Black Lantern Tavern and confirm the distorted v1.5.9 floor, wall border, red block grid, and oversized furniture are gone.
+4. Confirm the stable previous tavern visuals are restored.
+5. Confirm doors, Bran, Lys, shop interactions, quest markers, cellar access, collisions, and movement still work.
+6. Leave the tavern and confirm Haven and other maps are unchanged.
+7. Confirm Atlas, HUD modes, patrols, wildlife, hunting, tactical combat, inventory, quests, saving, and loading still function.
 
 ## Repository rules
 
@@ -207,6 +252,8 @@ After the v1.5.9 Pages deployment:
 - Build from `source/`; never restore ZIP-based deployment.
 - Use branches and pull requests for meaningful changes.
 - Preserve existing saves.
-- Include only approved runtime subsets of third-party art and retain license notices.
-- Add focused validation for regressions.
+- Keep third-party source packs out of the public repository.
+- Use purpose-built runtime atlases with explicit metadata.
+- Never ship a graphics change solely because an image-loading harness passes.
+- Require live visual review for environment conversions.
 - Update `version.json`, `CHANGELOG.md`, and this file at canonical checkpoints.
