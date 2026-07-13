@@ -4,7 +4,7 @@ Browser-playable development build of an original single-player pixel CRPG.
 
 ## Canonical state
 
-- **Current checkpoint:** `v1.6.0-dev — Asset Catalog + Stable Tavern Rollback`
+- **Current checkpoint:** `v1.6.1-dev — Haven Art + Living Interiors`
 - **Production branch:** `main`
 - **Production source:** `source/`
 - **Deployment:** GitHub Pages from this repository
@@ -29,31 +29,32 @@ Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` be
 - Isolated biome tactical battlefields
 - Dialogue, quests, inventory, equipment, shops, crafting, resources, camps, saves, and migration-safe persistent state
 
-## Art integration
+## Haven art vertical slice
 
-The visually incorrect v1.5.9 Black Lantern Tavern pilot is feature-gated off. The live tavern uses the previous stable rendering while the art pipeline is rebuilt correctly.
+Haven and its starter interiors now use the first canonical Thousandfold visual language rather than the rejected v1.5.9 sheet slicing experiment.
 
-The approved graphics strategy is hybrid:
+- Project-owned pixel terrain for Haven grass, paths, cobble, trees, flowers, shrubs, rocks, interior floors, rugs, stages, and walls
+- Distinct timber-and-stone exterior treatments for the inn, arcane shop, tavern, provisions shop, chapel, and forge
+- Standard 32×48 doors with larger interaction footprints and preserved destination IDs
+- Furnished Black Lantern Tavern, tavern cellar, Lantern Rest, upper guest rooms, provisions shop, forge, arcane shop, and chapel
+- Multi-tile collision and selection for counters, long tables, stalls, benches, beds, fireplaces, shelves, and other large props
+- Descriptions, once-per-day uses, and deterministic one-time searchable finds on appropriate world objects
+- Project-owned tavernkeeper, server, bard, and patron sprite samples
 
-- Reuse properly licensed Pixel Crawler characters, NPCs, enemy families, trees, stations, and selected props where they fit.
-- Reconstruct 16px connected/autotile environment sources into purpose-built project atlases rather than slicing them as 32px cells.
-- Store crop, anchor, visual footprint, collision footprint, interaction point, layer, and animation metadata explicitly.
-- Generate custom region-specific art as individual assets or small controlled families, then clean and pack it ourselves.
+The art is drawn from deterministic pixel primitives under `source/src/render/thousandfold_art.js`, so anchors, scale, materials, and styling remain editable without re-slicing a presentation sheet. The two large concept sheets remain reference material and are not deployed as runtime assets.
 
-The complete downloaded pack and editable Aseprite files are not committed. Creator terms are recorded in `source/assets/third-party/pixel-crawler/NOTICE.txt`.
-
-Run `tools/catalog_pixel_crawler.py` against a locally owned ZIP to generate the full asset manifest and labeled previews.
+The Pixel Crawler pack remains available only for carefully reviewed future character, enemy, tree, station, and prop derivatives. The complete downloaded pack and editable Aseprite files are not committed. Creator terms are recorded in `source/assets/third-party/pixel-crawler/NOTICE.txt`.
 
 ## Repository layout
 
-- `source/index.html` — canonical page shell and baked title screen
+- `source/index.html` — canonical page shell, script ordering, and baked title screen
 - `source/styles.css` — core stylesheet
-- `source/src/` — canonical game code
-- `source/src/core/boot.js` — releases the page after successful startup
-- `source/src/render/assets.js` — original atlases and approved derived runtime art
-- `source/src/render/renderer.js` — exploration renderer and explicit art feature gates
+- `source/src/data/haven_art_content.js` — Haven and starter-interior art placement and interactions
+- `source/src/systems/entity_geometry.js` — multi-tile collision and interaction geometry
+- `source/src/systems/footprint_interactions.js` — footprint-aware movement, searches, and object use
+- `source/src/render/thousandfold_art.js` — canonical project-owned pixel renderer
+- `source/src/render/thousandfold_renderer.js` — art integration and multi-tile highlights
 - `live-overrides/` — transitional systems awaiting controlled source integration
-- `tools/catalog_pixel_crawler.py` — local third-party asset catalog generator
 - `tests/` — focused runtime and architecture harnesses
 - `docs/` — current state, art direction, regression plans, and implementation notes
 - `.github/workflows/` — pull-request validation and Pages deployment

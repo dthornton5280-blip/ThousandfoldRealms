@@ -9,8 +9,11 @@ const tool=fs.readFileSync('tools/catalog_pixel_crawler.py','utf8');
 const notice=fs.readFileSync('source/assets/third-party/pixel-crawler/NOTICE.txt','utf8');
 const version=JSON.parse(fs.readFileSync('version.json','utf8'));
 
-assert(version.version==='1.6.0-dev','Pixel art correction version was not bumped to 1.6.0-dev.');
-assert(version.buildName==='Asset Catalog + Stable Tavern Rollback','Unexpected v1.6.0 build name.');
+const match=/^(\d+)\.(\d+)\.(\d+)-dev$/.exec(version.version||'');
+assert(match,'Current development version is not a semantic dev checkpoint.');
+const numeric=Number(match[1])*10000+Number(match[2])*100+Number(match[3]);
+assert(numeric>=10600,'Pixel-art catalog rules require v1.6.0-dev or later.');
+assert(version.buildName,'Current build name is missing.');
 
 assert(assets.includes('AO.PixelCrawlerArt'),'The v1.5.9 runtime proof was removed instead of safely feature-gated.');
 assert(/AO\.PixelCrawlerArt\?\.enabled\s*&&\s*AO\.PixelCrawlerArt\.drawTile/.test(renderer),'Tile pilot is not behind the explicit enabled flag.');
@@ -40,4 +43,4 @@ for(const token of ['PACK_ROOT','PREVIEW_TARGETS','asset_manifest.json','labeled
 assert(notice.includes('Anokolisa'),'Third-party creator notice is missing.');
 assert(!tool.includes('extractall('),'Catalog tool must not unpack the complete pack into the repository.');
 
-console.log('Pixel art v1.6.0 harness passed: bad tavern pilot disabled, stable fallback restored, pack cataloged correctly, and hybrid atlas rules documented.');
+console.log(`Pixel art catalog harness passed at ${version.version}: bad pilot disabled, catalog preserved, and hybrid atlas rules documented.`);

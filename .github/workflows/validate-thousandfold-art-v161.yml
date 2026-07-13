@@ -1,0 +1,82 @@
+name: Validate Haven Art and Living Interiors
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-haven-art:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify canonical art files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/data/haven_art_content.js
+          test -f source/src/systems/entity_geometry.js
+          test -f source/src/systems/footprint_interactions.js
+          test -f source/src/render/thousandfold_art.js
+          test -f source/src/render/thousandfold_renderer.js
+          test -f source/assets/generated/README.md
+          test -f live-overrides/zzzzzz-footprint-game-v161.js
+          test -f tests/thousandfold-art-render-v161-harness.js
+          test -f tests/thousandfold-content-v161-harness.js
+          test -f tests/thousandfold-geometry-v161-harness.js
+          test -f tests/thousandfold-runtime-v161-harness.js
+          test -f tests/footprint-game-v161-harness.js
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/data/haven_art_content.js
+          node --check source/src/systems/entity_geometry.js
+          node --check source/src/systems/footprint_interactions.js
+          node --check source/src/render/thousandfold_art.js
+          node --check source/src/render/thousandfold_renderer.js
+          node --check live-overrides/zzzzzz-footprint-game-v161.js
+          node --check tests/thousandfold-art-render-v161-harness.js
+          node --check tests/thousandfold-content-v161-harness.js
+          node --check tests/thousandfold-geometry-v161-harness.js
+          node --check tests/thousandfold-runtime-v161-harness.js
+          node --check tests/footprint-game-v161-harness.js
+
+      - name: Validate canonical pixel rendering
+        run: node tests/thousandfold-art-render-v161-harness.js
+
+      - name: Validate Haven and tavern layout
+        run: node tests/thousandfold-content-v161-harness.js layout
+
+      - name: Validate every furnished interior
+        run: node tests/thousandfold-content-v161-harness.js interiors
+
+      - name: Validate door dimensions and interaction cells
+        run: node tests/thousandfold-content-v161-harness.js doors
+
+      - name: Validate interior character assignments
+        run: node tests/thousandfold-content-v161-harness.js characters
+
+      - name: Validate collision, searches, and daily uses
+        run: node tests/thousandfold-geometry-v161-harness.js
+
+      - name: Validate runtime order and provenance
+        run: node tests/thousandfold-runtime-v161-harness.js
+
+      - name: Validate multi-tile E interactions
+        run: node tests/footprint-game-v161-harness.js
+
+      - name: Reject concept-sheet deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! find source -type f \( -iname '*tileset*concept*.png' -o -iname '*asset*sheet*.png' \) | grep -q .
+          ! grep -R "PixelCrawlerArt.enabled *= *true" -n source live-overrides

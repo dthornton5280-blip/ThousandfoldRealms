@@ -2,6 +2,41 @@
 
 Canonical development checkpoints for Thousandfold Realms are recorded here. Detailed implementation notes and regression plans live under `docs/` and in the merged pull requests.
 
+## 1.6.1-dev — Haven Art + Living Interiors
+
+### Added
+- A project-owned canonical pixel renderer for Haven terrain, interior surfaces, architecture, props, furniture, lighting, and selected residents.
+- Distinct timber, stone, roof, window, door, sign, and specialty details for all six Haven storefronts.
+- `source/src/data/haven_art_content.js`, which furnishes the Black Lantern Tavern, tavern cellar, Lantern Rest, upper guest rooms, provisions shop, forge, arcane shop, and chapel.
+- `source/src/systems/entity_geometry.js` for multi-tile visual, collision, and interaction footprints.
+- `source/src/systems/footprint_interactions.js` for footprint-aware movement, clicks, pathfinding, safe enemy placement, automatic door closing, world-object descriptions, once-per-day uses, and deterministic searchable finds.
+- Searchable stalls, shelves, crates, casks, tables, cupboards, workbenches, and supply storage with persistent one-time results.
+- Useful world interactions including benches, beds, hearths, the market well, the Lantern Shrine, chapel pews, the forge, and the arcane viewing orb.
+- Canonical tavernkeeper, server, bard, and patron sprite samples for Bran, Lys, Elowen, Mara, Borin, and ambient interior residents.
+- A focused v1.6.1 harness and GitHub Actions workflow covering rendering, interiors, collision, doors, searches, uses, and script order.
+
+### Changed
+- Haven grass, cobble, paths, trees, flowers, shrubs, and rocks now use the first Thousandfold-specific visual language.
+- Starter interiors use richer wood, stone, rug, stage, forge, chapel, cellar, and arcane treatments.
+- The Black Lantern’s former solid `bar` terrain block is replaced with real counter entities and explicit collision footprints.
+- Large props such as stalls, counters, beds, fireplaces, shelves, benches, carts, and long tables block and respond across every occupied gameplay cell.
+- Non-integrated doors use a consistent 32×48 visual size and an upper interaction cell, while exterior building doors retain their original IDs and destinations.
+- The large generated concept sheets remain visual references only; production art is reconstructed as deterministic, editable pixel primitives instead of being sliced from presentation layouts.
+
+### Preserved
+- Existing characters, saves, quests, NPC identities, shops, dialogue, Atlas progress, fog, travel, defeated enemies, wildlife, patrol state, and HUD preferences.
+- Every established exterior and interior door destination.
+- The disabled v1.5.9 Pixel Crawler proof and its creator notice for future carefully reviewed derivatives.
+
+### Validation
+- Confirms the canonical art runtime draws Haven tiles, a complete storefront, a large tavern counter, and a project-owned NPC sprite.
+- Confirms all starter interiors contain canonical art-tagged furnishings.
+- Confirms tavern counter collision comes from entities rather than solid terrain.
+- Confirms large props block and select every footprint cell.
+- Confirms doors retain standard visual size and enlarged interaction footprints.
+- Confirms searchable props award at most once and persistent use state is stored.
+- Confirms the new data, system, art, and renderer modules load before game bootstrap in the required order.
+
 ## 1.6.0-dev — Asset Catalog + Stable Tavern Rollback
 
 ### Fixed

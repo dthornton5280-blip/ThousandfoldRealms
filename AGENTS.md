@@ -73,6 +73,21 @@ Generated artwork is best used for individual objects or small controlled famili
 
 Do not trust one-shot generated sprite sheets, autotile matrices, transparent padding, or long multi-animation sheets without manual cleanup and validation. Pack approved generated assets into runtime atlases ourselves.
 
+### Canonical Haven art
+
+As of v1.6.1, Haven and its starter interiors use active project-owned art systems:
+
+- `source/src/data/haven_art_content.js`
+- `source/src/systems/entity_geometry.js`
+- `source/src/systems/footprint_interactions.js`
+- `source/src/render/thousandfold_art.js`
+- `source/src/render/thousandfold_renderer.js`
+- `live-overrides/zzzzzz-footprint-game-v161.js`
+
+The two large Haven and tavern concept sheets are visual references only. Do not crop or deploy them as production atlases. The active renderer reconstructs the approved style as deterministic pixel primitives with explicit visual sizes, anchors, collision footprints, interaction footprints, and layers.
+
+Large props must remain footprint-aware. Door IDs and destinations are compatibility-sensitive. Persistent object rewards must remain idempotent through `world.searchedDecor` and `world.usedDecor`.
+
 ## Current game rules
 
 - Haven remains the starting town.
