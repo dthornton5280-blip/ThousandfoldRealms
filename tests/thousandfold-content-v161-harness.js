@@ -38,7 +38,8 @@ if(phase==='interiors'||phase==='all'){
 }
 if(phase==='doors'||phase==='all'){
   for(const object of allObjects.filter(o=>o.type==='door'&&!o.integratedBuildingDoor)){
-    assert(object.artW===32&&object.artH===48,`Door ${object.id} does not use the standard 32×48 visual size.`);
+    const expected=object.id==='cellar_door'?{w:48,h:64}:{w:32,h:48};
+    assert(object.artW===expected.w&&object.artH===expected.h,`Door ${object.id} does not use its approved ${expected.w}×${expected.h} visual size.`);
     assert(object.interactionFootprint?.up===1,`Door ${object.id} lacks its upper interaction cell.`);
   }
 }
