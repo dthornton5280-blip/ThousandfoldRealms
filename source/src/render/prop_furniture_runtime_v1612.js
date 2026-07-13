@@ -1,12 +1,12 @@
 /* Thousandfold Realms v1.6.12-dev — exact user-provided prop assets.
-   The source PNGs were background-cleaned, normalized to the 32px world grid,
-   packed into a transparent atlas, and bound to real authored entities. */
+   The supplied objects were background-cleaned, normalized to the 32px world
+   grid, packed into a transparent PNG atlas, and bound to authored entities. */
 (() => {
   'use strict';
   if(typeof window==='undefined'||!window.AO)return;
 
   const TILE=32;
-  const ATLAS_URL='assets/thousandfold/generated/generated-props-atlas-v1612.b64?v=1612';
+  const ATLAS_URL='assets/thousandfold/generated/generated-props-atlas-v1612.png?v=1612';
   const ATLAS_SIZE={w:512,h:192};
   const MISTAKEN_HAVEN_IDS=[
     'haven_generated_oak_north','haven_generated_evergreen_north',
@@ -119,8 +119,7 @@
   };
 
   const patchDefinitions=()=>{
-    removeMistakenNature();
-    ensureAuthoredFurniture();
+    removeMistakenNature();ensureAuthoredFurniture();
     for(const mapId of Object.keys(BINDINGS)){
       for(const entity of mapObjects(mapId))applyBinding(mapId,entity);
     }
@@ -143,9 +142,9 @@
     }
     for(const entity of world.entities){
       const definition=definitions.find(entry=>entry.id===entity.id)||entity;
-      const assetId=assetFor(mapId,definition);if(!assetId)continue;
-      applyBinding(mapId,definition);
+      if(!assetFor(mapId,definition))continue;
       const before=entity.generatedArtId;
+      applyBinding(mapId,definition);
       Object.assign(entity,{
         generatedArtId:definition.generatedArtId,
         generatedArtW:definition.generatedArtW,
@@ -169,27 +168,20 @@
 
   const Art={
     image:null,ready:false,loading:false,failed:false,lastError:null,
-    async init(){
+    init(){
       if(this.ready||this.loading)return;
       this.loading=true;setStatus('loading');
-      try{
-        const url=new URL(ATLAS_URL,document.baseURI).href;
-        const response=await fetch(url,{cache:'reload'});
-        if(!response.ok)throw new Error(`exact prop atlas HTTP ${response.status}`);
-        const encoded=(await response.text()).replace(/\s+/g,'');
-        if(!encoded.startsWith('iVBORw0KGgo'))throw new Error('exact prop atlas is not a PNG payload');
-        const image=new Image();image.decoding='async';
-        image.onload=()=>{
-          if(image.naturalWidth!==ATLAS_SIZE.w||image.naturalHeight!==ATLAS_SIZE.h){
-            this.fail(new Error(`exact prop atlas size ${image.naturalWidth}x${image.naturalHeight}`));return;
-          }
-          this.image=image;this.ready=true;this.failed=false;this.loading=false;this.lastError=null;
-          setStatus('ready');syncWorld(window.game?.world);
-          AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
-        };
-        image.onerror=()=>this.fail(new Error('exact prop atlas image decode failed'));
-        image.src=`data:image/png;base64,${encoded}`;
-      }catch(error){this.fail(error);}
+      const image=new Image();image.decoding='async';
+      image.onload=()=>{
+        if(image.naturalWidth!==ATLAS_SIZE.w||image.naturalHeight!==ATLAS_SIZE.h){
+          this.fail(new Error(`exact prop atlas size ${image.naturalWidth}x${image.naturalHeight}`));return;
+        }
+        this.image=image;this.ready=true;this.failed=false;this.loading=false;this.lastError=null;
+        setStatus('ready');syncWorld(window.game?.world);
+        AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
+      };
+      image.onerror=()=>this.fail(new Error('exact prop atlas PNG failed to load'));
+      image.src=new URL(ATLAS_URL,document.baseURI).href;
     },
     fail(error){
       this.failed=true;this.loading=false;this.lastError=String(error?.message||error||'unknown error');
@@ -223,21 +215,15 @@
       if(Art.drawEntity(ctx,x,y,entity,mapId))return;
       return prior.call(this,ctx,x,y,type,entity);
     };
-    wrapped.tfrExactPropsV1612=true;
-    AO.SpriteFactory.icon=wrapped;
-    return true;
+    wrapped.tfrExactPropsV1612=true;AO.SpriteFactory.icon=wrapped;return true;
   };
 
   const installLoadHook=()=>{
     const proto=AO.WorldSystem?.prototype;
     if(!proto?.load||proto.load.tfrExactPropsV1612)return false;
     const prior=proto.load;
-    const wrapped=function(...args){
-      const result=prior.apply(this,args);syncWorld(this);return result;
-    };
-    wrapped.tfrExactPropsV1612=true;
-    proto.load=wrapped;
-    return true;
+    const wrapped=function(...args){const result=prior.apply(this,args);syncWorld(this);return result;};
+    wrapped.tfrExactPropsV1612=true;proto.load=wrapped;return true;
   };
 
   patchDefinitions();
