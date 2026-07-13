@@ -1,0 +1,45 @@
+name: Validate Prop and Furniture Runtime v1.6.9
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-prop-furniture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.9 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/render/prop_furniture_runtime_v169.js
+          test -f tests/prop-furniture-runtime-v169-harness.js
+          test -f source/assets/thousandfold/generated/generated-props-atlas-v166.b64
+          test ! -f source/src/render/visible_generated_assets_v168.js
+          test ! -f tests/visible-generated-assets-v168-harness.js
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check source/src/render/prop_furniture_runtime_v169.js
+          node --check source/src/data/tavern_composition.js
+          node --check tests/prop-furniture-runtime-v169-harness.js
+          node --check tests/live-runtime-v167-harness.js
+          node --check tests/generated-props-v166-harness.js
+
+      - name: Validate authoritative prop and furniture integration
+        run: node tests/prop-furniture-runtime-v169-harness.js
+
+      - name: Preserve collision and tactical repairs
+        run: node tests/live-runtime-v167-harness.js
+
+      - name: Preserve atlas metadata regression
+        run: node tests/generated-props-v166-harness.js
