@@ -2,6 +2,48 @@
 
 All notable development checkpoints for Thousandfold Realms are recorded here.
 
+## 1.5.6-dev — Visible Patrols + Living Wildlife
+
+### Added
+- Real-time visible enemy routines on exploration maps. Ordinary enemies follow deterministic patrol or guard routes rather than wandering randomly or automatically hunting the player.
+- Persistent mover state for enemy and animal positions, route progress, and hunted-animal respawn timing.
+- Minimal contextual town wildlife: one cat in Haven, one market dog in Aurelia, and one river gull near Aurelia’s docks.
+- Occasional day-seeded wilderness wildlife including deer, hares, foxes, and marsh birds.
+- Wildlife interactions for observing routines and making Survival hunting checks.
+- Hunting resources: Wild Game Meat, Animal Hide, and Wild Feathers.
+- Custom pixel sprites for the initial wildlife set.
+
+### Changed
+- Enemy routines advance independently in real time rather than taking a turn whenever the player moves.
+- Patrols pause whenever the player opens panels, dialogue, combat, level-up or defeat screens, the HUD control menu, changes browser tabs, or moves focus away from the game.
+- Standard step-count random encounters are disabled. Routine combat now begins from a visible hostile entity through player contact, player interaction, or patrol collision.
+- Town animals are flavor-only and cannot be hunted.
+- Wilderness animals appear only on some in-game days and return after a region-appropriate respawn delay when hunted.
+
+### Preserved
+- Scripted ambushes, bosses, quest encounters, and stationary guards remain available where authored.
+- Existing tactical arenas, defeat persistence, exploration movement, save migration, fog, Atlas routes, and HUD controls remain intact.
+
+### Validation
+- A dedicated harness verifies random encounters are disabled, patrols advance in real time, movement pauses during examination screens, patrol collision starts tactical combat, town animals remain non-huntable, and wilderness hunting grants persistent resources.
+- Pull-request and main-branch workflows validate JavaScript syntax, runtime ordering, and the complete visible-entity harness.
+
+## 1.5.5-dev — Adaptive Field HUD
+
+### Added
+- Full, Compact, and Hidden exploration HUD modes.
+- Independent visibility controls for vitals, minimap, objective, and control hints.
+- The `H` shortcut for cycling HUD modes during exploration.
+- Persistent HUD preferences stored between sessions.
+
+### Changed
+- Compact mode reduces HUD coverage and suppresses the nearby prompt until an interaction is actually available.
+- Hidden mode clears the playing field while retaining a small HUD control tab.
+- The objective display no longer stretches unnecessarily across the bottom of the viewport.
+
+### Validation
+- A dedicated HUD harness checks persistent modes, selective sections, keyboard cycling, unobstructed input, nearby-prompt behavior, responsive styling, and reduced-motion handling.
+
 ## 1.5.4-dev — Directional Atlas + Cardinal Roads
 
 ### Changed
@@ -186,7 +228,7 @@ All notable development checkpoints for Thousandfold Realms are recorded here.
 - Prevented exploration NPCs, tents, campfires, chests, buildings, and other world entities from rendering inside tactical combat.
 - Prevented combat movement from permanently moving the player or enemies on the exploration map.
 - Line of sight and cover in isolated arenas now use arena terrain only.
-- Legacy saved tactical encounters migrate into the new isolated arena format when resumed.
+- Legacy saved encounters migrate into the new isolated arena format when resumed.
 
 ### Validation
 - All Git-managed JavaScript overrides pass `node --check` before deployment.

@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.5.4-dev**
-- Build name: **Directional Atlas + Cardinal Roads**
-- Working branch: **feature/directional-atlas-v154**
+- Version: **1.5.6-dev**
+- Build name: **Visible Patrols + Living Wildlife**
+- Working branch: **feature/visible-patrols-wildlife-v156**
 - Canonical branch after merge: **main**
 - Deployment: GitHub Pages
 
@@ -14,181 +14,198 @@ The live game is assembled from the verified packaged base:
 
 `Thousandfold_Realms_Web_v1.4.4-dev.zip`
 
-Maintained corrections and additions are stored in `live-overrides/` and injected before `src/main.js` creates the game.
+Maintained systems and presentation changes live in `live-overrides/` and load after the packaged classes exist but before `src/main.js` creates the game.
 
-Key Atlas and travel overrides:
+Key current overrides include:
 
-- `live-overrides/world-atlas-v150.js`
-- `live-overrides/world-atlas-v150.css`
-- `live-overrides/world-atlas-v152-exploration.js`
-- `live-overrides/world-atlas-v152-exploration.css`
-- `live-overrides/world-atlas-v152-travel-copy.js`
-- `live-overrides/world-travel-network-v153.js`
-- `live-overrides/world-travel-network-v153a-tiles.js`
-- `live-overrides/world-travel-network-v154-directional.js`
-- `live-overrides/world-atlas-v154-directional.css`
-- `live-overrides/zz-world-atlas-v150-fixes.js`
-- `live-overrides/zzz-world-directional-v154.js`
+- Illustrated title and unified realm UI
+- Isolated tactical battlefields
+- Living Atlas, persistent fog, and visited-only fast travel
+- Physical and directionally accurate Haven-to-Aurelia wilderness roads
+- Adaptive Full, Compact, and Hidden exploration HUD modes
+- `live-overrides/zzzz-visible-patrols-wildlife-v156.js` for visible patrols and wildlife
 
-## Runtime order
+The `zzzz-` prefix intentionally places the visible-entity layer after the Atlas and final directional corrections while still loading before game bootstrap.
 
-The required runtime sequence is:
+## Encounter model
 
-1. Packaged map data, systems, renderers, cartography UI, and game classes.
-2. Base Living Atlas v1.5.0.
-3. Persistent exploration and fog v1.5.2.
-4. Explicit visited-only travel feedback.
-5. Physical wilderness road network v1.5.3.
-6. Supported-tile compatibility.
-7. Directional Atlas and cardinal-road corrections v1.5.4.
-8. Atlas integration fixes.
-9. Final directional Whisperwood correction.
-10. `src/main.js` game bootstrap.
+Standard combat is now world-represented rather than triggered by invisible step-count rolls.
 
-Pull-request and Pages workflows reject missing files, invalid JavaScript, runtime scripts in `<head>`, incorrect ordering, broken directional routes, or malformed Atlas CSS.
+### Visible hostile rules
 
-## Living Atlas hierarchy
+- Ordinary enemies exist as visible blocking entities on local maps.
+- They move independently in real time; they do not receive a movement turn when the player moves.
+- Their default behavior is a deterministic patrol or guard routine.
+- They do not randomly wander, automatically seek the player, or dynamically chase by default.
+- Existing road enemies use explicit short patrol circuits.
+- Enemies without an authored patrol receive a deterministic short back-and-forth route derived from their map and spawn.
+- Bosses, quest enemies, and entities marked as guards remain stationary unless explicitly authored otherwise.
+- Contact caused by the player or by a patrol starts the existing tactical encounter system.
+- Scripted ambushes and authored story encounters remain available, but routine step-based random battles are disabled.
 
-The Map page has three connected scales:
+### Examination pause rules
 
-1. **World** — major regions, broad geography, charted frontiers, and persistent world fog.
-2. **Region** — settlements, roads, wilderness, dungeons, travel information, and persistent regional fog.
-3. **Local** — the exact 30×18 playable map, local landmarks, people, threats, discoveries, and tile visibility.
+Enemy and animal routines pause when:
 
-## Persistent exploration rules
+- The game is not in exploration mode.
+- A panel, dialogue, combat, level-up, or defeat screen is open.
+- The adaptive HUD control menu is open.
+- The broader RPG menu state is active.
+- The browser tab is hidden.
+- The browser window loses focus.
 
-Atlas save data tracks discovered regions, known locations, physically visited locations, discovered route segments, world and regional reveal points, travel history, elapsed time, and current parent location.
+This lets the player safely read, inspect, compare equipment, use the Atlas, or manage the HUD without the world advancing behind the interface.
 
-Fast travel requires:
+## Wildlife model
 
-- The destination has been physically visited.
-- Every route segment between the current and destination locations has been personally discovered.
-- The destination permits fast travel.
+### Town wildlife
 
-Dungeons still require entry through their connected local maps.
+Town animals are intentionally sparse and contextual:
 
-## Cardinally accurate Haven-to-Aurelia journey
+- One cat near Haven’s inn area.
+- One dog in Aurelia’s market district.
+- One gull near Aurelia’s river district.
 
-The primary journey now progresses west to east on both the regional Atlas and the playable local maps:
+Town animals are flavor-only, follow small routines, and cannot be hunted.
 
-1. **Haven of the Last Lantern**
-2. **Whisperwood**
-3. **Southwood Trail**
-4. **Mosswater Crossing**
-5. **Ambermeadow**
-6. **Eastwatch Approach**
-7. **The Lantern Road**
-8. **Aurelia — Golden Gate Ward**
+### Wilderness wildlife
 
-Directional rules:
+The initial wilderness set includes:
 
-- Eastbound exits advance toward Aurelia.
-- Westbound exits return toward Haven.
-- Whisperwood’s mine remains a northern branch.
-- The Ashen Crypt remains a separate eastern branch.
-- Whisperwood’s Aurelia route now exits east-southeast rather than from the bottom edge.
-- The obsolete southbound trail tail from the older compatibility layer is removed.
+- Deer in Whisperwood, Southwood Trail, and the Lantern Road.
+- A marsh bird at Mosswater Crossing.
+- A hare in Ambermeadow.
+- A fox at Eastwatch Approach.
 
-The complete Haven-to-Aurelia route remains **30 in-game hours**.
+Wildlife appears deterministically on some in-game days rather than occupying every map at all times. Each animal follows a small repeated route that can be watched and timed.
 
-## Regional Atlas coordinates
+The player can:
 
-The open region is arranged in the same order as physical travel:
+- Observe an animal’s routine and record the first observation.
+- Attempt a Survival hunt where appropriate.
+- Gain Wild Game Meat, Animal Hide, or Wild Feathers from a successful hunt.
+- See the animal flee after a failed attempt.
 
-- Haven at the western edge of the explored vale.
-- Whisperwood east of Haven.
-- Southwood, Mosswater, Ambermeadow, Eastwatch, and the Lantern Road moving progressively east.
-- Aurelia at the eastern end of the route.
-- Lantern Mine north of Whisperwood.
-- Ashen Crypt east-northeast of Whisperwood.
+Hunted animals remain absent for several in-game days before they may return. Animal position, routine progress, observations, hunt state, and respawn timing persist in the save.
 
-Route lines therefore match the actual entrance and exit directions used in local play.
+## Adaptive HUD
 
-## Map presentation
+Exploration HUD modes remain:
 
-World and regional maps use:
+- **Full** — all selected HUD sections visible.
+- **Compact** — reduced vitals, map, objective, and prompt coverage.
+- **Hidden** — clear field view with a small HUD control tab.
 
-- 30×18 pixel-tile terrain fields.
-- Persistent fog of war.
-- Soft reveal areas around visited locations.
-- Revealed route corridors after both endpoints are explored.
-- Current, visited, known-only, and uncharted markers.
-- Legends for terrain and marker states.
-- North, west, and east compass markings.
-- The established parchment, charcoal, bronze, serif, and engraved-border UI theme.
+Vitals, minimap, objective, and hints can be toggled independently. Pressing `H` cycles the display modes, and preferences persist between sessions.
 
-The desktop Atlas now fits within the usable browser viewport more cleanly. The map and detail card share a fixed responsive height, while the detail card scrolls internally when its legend or city information is longer than the available space.
+## Living Atlas and physical geography
+
+The Atlas retains three levels:
+
+1. **World** — major regions, terrain, charted frontiers, and persistent fog.
+2. **Region** — settlements, wilderness maps, roads, dungeons, legends, and route information.
+3. **Local** — the exact playable 30×18 map with local visibility and markers.
+
+Fast travel requires a physically visited destination and personally discovered connecting route segments.
+
+The current complete physical journey remains:
+
+1. Haven of the Last Lantern
+2. Whisperwood
+3. Southwood Trail
+4. Mosswater Crossing
+5. Ambermeadow
+6. Eastwatch Approach
+7. The Lantern Road
+8. Aurelia — Golden Gate Ward
+
+Eastbound exits advance toward Aurelia; westbound exits return toward Haven. Lantern Mine and Ashen Crypt remain side branches from Whisperwood.
+
+## Persistent state
+
+Current save migration and state include:
+
+- Defeated enemies
+- Enemy and animal current positions
+- Patrol or routine index
+- Observed animals
+- Hunted animals and respawn day
+- Atlas discoveries and fog reveal points
+- Visited destinations and discovered roads
+- HUD preferences in local storage
+- Existing quests, inventory, equipment, resources, doors, chests, and discoveries
 
 ## Automated validation
 
-The original Living Atlas harness verifies:
+Existing validation covers:
 
-- Map definitions and dimensions.
-- Visited-only fast travel.
-- Persistent fog and reveal points.
-- The complete physical journey.
-- World and regional legends and pixel terrain.
+- Atlas progression, persistent fog, legends, and visited-only fast travel
+- Physical Haven-to-Aurelia roads and portal continuity
+- Cardinally accurate eastbound and westbound geography
+- Adaptive HUD persistence and unobstructed input
 
-The v1.5.4 directional harness additionally verifies:
+The v1.5.6 visible-entity harness additionally verifies:
 
-- Haven through Aurelia increase monotonically eastward on the regional Atlas.
-- Every forward portal uses the east edge.
-- Every return portal uses the west edge.
-- Southwood, Mosswater, Ambermeadow, Eastwatch, and Lantern Road have continuous west-to-east roads.
-- Whisperwood connects Haven to its east-southeast Southwood exit.
-- The fitted Atlas layout and cardinal compass CSS remain present.
+- Ordinary random encounters are disabled.
+- Town wildlife appears contextually and remains non-huntable.
+- Wilderness wildlife can appear on deterministic in-game days.
+- Enemies receive predictable routines.
+- Patrols pause while the player examines a panel.
+- Patrols advance independently during normal exploration.
+- Patrol collision starts tactical combat.
+- Hunting grants resources and records persistent respawn state.
+- New wildlife resource items are registered.
 
 ## Required live regression checklist
 
-### Physical route
+### Patrols
 
-- Leave Haven through the east road into Whisperwood.
-- Follow the east-southeast Southwood branch rather than the mine or crypt branches.
-- Cross each wilderness map from west to east.
-- Enter Aurelia through the Golden Gate.
-- Walk the entire route backward and confirm west exits return toward Haven.
-- Confirm no portal or blocking object prevents reaching the next exit.
+- Watch an enemy for several seconds without moving and confirm it follows a short repeatable route.
+- Open Inventory, Character, Journal, Atlas, dialogue, and HUD controls; confirm patrols stop.
+- Change browser tabs and confirm patrols do not advance while unfocused.
+- Return to exploration and confirm movement resumes.
+- Time movement around a patrol and confirm it can be avoided.
+- Walk into an enemy and confirm tactical combat starts.
+- Allow an enemy patrol to enter the player’s tile and confirm tactical combat starts.
+- Confirm defeated enemies remain removed according to existing defeat persistence.
 
-### Atlas
+### Wildlife
 
-- Confirm Haven appears west of Whisperwood.
-- Confirm every intermediate road location progresses east toward Aurelia.
-- Confirm Mine and Crypt remain side branches rather than part of the main road.
-- Confirm route lines connect the same locations and directions seen in local play.
-- Confirm the World and Region pages fit without awkward page-length overflow at common desktop sizes.
-- Confirm the detail sidebar scrolls internally when necessary.
-- Confirm fog, legends, labels, and save persistence remain intact.
+- Confirm Haven contains only the intended small flavor animal rather than a crowded population.
+- Visit the wilderness maps over multiple in-game days and confirm wildlife is occasional.
+- Observe an animal and confirm its routine is understandable.
+- Attempt a hunt and confirm success grants resources while failure causes the animal to flee.
+- Save and reload after moving, observing, or hunting an animal and confirm state persists.
+- Advance several in-game days and confirm hunted wildlife can return after its respawn delay.
 
 ### Existing systems
 
-- Haven remains the new-game start.
-- Whisperwood, Lantern Mine, and Ashen Crypt still work.
-- Existing saves migrate without losing Atlas progress.
-- Exploration, combat, camps, signs, resources, chests, saving, and local maps remain functional.
-- Title screen and unified UI remain unchanged.
+- Confirm no invisible encounter triggers occur merely from walking a fixed number of steps.
+- Confirm scripted, boss, quest, and stationary guard encounters still function.
+- Confirm Atlas, fog, physical travel, adaptive HUD, tactical arenas, camps, resources, quests, saving, and loading still work.
 
 ## Known risks and unfinished work
 
-1. The directional route and fitted Atlas layout still require live browser visual QA after deployment.
-2. Labels may need minor spacing adjustments after all intermediate locations become revealed simultaneously.
-3. Enemy density and camp placement may need tuning after a complete walk.
-4. Road encounters, supplies, weather consequences, secrets, side paths, dungeons, and quest content remain intentionally deferred until route stability is confirmed.
-5. Aurelia still needs substantial city content.
-6. Future world regions remain foundations only.
+1. The new patrol speeds, routes, and wildlife appearance rates require live visual and gameplay tuning.
+2. Only the current Haven-to-Aurelia maps have an initial wildlife population; future regions need their own contextual species and routines.
+3. Hunting currently uses a compact interaction and Survival check rather than a dedicated hunting minigame.
+4. Wildlife resources are registered and collectible but are not yet deeply integrated into cooking, crafting, merchants, or quests.
+5. Existing enemy spawn layouts were not originally authored for moving patrols, so some routes may need map-specific adjustment after live testing.
+6. Aurelia and the six future world regions still require substantial settlement, quest, dungeon, and content expansion.
 
 ## Next development pass
 
-1. Confirm the complete eastbound and westbound Haven-to-Aurelia walk in the deployed game.
-2. Correct any remaining portal, sign, label, fog, or collision issue.
-3. Add simple road events and ambient travelers after route stability is confirmed.
-4. Add optional side paths, hidden locations, dungeons, and secrets afterward.
-5. Expand Aurelia district content.
+1. Live-test patrol timing, collision, pause behavior, and animal interaction throughout the existing route.
+2. Correct any patrol that blocks a narrow road or uses an awkward route.
+3. Tune wildlife frequency so animals remain occasional.
+4. Begin the Drowned Fen as the first complete additional region, using visible patrols and contextual wildlife from the start.
+5. Add cooking, leatherwork, fletching, hunting quests, and regional wildlife rewards during region content expansion.
 
 ## Repository rules
 
 - `main` is the authoritative production state.
 - Use branches and pull requests for meaningful changes.
-- Do not create a new numbered ZIP for routine JavaScript or CSS updates.
+- Do not create numbered ZIPs for routine JavaScript or CSS updates.
 - Do not commit temporary transport files.
 - Update `version.json`, `CHANGELOG.md`, and this file at each canonical checkpoint.
-- Keep gameplay changes small, reversible, and validated.
+- Keep gameplay changes small, reversible, and covered by focused validation.

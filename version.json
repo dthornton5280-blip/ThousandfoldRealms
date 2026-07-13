@@ -1,6 +1,6 @@
 {
-  "version": "1.5.5-dev",
-  "buildName": "Adaptive Field HUD",
+  "version": "1.5.6-dev",
+  "buildName": "Visible Patrols + Living Wildlife",
   "canonicalBranch": "main",
   "deploymentModel": "single verified package plus Git-managed overrides"
 }
