@@ -1,4 +1,4 @@
-name: Validate Pixel Crawler Tavern Art
+name: Validate Pixel Art Catalog and Tavern Rollback
 
 on:
   pull_request:
@@ -11,28 +11,32 @@ permissions:
   contents: read
 
 jobs:
-  validate-pixel-crawler-tavern:
+  validate-pixel-art-catalog:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Verify art integration files
+      - name: Verify art catalog files
         shell: bash
         run: |
           set -euo pipefail
           test -f source/src/render/assets.js
           test -f source/src/render/renderer.js
           test -f source/assets/third-party/pixel-crawler/NOTICE.txt
-          test -f tests/pixel-crawler-tavern-v159-harness.js
+          test -f docs/PIXEL_CRAWLER_ART_DIRECTION.md
+          test -f docs/pixel-crawler/asset_manifest.json
+          test -f tools/catalog_pixel_crawler.py
+          test -f tests/pixel-art-catalog-v160-harness.js
 
-      - name: Check JavaScript syntax
+      - name: Check syntax
         shell: bash
         run: |
           set -euo pipefail
           node --check source/src/render/assets.js
           node --check source/src/render/renderer.js
-          node --check tests/pixel-crawler-tavern-v159-harness.js
+          node --check tests/pixel-art-catalog-v160-harness.js
+          python -m py_compile tools/catalog_pixel_crawler.py
 
-      - name: Validate embedded runtime and tavern scope
-        run: node tests/pixel-crawler-tavern-v159-harness.js
+      - name: Validate catalog, feature gate, and stable rollback
+        run: node tests/pixel-art-catalog-v160-harness.js
