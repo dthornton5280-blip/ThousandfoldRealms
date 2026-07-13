@@ -1,6 +1,6 @@
 {
-  "version": "1.6.7-dev",
-  "buildName": "Live Asset + Collision + Tactical Repair",
+  "version": "1.6.8-dev",
+  "buildName": "Visible Generated Asset Placement",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
