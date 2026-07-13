@@ -1,0 +1,103 @@
+{
+  "version": "1.6.5-dev",
+  "atlas": {
+    "id": "generated-proof-atlas",
+    "file": "generated-proof-atlas.png",
+    "width": 512,
+    "height": 288,
+    "source": "project-owned generated proof batch derived from approved Thousandfold Realms concept art",
+    "runtimeStatus": "active vertical slice with procedural fallback"
+  },
+  "assets": {
+    "haven_tree_deciduous_green": {
+      "sourceRect": {"x": 4, "y": 4, "w": 96, "h": 112},
+      "renderDimensions": {"w": 96, "h": 112},
+      "anchor": "bottomCenter",
+      "layer": "tall-prop",
+      "collisionFootprint": [{"x": 0, "y": 0}],
+      "interactionFootprint": [],
+      "tags": ["haven", "whisperwood", "nature", "tree"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_tree_evergreen": {
+      "sourceRect": {"x": 104, "y": 4, "w": 80, "h": 112},
+      "renderDimensions": {"w": 80, "h": 112},
+      "anchor": "bottomCenter",
+      "layer": "tall-prop",
+      "collisionFootprint": [{"x": 0, "y": 0}],
+      "interactionFootprint": [],
+      "tags": ["haven", "whisperwood", "nature", "tree"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_tree_autumn": {
+      "sourceRect": {"x": 188, "y": 4, "w": 96, "h": 112},
+      "renderDimensions": {"w": 96, "h": 112},
+      "anchor": "bottomCenter",
+      "layer": "tall-prop",
+      "collisionFootprint": [{"x": 0, "y": 0}],
+      "interactionFootprint": [],
+      "tags": ["haven", "whisperwood", "nature", "tree"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_bush_round_green": {
+      "sourceRect": {"x": 288, "y": 4, "w": 64, "h": 48},
+      "renderDimensions": {"w": 64, "h": 48},
+      "anchor": "bottomCenter",
+      "layer": "lower-entity",
+      "collisionFootprint": [{"x": 0, "y": 0}],
+      "interactionFootprint": [],
+      "tags": ["haven", "whisperwood", "nature", "bush"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_lamppost_hanging_lantern": {
+      "sourceRect": {"x": 356, "y": 4, "w": 40, "h": 96},
+      "renderDimensions": {"w": 40, "h": 96},
+      "anchor": "bottomCenter",
+      "layer": "tall-prop",
+      "collisionFootprint": [],
+      "interactionFootprint": [{"x": 0, "y": 0}],
+      "tags": ["haven", "prop", "lantern", "light"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_well_stone_roofed": {
+      "sourceRect": {"x": 400, "y": 4, "w": 64, "h": 64},
+      "renderDimensions": {"w": 64, "h": 64},
+      "anchor": "topLeft",
+      "layer": "entity",
+      "collisionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 0, "y": 1}, {"x": 1, "y": 1}],
+      "interactionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 0, "y": 1}, {"x": 1, "y": 1}],
+      "tags": ["haven", "prop", "well"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_market_stall_green_awning": {
+      "sourceRect": {"x": 4, "y": 120, "w": 80, "h": 64},
+      "renderDimensions": {"w": 80, "h": 64},
+      "anchor": "topLeft",
+      "layer": "entity",
+      "collisionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}],
+      "interactionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}],
+      "tags": ["haven", "prop", "market", "stall"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "haven_tavern_exterior": {
+      "sourceRect": {"x": 88, "y": 120, "w": 256, "h": 160},
+      "renderDimensions": {"w": 256, "h": 160},
+      "anchor": "topLeft",
+      "layer": "building",
+      "collisionFootprint": [],
+      "interactionFootprint": [],
+      "tags": ["haven", "landmark", "building", "tavern"],
+      "fallback": "existing Thousandfold procedural renderer"
+    },
+    "tavern_fireplace_stone": {
+      "sourceRect": {"x": 348, "y": 120, "w": 64, "h": 64},
+      "renderDimensions": {"w": 64, "h": 64},
+      "anchor": "topLeft",
+      "layer": "tall-prop",
+      "collisionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 0, "y": 1}, {"x": 1, "y": 1}],
+      "interactionFootprint": [{"x": 0, "y": 0}, {"x": 1, "y": 0}, {"x": 0, "y": 1}, {"x": 1, "y": 1}],
+      "tags": ["tavern", "interior", "hearth", "fireplace"],
+      "fallback": "existing Thousandfold procedural renderer"
+    }
+  }
+}
