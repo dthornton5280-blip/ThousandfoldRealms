@@ -87,16 +87,3 @@
   script.dataset.tfrRuntimeV167='true';
   document.head.appendChild(script);
 })();
-
-/* v1.6.10 direct prop/furniture render repair. The asset module keeps its stable
-   filename, but the query and data marker are new so Pages and the browser must
-   fetch the authoritative implementation again. */
-(() => {
-  'use strict';
-  if(typeof document==='undefined'||document.querySelector('script[data-tfr-prop-furniture-v1610]'))return;
-  const script=document.createElement('script');
-  script.src='src/render/prop_furniture_runtime_v169.js?v=1610';
-  script.async=false;
-  script.dataset.tfrPropFurnitureV1610='true';
-  document.head.appendChild(script);
-})();
