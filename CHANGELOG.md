@@ -2,6 +2,27 @@
 
 Canonical development checkpoints for Thousandfold Realms are recorded here. Detailed implementation notes and regression plans live under `docs/` and in the merged pull requests.
 
+## 1.6.14-dev — Handcrafted Haven Terrain and Composition Polish
+
+### Added
+- A reproducible Haven-only terrain build pipeline derived from the approved handoff sheet.
+- A 186-tile runtime atlas that preserves nine detailed patches per terrain swatch plus deterministic grass, path, cobble, edge, corner, and mixed-junction selection.
+- Five modular 256x160 storefront facades composed from the checksum-locked approved exterior kit, bringing the inn, Arcana, provisions shop, chapel, and forge into the Black Lantern's visual language.
+- Approved starter-interior wood, rug, and stone surfaces, including coherent 3x3 carpet and masonry macros instead of randomly repeating complete samples.
+- Strict source-image checksum, crop, atlas-boundary, black-gutter, topology, scope, and fallback validation.
+
+### Fixed
+- Removed garden and rock accents that overwrote cells inside Haven building footprints.
+- Returned both market stalls to the square so their canopies no longer intrude into the southern storefront row.
+- Scaled the delivery cart from its oversized presentation size to a crisp 96x72 town prop, preserving its exact 4:3 proportions and a logical two-cell wheel/body base.
+- Moved Haven's noticeboard out of Selene's entrance and reduced its interaction area so it can no longer steal doorway input.
+- Made game startup resilient when the main script executes after `DOMContentLoaded` and bounded optional runtime loading waits.
+
+### Preserved
+- Haven's map IDs, doors, destinations, NPCs, quests, saves, and collision systems.
+- Biome-specific non-Haven rendering remains in place until matching connected wilderness, water, dungeon, and city kits are approved; the Haven town sheet is not misapplied as a universal biome.
+- Procedural terrain and prop fallbacks if an approved atlas cannot load.
+
 ## 1.6.1-dev — Haven Art + Living Interiors
 
 ### Added

@@ -1,0 +1,101 @@
+{
+  "version": "1.6.14-dev",
+  "source": "reference/approved/haven_exterior_master_kit.png",
+  "sourceSha256": "1132bdf1530e7f3ba8a17d9811080429d24161aaf3ec2bfcad89afbacd5cd52f",
+  "atlas": {
+    "width": 1280,
+    "height": 160
+  },
+  "assets": {
+    "haven_inn_exterior": {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 160,
+      "anchor": "topLeft",
+      "modules": {
+        "roof": "red",
+        "wall": 0,
+        "stone": 0,
+        "gable": 0,
+        "door": 0,
+        "windows": [
+          0,
+          1
+        ]
+      }
+    },
+    "haven_arcane_exterior": {
+      "x": 256,
+      "y": 0,
+      "w": 256,
+      "h": 160,
+      "anchor": "topLeft",
+      "modules": {
+        "roof": "green",
+        "wall": 3,
+        "stone": 3,
+        "gable": 1,
+        "door": 5,
+        "windows": [
+          4,
+          7
+        ]
+      }
+    },
+    "haven_provisions_exterior": {
+      "x": 512,
+      "y": 0,
+      "w": 256,
+      "h": 160,
+      "anchor": "topLeft",
+      "modules": {
+        "roof": "green",
+        "wall": 1,
+        "stone": 1,
+        "gable": 0,
+        "door": 1,
+        "windows": [
+          2,
+          3
+        ]
+      }
+    },
+    "haven_chapel_exterior": {
+      "x": 768,
+      "y": 0,
+      "w": 256,
+      "h": 160,
+      "anchor": "topLeft",
+      "modules": {
+        "roof": "green",
+        "wall": 4,
+        "stone": 4,
+        "gable": 1,
+        "door": 6,
+        "windows": [
+          4,
+          6
+        ]
+      }
+    },
+    "haven_forge_exterior": {
+      "x": 1024,
+      "y": 0,
+      "w": 256,
+      "h": 160,
+      "anchor": "topLeft",
+      "modules": {
+        "roof": "red",
+        "wall": 2,
+        "stone": 5,
+        "gable": 1,
+        "door": 4,
+        "windows": [
+          1,
+          5
+        ]
+      }
+    }
+  }
+}

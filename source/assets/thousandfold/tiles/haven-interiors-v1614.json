@@ -1,0 +1,449 @@
+{
+  "version": "1.6.14-dev",
+  "atlas": {
+    "width": 256,
+    "height": 128
+  },
+  "tiles": {
+    "interior_polished_wood_0": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        99,
+        72,
+        149
+      ]
+    },
+    "interior_polished_wood_1": {
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        79,
+        99,
+        129,
+        149
+      ]
+    },
+    "interior_polished_wood_2": {
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        136,
+        99,
+        186,
+        149
+      ]
+    },
+    "interior_polished_wood_3": {
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        193,
+        99,
+        243,
+        149
+      ]
+    },
+    "interior_polished_wood_4": {
+      "x": 128,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        250,
+        99,
+        300,
+        149
+      ]
+    },
+    "interior_worn_wood_0": {
+      "x": 160,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        174,
+        72,
+        224
+      ]
+    },
+    "interior_worn_wood_1": {
+      "x": 192,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        79,
+        174,
+        129,
+        224
+      ]
+    },
+    "interior_worn_wood_2": {
+      "x": 224,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        136,
+        174,
+        186,
+        224
+      ]
+    },
+    "interior_worn_wood_3": {
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        193,
+        174,
+        243,
+        224
+      ]
+    },
+    "interior_worn_wood_4": {
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        250,
+        174,
+        300,
+        224
+      ]
+    },
+    "interior_rug_p00": {
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "interior_rug_p01": {
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "interior_rug_p02": {
+      "x": 128,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "interior_rug_p10": {
+      "x": 160,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "interior_rug_p11": {
+      "x": 192,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "interior_rug_p12": {
+      "x": 224,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "interior_rug_p20": {
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "interior_rug_p21": {
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "interior_rug_p22": {
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "black_lantern",
+      "crop": [
+        22,
+        235,
+        72,
+        285
+      ],
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "interior_stone_p00": {
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "interior_stone_p01": {
+      "x": 128,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "interior_stone_p02": {
+      "x": 160,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "interior_stone_p10": {
+      "x": 192,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "interior_stone_p11": {
+      "x": 224,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "interior_stone_p12": {
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "interior_stone_p20": {
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "interior_stone_p21": {
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "interior_stone_p22": {
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "source": "haven_ground",
+      "crop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "macroPatch": [
+        2,
+        2
+      ]
+    }
+  },
+  "sources": {
+    "blackLanternSha256": "c84747912ba39de7027c9697a09ea34c70a80fa20a2d1a97603e8d5f58368c59",
+    "havenGroundSha256": "b6b9cc27a0e783bc00a169c126fd48e1361cac21561dbdb17acbd61a5d1024cd"
+  }
+}

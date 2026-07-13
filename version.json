@@ -1,6 +1,6 @@
 {
-  "version": "1.6.13-dev",
-  "buildName": "Prop Collision and Ground Tile Atlas",
+  "version": "1.6.14-dev",
+  "buildName": "Handcrafted Haven Terrain and Composition Polish",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }

@@ -6,8 +6,8 @@
   const patch=(mapId,id,values)=>{const entry=object(mapId,id);if(entry)Object.assign(entry,values);};
 
   /* Final clear-floor corrections after every additive furnishing layer has run. */
-  patch('haven','market_stall_1',{x:6,y:9});
-  patch('haven','market_stall_2',{x:22,y:9});
+  patch('haven','market_stall_1',{x:6,y:7});
+  patch('haven','market_stall_2',{x:20,y:7});
   patch('haven','haven_cache',{x:4,y:16});
   patch('haven','haven_banner_1',{x:12,y:7});
   patch('haven','haven_banner_2',{x:17,y:10});

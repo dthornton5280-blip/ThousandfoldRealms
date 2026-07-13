@@ -1,0 +1,4307 @@
+{
+  "version": "1.6.14-dev",
+  "scope": "Haven exterior only",
+  "tileSize": 32,
+  "source": {
+    "path": "reference/approved/haven_ground_tileset_source.png",
+    "sha256": "b6b9cc27a0e783bc00a169c126fd48e1361cac21561dbdb17acbd61a5d1024cd",
+    "dimensions": [
+      1448,
+      1086
+    ],
+    "layout": {
+      "columns": 6,
+      "rows": 4,
+      "cropSize": 176,
+      "macroSize": 96,
+      "patchesPerBase": 9
+    }
+  },
+  "atlas": {
+    "path": "source/assets/thousandfold/tiles/haven-ground-handcrafted-v1614.png",
+    "width": 512,
+    "height": 384,
+    "columns": 16,
+    "rows": 12
+  },
+  "tiles": {
+    "haven_grass_clean_01_p00": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 0,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_clean_01_p01": {
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 1,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_clean_01_p02": {
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 2,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_clean_01_p10": {
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 3,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_clean_01_p11": {
+      "x": 128,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 4,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_clean_01_p12": {
+      "x": 160,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 5,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_clean_01_p20": {
+      "x": 192,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 6,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_clean_01_p21": {
+      "x": 224,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 7,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_clean_01_p22": {
+      "x": 256,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 8,
+      "sourceCard": [
+        0,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        61,
+        228,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_flowers_01_p00": {
+      "x": 288,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 9,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_flowers_01_p01": {
+      "x": 320,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 10,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_flowers_01_p02": {
+      "x": 352,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 11,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_flowers_01_p10": {
+      "x": 384,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 12,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_flowers_01_p11": {
+      "x": 416,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 13,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_flowers_01_p12": {
+      "x": 448,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 14,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_flowers_01_p20": {
+      "x": 480,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "index": 15,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_flowers_01_p21": {
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 16,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_flowers_01_p22": {
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 17,
+      "sourceCard": [
+        0,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        61,
+        465,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_dense_01_p00": {
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 18,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_dense_01_p01": {
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 19,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_dense_01_p02": {
+      "x": 128,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 20,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_dense_01_p10": {
+      "x": 160,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 21,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_dense_01_p11": {
+      "x": 192,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 22,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_dense_01_p12": {
+      "x": 224,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 23,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_dense_01_p20": {
+      "x": 256,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 24,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_dense_01_p21": {
+      "x": 288,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 25,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_dense_01_p22": {
+      "x": 320,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 26,
+      "sourceCard": [
+        0,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        61,
+        697,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_rocks_01_p00": {
+      "x": 352,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 27,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_rocks_01_p01": {
+      "x": 384,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 28,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_rocks_01_p02": {
+      "x": 416,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 29,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_rocks_01_p10": {
+      "x": 448,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 30,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_rocks_01_p11": {
+      "x": 480,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "index": 31,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_rocks_01_p12": {
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 32,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_rocks_01_p20": {
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 33,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_rocks_01_p21": {
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 34,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_rocks_01_p22": {
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 35,
+      "sourceCard": [
+        0,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        61,
+        929,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_worn_01_p00": {
+      "x": 128,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 36,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_worn_01_p01": {
+      "x": 160,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 37,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_worn_01_p02": {
+      "x": 192,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 38,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_worn_01_p10": {
+      "x": 224,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 39,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_worn_01_p11": {
+      "x": 256,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 40,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_worn_01_p12": {
+      "x": 288,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 41,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_worn_01_p20": {
+      "x": 320,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 42,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_worn_01_p21": {
+      "x": 352,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 43,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_worn_01_p22": {
+      "x": 384,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 44,
+      "sourceCard": [
+        0,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        61,
+        1161,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_dense_02_p00": {
+      "x": 416,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 45,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_dense_02_p01": {
+      "x": 448,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 46,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_dense_02_p02": {
+      "x": 480,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "index": 47,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_dense_02_p10": {
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 48,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_dense_02_p11": {
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 49,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_dense_02_p12": {
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 50,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_dense_02_p20": {
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 51,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_dense_02_p21": {
+      "x": 128,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 52,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_dense_02_p22": {
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 53,
+      "sourceCard": [
+        0,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        61,
+        1393,
+        237
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_worn_02_p00": {
+      "x": 192,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 54,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_worn_02_p01": {
+      "x": 224,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 55,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_worn_02_p02": {
+      "x": 256,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 56,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_worn_02_p10": {
+      "x": 288,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 57,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_worn_02_p11": {
+      "x": 320,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 58,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_worn_02_p12": {
+      "x": 352,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 59,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_worn_02_p20": {
+      "x": 384,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 60,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_worn_02_p21": {
+      "x": 416,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 61,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_worn_02_p22": {
+      "x": 448,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 62,
+      "sourceCard": [
+        1,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        300,
+        228,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_flowers_02_p00": {
+      "x": 480,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "index": 63,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_flowers_02_p01": {
+      "x": 0,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 64,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_flowers_02_p02": {
+      "x": 32,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 65,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_flowers_02_p10": {
+      "x": 64,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 66,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_flowers_02_p11": {
+      "x": 96,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 67,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_flowers_02_p12": {
+      "x": 128,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 68,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_flowers_02_p20": {
+      "x": 160,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 69,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_flowers_02_p21": {
+      "x": 192,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 70,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_flowers_02_p22": {
+      "x": 224,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 71,
+      "sourceCard": [
+        1,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        300,
+        465,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_rocks_02_p00": {
+      "x": 256,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 72,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_rocks_02_p01": {
+      "x": 288,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 73,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_rocks_02_p02": {
+      "x": 320,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 74,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_rocks_02_p10": {
+      "x": 352,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 75,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_rocks_02_p11": {
+      "x": 384,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 76,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_rocks_02_p12": {
+      "x": 416,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 77,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_rocks_02_p20": {
+      "x": 448,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 78,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_rocks_02_p21": {
+      "x": 480,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "index": 79,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_rocks_02_p22": {
+      "x": 0,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 80,
+      "sourceCard": [
+        1,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        300,
+        697,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_grass_clean_02_p00": {
+      "x": 32,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 81,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_grass_clean_02_p01": {
+      "x": 64,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 82,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_grass_clean_02_p02": {
+      "x": 96,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 83,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_grass_clean_02_p10": {
+      "x": 128,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 84,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_grass_clean_02_p11": {
+      "x": 160,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 85,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_grass_clean_02_p12": {
+      "x": 192,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 86,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_grass_clean_02_p20": {
+      "x": 224,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 87,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_grass_clean_02_p21": {
+      "x": 256,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 88,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_grass_clean_02_p22": {
+      "x": 288,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 89,
+      "sourceCard": [
+        1,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        300,
+        929,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_path_dirt_01_p00": {
+      "x": 320,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 90,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_path_dirt_01_p01": {
+      "x": 352,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 91,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_path_dirt_01_p02": {
+      "x": 384,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 92,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_path_dirt_01_p10": {
+      "x": 416,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 93,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_path_dirt_01_p11": {
+      "x": 448,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 94,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_path_dirt_01_p12": {
+      "x": 480,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "index": 95,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_path_dirt_01_p20": {
+      "x": 0,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 96,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_path_dirt_01_p21": {
+      "x": 32,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 97,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_path_dirt_01_p22": {
+      "x": 64,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 98,
+      "sourceCard": [
+        1,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        300,
+        1161,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_01_p00": {
+      "x": 96,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 99,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_01_p01": {
+      "x": 128,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 100,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_01_p02": {
+      "x": 160,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 101,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_01_p10": {
+      "x": 192,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 102,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_01_p11": {
+      "x": 224,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 103,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_01_p12": {
+      "x": 256,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 104,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_01_p20": {
+      "x": 288,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 105,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_01_p21": {
+      "x": 320,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 106,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_01_p22": {
+      "x": 352,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 107,
+      "sourceCard": [
+        1,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        300,
+        1393,
+        476
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_02_p00": {
+      "x": 384,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 108,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_02_p01": {
+      "x": 416,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 109,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_02_p02": {
+      "x": 448,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 110,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_path_dirt_rocks_02_p10": {
+      "x": 480,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "index": 111,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_02_p11": {
+      "x": 0,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 112,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_02_p12": {
+      "x": 32,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 113,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_path_dirt_rocks_02_p20": {
+      "x": 64,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 114,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_02_p21": {
+      "x": 96,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 115,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_path_dirt_rocks_02_p22": {
+      "x": 128,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 116,
+      "sourceCard": [
+        2,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        542,
+        228,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_path_dirt_02_p00": {
+      "x": 160,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 117,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_path_dirt_02_p01": {
+      "x": 192,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 118,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_path_dirt_02_p02": {
+      "x": 224,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 119,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_path_dirt_02_p10": {
+      "x": 256,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 120,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_path_dirt_02_p11": {
+      "x": 288,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 121,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_path_dirt_02_p12": {
+      "x": 320,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 122,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_path_dirt_02_p20": {
+      "x": 352,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 123,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_path_dirt_02_p21": {
+      "x": 384,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 124,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_path_dirt_02_p22": {
+      "x": 416,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 125,
+      "sourceCard": [
+        2,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        542,
+        465,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_path_dirt_worn_01_p00": {
+      "x": 448,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 126,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_path_dirt_worn_01_p01": {
+      "x": 480,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "index": 127,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_path_dirt_worn_01_p02": {
+      "x": 0,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 128,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_path_dirt_worn_01_p10": {
+      "x": 32,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 129,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_path_dirt_worn_01_p11": {
+      "x": 64,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 130,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_path_dirt_worn_01_p12": {
+      "x": 96,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 131,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_path_dirt_worn_01_p20": {
+      "x": 128,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 132,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_path_dirt_worn_01_p21": {
+      "x": 160,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 133,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_path_dirt_worn_01_p22": {
+      "x": 192,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 134,
+      "sourceCard": [
+        2,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        542,
+        697,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_cobble_01_p00": {
+      "x": 224,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 135,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_cobble_01_p01": {
+      "x": 256,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 136,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_cobble_01_p02": {
+      "x": 288,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 137,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_cobble_01_p10": {
+      "x": 320,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 138,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_cobble_01_p11": {
+      "x": 352,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 139,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_cobble_01_p12": {
+      "x": 384,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 140,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_cobble_01_p20": {
+      "x": 416,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 141,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_cobble_01_p21": {
+      "x": 448,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 142,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_cobble_01_p22": {
+      "x": 480,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "index": 143,
+      "sourceCard": [
+        2,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        542,
+        929,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_cobble_moss_01_p00": {
+      "x": 0,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 144,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_cobble_moss_01_p01": {
+      "x": 32,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 145,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_cobble_moss_01_p02": {
+      "x": 64,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 146,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_cobble_moss_01_p10": {
+      "x": 96,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 147,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_cobble_moss_01_p11": {
+      "x": 128,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 148,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_cobble_moss_01_p12": {
+      "x": 160,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 149,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_cobble_moss_01_p20": {
+      "x": 192,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 150,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_cobble_moss_01_p21": {
+      "x": 224,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 151,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_cobble_moss_01_p22": {
+      "x": 256,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 152,
+      "sourceCard": [
+        2,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        542,
+        1161,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_cobble_cracked_01_p00": {
+      "x": 288,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 153,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        0
+      ]
+    },
+    "haven_cobble_cracked_01_p01": {
+      "x": 320,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 154,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        0
+      ]
+    },
+    "haven_cobble_cracked_01_p02": {
+      "x": 352,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 155,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        0
+      ]
+    },
+    "haven_cobble_cracked_01_p10": {
+      "x": 384,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 156,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        1
+      ]
+    },
+    "haven_cobble_cracked_01_p11": {
+      "x": 416,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 157,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_cobble_cracked_01_p12": {
+      "x": 448,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 158,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        1
+      ]
+    },
+    "haven_cobble_cracked_01_p20": {
+      "x": 480,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "index": 159,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        0,
+        2
+      ]
+    },
+    "haven_cobble_cracked_01_p21": {
+      "x": 0,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 160,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        2
+      ]
+    },
+    "haven_cobble_cracked_01_p22": {
+      "x": 32,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 161,
+      "sourceCard": [
+        2,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        542,
+        1393,
+        718
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        2,
+        2
+      ]
+    },
+    "haven_edge_grass_path_e": {
+      "x": 64,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 162,
+      "sourceCard": [
+        3,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        787,
+        697,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_path_s": {
+      "x": 96,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 163,
+      "sourceCard": [
+        3,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        787,
+        697,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_path_w": {
+      "x": 128,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 164,
+      "sourceCard": [
+        3,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        787,
+        697,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_path_n": {
+      "x": 160,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 165,
+      "sourceCard": [
+        3,
+        2
+      ],
+      "sourceCrop": [
+        521,
+        787,
+        697,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_path_se": {
+      "x": 192,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 166,
+      "sourceCard": [
+        3,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        787,
+        228,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_path_sw": {
+      "x": 224,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 167,
+      "sourceCard": [
+        3,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        787,
+        228,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_path_nw": {
+      "x": 256,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 168,
+      "sourceCard": [
+        3,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        787,
+        228,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_path_ne": {
+      "x": 288,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 169,
+      "sourceCard": [
+        3,
+        0
+      ],
+      "sourceCrop": [
+        52,
+        787,
+        228,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_cobble_e": {
+      "x": 320,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 170,
+      "sourceCard": [
+        3,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        787,
+        929,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_cobble_s": {
+      "x": 352,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 171,
+      "sourceCard": [
+        3,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        787,
+        929,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_cobble_w": {
+      "x": 384,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 172,
+      "sourceCard": [
+        3,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        787,
+        929,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_edge_grass_cobble_n": {
+      "x": 416,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 173,
+      "sourceCard": [
+        3,
+        3
+      ],
+      "sourceCrop": [
+        753,
+        787,
+        929,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_cobble_se": {
+      "x": 448,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 174,
+      "sourceCard": [
+        3,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        787,
+        465,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_cobble_sw": {
+      "x": 480,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "index": 175,
+      "sourceCard": [
+        3,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        787,
+        465,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_cobble_nw": {
+      "x": 0,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 176,
+      "sourceCard": [
+        3,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        787,
+        465,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_grass_cobble_ne": {
+      "x": 32,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 177,
+      "sourceCard": [
+        3,
+        1
+      ],
+      "sourceCrop": [
+        289,
+        787,
+        465,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_path_cobble_se": {
+      "x": 64,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 178,
+      "sourceCard": [
+        3,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        787,
+        1161,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_path_cobble_sw": {
+      "x": 96,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 179,
+      "sourceCard": [
+        3,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        787,
+        1161,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_path_cobble_nw": {
+      "x": 128,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 180,
+      "sourceCard": [
+        3,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        787,
+        1161,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_corner_path_cobble_ne": {
+      "x": 160,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 181,
+      "sourceCard": [
+        3,
+        4
+      ],
+      "sourceCrop": [
+        985,
+        787,
+        1161,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_junction_grass_path_cobble_se": {
+      "x": 192,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 182,
+      "sourceCard": [
+        3,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        787,
+        1393,
+        963
+      ],
+      "rotation": 0,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_junction_grass_path_cobble_sw": {
+      "x": 224,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 183,
+      "sourceCard": [
+        3,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        787,
+        1393,
+        963
+      ],
+      "rotation": 90,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_junction_grass_path_cobble_nw": {
+      "x": 256,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 184,
+      "sourceCard": [
+        3,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        787,
+        1393,
+        963
+      ],
+      "rotation": 180,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    },
+    "haven_junction_grass_path_cobble_ne": {
+      "x": 288,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "index": 185,
+      "sourceCard": [
+        3,
+        5
+      ],
+      "sourceCrop": [
+        1217,
+        787,
+        1393,
+        963
+      ],
+      "rotation": 270,
+      "macroSize": 96,
+      "macroPatch": [
+        1,
+        1
+      ]
+    }
+  }
+}

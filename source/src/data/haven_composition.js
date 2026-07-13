@@ -23,7 +23,7 @@
     this.lineH(grid,4,8,1,'path');this.lineH(grid,21,25,1,'path');
     for(const [x,y] of [[6,6],[15,6],[24,6],[6,15],[15,15],[24,15],[29,8]])grid[y][x]='cobble';
     /* Soft garden borders keep the square from feeling like a bare rectangle. */
-    for(const [x,y,tile] of [[1,6,'flower_patch'],[9,6,'shrub'],[20,6,'shrub'],[28,6,'flower_patch'],[1,11,'shrub'],[9,11,'flower_patch'],[20,11,'flower_patch'],[28,11,'shrub'],[11,12,'rocks'],[18,12,'rocks']])grid[y][x]=tile;
+    for(const [x,y,tile] of [[1,6,'flower_patch'],[10,6,'shrub'],[19,6,'shrub'],[28,6,'flower_patch'],[1,11,'shrub'],[10,11,'flower_patch'],[19,11,'flower_patch'],[28,11,'shrub']])grid[y][x]=tile;
     return grid;
   };
 
@@ -32,18 +32,20 @@
   place('haven','bench_1',10,9,{artAnchor:'topLeft',artW:64,artH:40,collisionFootprint:footprint(2,1)});
   place('haven','bench_2',19,9,{artAnchor:'topLeft',artW:64,artH:40,collisionFootprint:footprint(2,1)});
   place('haven','town_fountain',15,9,{collisionFootprint:footprint(1,1)});
-  place('haven','town_board',14,7,{blocking:false,artAnchor:'topLeft',artW:64,artH:48,interactionFootprint:footprint(2,2)});
+  /* Keep the public noticeboard in the square instead of letting its old 2x2
+     interaction area steal input from Selene's doorway one row north. */
+  place('haven','town_board',13,8,{blocking:false,artAnchor:'topLeft',artW:64,artH:48,interactionFootprint:footprint(2,1)});
   place('haven','haven_well',2,8,{artAnchor:'topLeft',artW:64,artH:64,collisionFootprint:footprint(2,2)});
-  place('haven','haven_delivery_cart',25,9,{artAnchor:'topLeft',artW:80,artH:48,collisionFootprint:footprint(2,1)});
+  place('haven','haven_delivery_cart',24,8,{artAnchor:'topLeft',artW:96,artH:72,collisionFootprint:[{x:1,y:1},{x:2,y:1}]});
   for(const [id,x,y] of [['lamp_1',11,7],['lamp_2',18,7],['lamp_3',11,10],['lamp_4',18,10]])place('haven',id,x,y,{blocking:false});
   place('haven','flowers_1',3,7,{blocking:false});place('haven','flowers_2',26,7,{blocking:false});
-  add('haven',{id:'haven_east_sign',type:'decor',kind:'sign',name:'Eastern Road Signpost',x:27,y:8,blocking:false,artId:'road_signpost',artW:48,artH:48,description:'Weathered arrows point west to Lantern Square and east through Whisperwood toward Aurelia.'});
-  add('haven',{id:'haven_gate_north',type:'decor',kind:'gate',name:'Eastern Gate Lantern',x:28,y:6,blocking:false,artId:'town_gate_post',artW:32,artH:64,artLight:54,description:'A warded lantern marks the northern side of Haven’s open eastern gate.'});
-  add('haven',{id:'haven_gate_south',type:'decor',kind:'gate',name:'Eastern Gate Lantern',x:28,y:10,blocking:false,artId:'town_gate_post',artW:32,artH:64,artLight:54,description:'Its twin burns on the southern side of the road, bright even in heavy fog.'});
+  add('haven',{id:'haven_east_sign',type:'decor',kind:'sign',name:'Eastern Road Signpost',x:28,y:8,blocking:false,artId:'road_signpost',artW:48,artH:48,description:'Weathered arrows point west to Lantern Square and east through Whisperwood toward Aurelia.'});
+  add('haven',{id:'haven_gate_north',type:'decor',kind:'gate',name:'Eastern Gate Lantern',x:29,y:6,blocking:false,artId:'town_gate_post',artW:32,artH:64,artLight:54,description:'A warded lantern marks the northern side of Haven’s open eastern gate.'});
+  add('haven',{id:'haven_gate_south',type:'decor',kind:'gate',name:'Eastern Gate Lantern',x:29,y:10,blocking:false,artId:'town_gate_post',artW:32,artH:64,artLight:54,description:'Its twin burns on the southern side of the road, bright even in heavy fog.'});
   add('haven',{id:'haven_banner_1',type:'decor',kind:'banner',name:'Last Lantern Banner',x:12,y:5,blocking:false,artId:'street_banner',artW:32,artH:64,description:'The stitched lantern emblem has faded at the edges but never at its flame.'});
   add('haven',{id:'haven_banner_2',type:'decor',kind:'banner',name:'Last Lantern Banner',x:17,y:12,blocking:false,artId:'street_banner',artW:32,artH:64,description:'A square banner turns slowly above the southern walk.'});
 
-  if(AO.NPCS?.mira)Object.assign(AO.NPCS.mira,{x:14,y:8});
+  if(AO.NPCS?.mira)Object.assign(AO.NPCS.mira,{x:16,y:8});
   if(AO.NPCS?.nessa)Object.assign(AO.NPCS.nessa,{x:8,y:9});
   if(AO.NPCS?.jory)Object.assign(AO.NPCS.jory,{x:21,y:9});
   if(AO.AMBIENT_ACTORS?.town_courier)Object.assign(AO.AMBIENT_ACTORS.town_courier,{x:10,y:8,route:[[10,8],[11,8],[12,8],[13,8],[14,8],[15,8],[16,8],[17,8],[18,8],[19,8],[20,8],[19,8],[18,8],[17,8],[16,8],[15,8],[14,8],[13,8],[12,8],[11,8]]});

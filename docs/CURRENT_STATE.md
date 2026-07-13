@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.6.9-dev**
-- Build name: **Authoritative Prop + Furniture Integration**
-- Development branch: **feature/prop-furniture-runtime-v169**
+- Version: **1.6.14-dev**
+- Build name: **Handcrafted Haven Terrain and Composition Polish**
+- Development branch: **feature/haven-handcrafted-terrain-v1614**
 - Canonical production branch after merge: **main**
 - Deployment: **GitHub Pages**
 
@@ -13,6 +13,16 @@
 The live game is assembled from the editable `source/` directory. The historical packaged archive is not used by production.
 
 Authoritative files for the current checkpoint:
+
+- `source/assets/thousandfold/tiles/haven-ground-handcrafted-v1614.png` and `.json` — approved Haven terrain atlas and explicit metadata
+- `source/src/render/haven_ground_runtime_v1614.js` — deterministic Haven-only terrain selection and fallback
+- `scripts/build_haven_terrain_v1614.py` — checksum-locked atlas regeneration pipeline
+- `tests/haven-ground-v1614-harness.js` — terrain, scope, topology, and composition regression coverage
+- `source/assets/thousandfold/generated/haven-facades-v1614.png` and `.json` — five approved modular Haven storefronts
+- `source/src/render/haven_facade_runtime_v1614.js` — Haven facade binding, door-state overlay, and fallback
+- `source/assets/thousandfold/tiles/haven-interiors-v1614.png` and `.json` — approved wood, coherent rug, and coherent stone interior surfaces
+- `source/src/render/haven_interior_runtime_v1614.js` — starter-interior-only surface selection and fallback
+- `docs/ASSET_INTEGRATION_V1614.md` — source-of-truth inventory, active coverage, and exact missing regional kits
 
 - `source/assets/thousandfold/generated/generated-proof-atlas.part00.b64` through `part05.b64` — original v1.6.5 landmark/nature atlas
 - `source/assets/thousandfold/generated/generated-props-atlas-v166.b64` — approved standalone prop and furniture atlas
@@ -27,8 +37,8 @@ Authoritative files for the current checkpoint:
 The project uses a hybrid project-owned art pipeline:
 
 - Standalone approved objects are isolated, background-cleaned, normalized, packed into compact transparent atlases, and bound to real game entities.
-- Connected terrain, roads, floors, walls, roofs, doors, water, and modular architecture are deliberately reconstructed rather than sliced from concept sheets.
-- Presentation sheets and contact sheets are reference material only and are never loaded by the game.
+- Connected terrain, roads, floors, walls, roofs, doors, water, and modular architecture are deliberately reconstructed into named runtime derivatives rather than interpreted as arbitrary grids.
+- Approved project-owned master kits are checksum-locked build inputs; only compact labeled derivatives are loaded by the game.
 - Nearest-neighbor rendering is mandatory for runtime sprites.
 - Every approved asset retains procedural fallback art if its atlas cannot load.
 - Visual size may exceed collision only where the physical base remains explicit and logical.

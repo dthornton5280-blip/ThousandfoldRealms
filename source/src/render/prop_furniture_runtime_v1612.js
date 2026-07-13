@@ -14,7 +14,7 @@
   ];
 
   const SPRITES={
-    haven_cart_wood_sacks:{x:4,y:4,w:128,h:96,anchor:'topLeft'},
+    haven_cart_wood_sacks:{x:4,y:4,w:128,h:96,drawW:96,drawH:72,anchor:'topLeft'},
     haven_bench_wood_backrest:{x:136,y:4,w:64,h:48,anchor:'topLeft'},
     haven_signpost_wood_dual:{x:204,y:4,w:48,h:96,anchor:'bottomCenter'},
     tavern_barrel_oak:{x:256,y:4,w:32,h:40,anchor:'topLeft'},
@@ -191,8 +191,9 @@
     drawEntity(ctx,x,y,entity,mapId){
       const assetId=assetFor(mapId,entity),sprite=SPRITES[assetId];
       if(!ctx||!entity||!sprite||!this.ready||!this.image)return false;
-      const dx=sprite.anchor==='topLeft'?x:x+TILE/2-sprite.w/2;
-      const dy=sprite.anchor==='topLeft'?y:y+TILE-sprite.h;
+      const drawW=sprite.drawW||sprite.w,drawH=sprite.drawH||sprite.h;
+      const dx=sprite.anchor==='topLeft'?x:x+TILE/2-drawW/2;
+      const dy=sprite.anchor==='topLeft'?y:y+TILE-drawH;
       ctx.save();ctx.imageSmoothingEnabled=false;
       if(assetId==='tavern_hanging_lantern'&&ctx.createRadialGradient){
         const cx=dx+sprite.w/2,cy=dy+sprite.h*.55,r=54;
@@ -202,7 +203,7 @@
         ctx.fillStyle=glow;ctx.fillRect(cx-r,cy-r,r*2,r*2);
       }
       ctx.drawImage(this.image,sprite.x,sprite.y,sprite.w,sprite.h,
-        Math.round(dx),Math.round(dy),sprite.w,sprite.h);
+        Math.round(dx),Math.round(dy),drawW,drawH);
       ctx.restore();return true;
     }
   };

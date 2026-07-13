@@ -1,0 +1,25 @@
+name: Validate Haven Ground v1.6.14
+
+on:
+  push:
+    branches: [main, feature/haven-handcrafted-terrain-v1614]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate runtime syntax
+        run: node --check source/src/render/haven_ground_runtime_v1614.js
+      - name: Validate Haven terrain
+        run: node tests/haven-ground-v1614-harness.js
+      - name: Preserve exact prop art
+        run: node tests/exact-prop-assets-v1612-harness.js
+      - name: Preserve prop collisions and general ground
+        run: node tests/prop-collision-ground-tiles-v1613-harness.js
+      - name: Preserve gameplay repairs
+        run: node tests/live-runtime-v167-harness.js
