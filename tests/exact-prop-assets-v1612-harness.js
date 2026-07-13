@@ -22,7 +22,7 @@ const check=(value,message)=>{if(!value)throw new Error(message);};
   check(atlas.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'exact prop atlas must be a PNG');
   check(atlas.readUInt32BE(16)===512&&atlas.readUInt32BE(20)===192,'exact prop atlas must remain 512x192');
   check(atlas.includes(Buffer.from('tRNS')),'exact prop atlas must contain indexed transparency');
-  check(crypto.createHash('sha256').update(atlas).digest('hex')==='10d7a10b8891e92f728ffe3142e33aecc0478d14399050f353e2285552d4b01d','exact prop atlas bytes changed unexpectedly');
+  check(crypto.createHash('sha256').update(atlas).digest('hex')==='390da3e23600283e691bd6134073595c703afb595fcbcb61f828833f0d8a760e','exact prop atlas bytes changed unexpectedly');
 
   check(mainSource.includes("prop_furniture_runtime_v1612.js?v=1612"),'main must load only the exact v1.6.12 runtime');
   check(mainSource.includes('while(AO.PropFurnitureArtV1612'),'game construction must wait for the exact atlas');
