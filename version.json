@@ -1,6 +1,6 @@
 {
-  "version": "1.6.6-dev",
-  "buildName": "Hybrid Props + Tavern Furnishings",
+  "version": "1.6.7-dev",
+  "buildName": "Live Asset + Collision + Tactical Repair",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
