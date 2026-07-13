@@ -1,6 +1,6 @@
 {
-  "version": "1.6.8-dev",
-  "buildName": "Visible Generated Asset Placement",
+  "version": "1.6.9-dev",
+  "buildName": "Authoritative Prop + Furniture Integration",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
