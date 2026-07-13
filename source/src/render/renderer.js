@@ -35,9 +35,9 @@ AO.Renderer = class {
     drawables.push({id:'__player',type:'player',x:this.game.state.world.x,y:this.game.state.world.y,_player:true});
     drawables.sort((a,b)=>(a.y-b.y)||((a._player?2:a.type==='npc'||a.type==='enemy'?1:0)-(b._player?2:b.type==='npc'||b.type==='enemy'?1:0)));
     for(const e of drawables){
-      /* Approved prop/furniture sprites must win before Pixel Crawler, atlas, or
-         procedural fallbacks. v1.6.11 prefers the late-loaded authoritative runtime. */
-      const propArt=AO.PropFurnitureArtV1611||AO.PropFurnitureArtV169;
+      /* Exact user-provided props render before Pixel Crawler, legacy atlases,
+         or procedural fallbacks. */
+      const propArt=AO.PropFurnitureArtV1612||AO.PropFurnitureArtV1611||AO.PropFurnitureArtV169;
       if(!e._player&&propArt?.drawEntity?.(ctx,e.x*32,e.y*32,e,world.map.id))continue;
       if(!e._player&&AO.PixelCrawlerArt?.enabled&&AO.PixelCrawlerArt.drawEntity(ctx,e,world.map.id,performance.now()))continue;
       if(e._player)AO.SpriteFactory.character(ctx,e.x*32,e.y*32,AO.Util.visualFor(r.visual,p.appearance),c.visual,1,{selected:true,player:p,moving,animFrame,facing:world.facing});
