@@ -179,7 +179,7 @@ Existing saves, characters, quests, shops, dialogue, Atlas exploration, fog, def
 
 The v1.6.6 validation checks:
 
-- Valid 512×192 PNG payload and exact 11,383-byte decoded size
+- Valid 512×192 PNG payload and exact 11,313-byte decoded size
 - Ten named crops within padded atlas bounds
 - Complete render dimensions, anchors, layers, collision, interaction, tags, and fallback metadata
 - True two-cell cart and bench geometry
