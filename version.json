@@ -1,6 +1,6 @@
 {
-  "version": "1.6.0-dev",
-  "buildName": "Asset Catalog + Stable Tavern Rollback",
+  "version": "1.6.1-dev",
+  "buildName": "Haven Art + Living Interiors",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
