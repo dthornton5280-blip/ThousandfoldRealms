@@ -1,6 +1,6 @@
 {
-  "version": "1.5.7-dev",
-  "buildName": "Reliable Enemy Patrols",
+  "version": "1.5.8-dev",
+  "buildName": "Canonical Source Build",
   "canonicalBranch": "main",
-  "deploymentModel": "single verified package plus Git-managed overrides"
+  "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
