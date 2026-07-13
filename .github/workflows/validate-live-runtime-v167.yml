@@ -1,0 +1,39 @@
+name: Validate Live Runtime Repairs v1.6.7
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-live-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify live repair files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/render/runtime_repairs_v167.js
+          test -f tests/live-runtime-v167-harness.js
+          test -f source/assets/thousandfold/generated/generated-props-atlas-v166.b64
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check source/src/render/runtime_repairs_v167.js
+          node --check source/src/data/tavern_composition.js
+          node --check tests/live-runtime-v167-harness.js
+          node --check tests/generated-props-v166-harness.js
+
+      - name: Validate live asset, collision, and tactical repairs
+        run: node tests/live-runtime-v167-harness.js
+
+      - name: Preserve hybrid prop regression
+        run: node tests/generated-props-v166-harness.js

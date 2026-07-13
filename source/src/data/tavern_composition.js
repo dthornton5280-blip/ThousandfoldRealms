@@ -77,14 +77,15 @@
   map.composition={version:'v162',entranceAisle:{x1:12,x2:16,y1:7,y2:16},zones:['bar','stage','dining','hearth','service','cellar']};
 })();
 
-/* v1.6.6 runtime bootstrap: keep the new prop renderer in its own render module
-   while preserving the canonical script order and all existing fallbacks. */
+/* v1.6.7 live repair bootstrap. A new filename deliberately bypasses stale
+   GitHub Pages JavaScript while the module waits for the canonical game and
+   renderer before installing assets, collision, and tactical input repairs. */
 (() => {
   'use strict';
-  if(typeof document==='undefined'||document.querySelector('script[data-tfr-generated-props-v166]'))return;
+  if(typeof document==='undefined'||document.querySelector('script[data-tfr-runtime-v167]'))return;
   const script=document.createElement('script');
-  script.src='src/render/generated_props_v166.js';
-  script.async=false;
-  script.dataset.tfrGeneratedPropsV166='true';
+  script.src='src/render/runtime_repairs_v167.js?v=167';
+  script.async=true;
+  script.dataset.tfrRuntimeV167='true';
   document.head.appendChild(script);
 })();
