@@ -1,0 +1,86 @@
+{
+  "pack": "Pixel Crawler - Free Pack 2.11",
+  "creator": "Anokolisa",
+  "reviewed_png_count": 181,
+  "animation_sheet_count": 127,
+  "source_grid": 16,
+  "game_grid": 32,
+  "decision": "hybrid-purpose-built-atlas",
+  "rules": [
+    "Do not treat the source sheets as uniform 32px tile atlases.",
+    "Environment tilesets contain connected 16px autotile shapes and require mask decoding or deliberate composition.",
+    "Furniture and static-prop sheets are irregular packed source sheets and require named crop rectangles.",
+    "Visual footprint, collision footprint, anchor, layer, and interaction point must be stored separately.",
+    "Mockups are visual references only and must never be cropped as production assets.",
+    "Only selected runtime derivatives may enter the public repository; never commit the complete pack or Aseprite sources."
+  ],
+  "categories": {
+    "autotile": {
+      "count": 5,
+      "recommended_use": "reference and source material for a project-specific 32px environment atlas",
+      "files": [
+        {"path": "Environment/Tilesets/Floors_Tiles.png", "size": [400, 416]},
+        {"path": "Environment/Tilesets/Wall_Tiles.png", "size": [400, 400]},
+        {"path": "Environment/Tilesets/Wall_Variations.png", "size": [256, 480]},
+        {"path": "Environment/Tilesets/Dungeon_Tiles.png", "size": [400, 400]},
+        {"path": "Environment/Tilesets/Water_tiles.png", "size": [400, 400]}
+      ]
+    },
+    "interior_structure": {
+      "count": 2,
+      "recommended_use": "manual room composition on a 16px subgrid",
+      "files": [
+        {"path": "Environment/Structures/Buildings/Interior/Interior_Walls_01.png", "size": [656, 400]},
+        {"path": "Environment/Structures/Buildings/Interior/Interior_Props_01.png", "size": [608, 384]}
+      ]
+    },
+    "furniture": {
+      "count": 1,
+      "recommended_use": "extract selected named objects with explicit crop and anchor metadata",
+      "files": [
+        {"path": "Environment/Props/Static/Furniture.png", "size": [800, 864]}
+      ]
+    },
+    "player": {
+      "count": 42,
+      "recommended_use": "strong candidate after 64px frame, facing, equipment-layer, and anchor mapping",
+      "frame_examples": [
+        {"animation": "Idle", "frame_size": [64, 64], "frames": 4},
+        {"animation": "Walk", "frame_size": [64, 64], "frames": 6},
+        {"animation": "Run", "frame_size": [64, 64], "frames": 6}
+      ]
+    },
+    "npc": {
+      "count": 19,
+      "recommended_use": "good for selected residents after animation and direction mapping",
+      "frame_examples": [
+        {"animation": "Idle", "frame_size": [64, 64], "frames": 4},
+        {"animation": "Walk", "frame_size": [64, 64], "frames": 6}
+      ]
+    },
+    "enemy": {
+      "count": 24,
+      "recommended_use": "good for skeleton and orc families after exploration/tactical scale review",
+      "frame_examples": [
+        {"animation": "Idle", "typical_frame_size": [32, 32], "frames": 4},
+        {"animation": "Run", "typical_frame_size": [64, 64], "frames": 6}
+      ]
+    },
+    "trees": {
+      "count": 15,
+      "recommended_use": "strong candidate with trunk-only collision and foreground canopy rendering"
+    },
+    "stations": {
+      "count": 50,
+      "recommended_use": "selected crafting and cooking stations with explicit footprints and interaction points"
+    },
+    "mockup": {
+      "count": 1,
+      "recommended_use": "composition reference only",
+      "files": [
+        {"path": "MockUps/Tavern.png", "size": [1280, 1280]}
+      ]
+    }
+  },
+  "full_catalog": "Run tools/catalog_pixel_crawler.py against a locally owned ZIP to generate the complete 181-file manifest and labeled previews."
+}

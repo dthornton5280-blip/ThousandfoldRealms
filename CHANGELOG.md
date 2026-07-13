@@ -2,6 +2,32 @@
 
 Canonical development checkpoints for Thousandfold Realms are recorded here. Detailed implementation notes and regression plans live under `docs/` and in the merged pull requests.
 
+## 1.6.0-dev — Asset Catalog + Stable Tavern Rollback
+
+### Fixed
+- Disabled the visually incorrect v1.5.9 Pixel Crawler tavern drawing layer by default.
+- Restored the previous stable Black Lantern Tavern rendering while preserving gameplay, collisions, doors, NPCs, dialogue, shops, quests, saves, and cellar access.
+- Prevented third-party art from rendering unless an explicit `AO.PixelCrawlerArt.enabled` feature flag is approved.
+
+### Added
+- `docs/PIXEL_CRAWLER_ART_DIRECTION.md` with the reviewed hybrid art strategy, metadata schema, layering rules, generation rules, and tavern rebuild plan.
+- `docs/pixel-crawler/asset_manifest.json` with the reviewed pack counts, source dimensions, category guidance, and redistribution rules.
+- `tools/catalog_pixel_crawler.py`, which reads a locally owned ZIP and generates a full 181-file manifest plus labeled 16px-grid previews without unpacking or committing the complete pack.
+- A focused v1.6.0 regression harness and updated GitHub Actions validation.
+
+### Decided
+- Pixel Crawler remains a strong source for player, NPC, enemy, tree, station, and selected prop art.
+- The raw environment sheets will not be sliced as independent 32px tiles. They are 16px connected/autotile and irregular source sheets.
+- Production environments will use purpose-built game atlases with named crops, anchors, visual footprints, collision footprints, interaction points, and render layers.
+- Custom or generated art will supplement missing regions and landmarks, but generated sheets must be cleaned, validated, and packed by the project rather than trusted as exact production grids.
+
+### Validation
+- Confirms the bad tavern pilot is feature-gated off.
+- Confirms the stable atlas/procedural fallback remains active.
+- Confirms the reviewed pack contains 181 PNG files, including five environment autotiles, 42 player sheets, 19 NPC sheets, and 24 enemy sheets.
+- Confirms licensing and public-repository boundaries remain documented.
+- Confirms the local catalog tool never extracts the complete pack into the repository.
+
 ## 1.5.9-dev — Pixel Crawler Tavern Pilot
 
 ### Added
