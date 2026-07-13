@@ -4,8 +4,11 @@ const assert=(condition,message)=>{if(!condition)throw new Error(message);};
 const read=path=>fs.readFileSync(path,'utf8');
 
 const version=JSON.parse(read('version.json'));
-assert(version.version==='1.6.2-dev','Expected v1.6.2-dev.');
-assert(version.buildName==='Tavern Composition + Dialogue Portraits','Unexpected v1.6.2 build name.');
+const versionMatch=/^(\d+)\.(\d+)\.(\d+)-dev$/.exec(version.version||'');
+assert(versionMatch,'Expected a semantic development checkpoint.');
+const numericVersion=Number(versionMatch[1])*10000+Number(versionMatch[2])*100+Number(versionMatch[3]);
+assert(numericVersion>=10602,'Tavern composition requires v1.6.2-dev or later.');
+assert(version.buildName,'Current build name is missing.');
 
 global.window=global;
 const object=(id,type='decor',blocking=true)=>({id,type,kind:type==='door'?'door':'object',x:1,y:1,blocking});
@@ -77,4 +80,4 @@ assert(index.indexOf('src/ui/dialogue_portraits.js')>index.indexOf('src/ui/ui.js
 assert(index.indexOf('src/ui/dialogue_portraits.js')<index.indexOf('src/main.js'),'Portrait wrapper loads after game startup.');
 assert(read('source/src/systems/immersive_world.js').includes('AO.EntityGeometry?.contains'),'Ambient movement is not footprint-aware.');
 
-console.log('v1.6.2 tavern composition harness passed: coherent zones, clear aisle, full collisions, safe ambient routes, and bounded dialogue busts.');
+console.log(`Tavern v1.6.2 regression passed at ${version.version}: coherent zones, clear aisle, full collisions, safe ambient routes, and bounded dialogue busts.`);
