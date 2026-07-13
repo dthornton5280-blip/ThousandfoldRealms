@@ -1,0 +1,49 @@
+name: Validate Reliable Enemy Patrols
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-enemy-patrols:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify patrol files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f live-overrides/zzzz-visible-patrols-wildlife-v156.js
+          test -f live-overrides/zzzzz-enemy-patrols-v157.js
+          test -f tests/enemy-patrols-v157-harness.js
+
+      - name: Check patrol JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check live-overrides/zzzzz-enemy-patrols-v157.js
+          node --check tests/enemy-patrols-v157-harness.js
+
+      - name: Validate live patrol behavior
+        run: node tests/enemy-patrols-v157-harness.js
+
+      - name: Verify runtime ordering
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          names = sorted(path.name for path in Path('live-overrides').glob('*.js'))
+          wildlife = names.index('zzzz-visible-patrols-wildlife-v156.js')
+          patrols = names.index('zzzzz-enemy-patrols-v157.js')
+          if not wildlife < patrols:
+              raise SystemExit(f'Patrol hotfix must load after wildlife runtime: {wildlife} !< {patrols}')
+          PY
