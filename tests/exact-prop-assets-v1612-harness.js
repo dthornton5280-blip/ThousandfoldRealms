@@ -6,11 +6,11 @@ const vm=require('vm');
 const crypto=require('crypto');
 const root=path.resolve(__dirname,'..');
 const read=relative=>fs.readFileSync(path.join(root,relative),'utf8');
+const bytes=relative=>fs.readFileSync(path.join(root,relative));
 const check=(value,message)=>{if(!value)throw new Error(message);};
 
 (async()=>{
-  const atlasText=read('source/assets/thousandfold/generated/generated-props-atlas-v1612.b64').replace(/\s+/g,'');
-  const atlas=Buffer.from(atlasText,'base64');
+  const atlas=bytes('source/assets/thousandfold/generated/generated-props-atlas-v1612.png');
   const runtimeSource=read('source/src/render/prop_furniture_runtime_v1612.js');
   const rendererSource=read('source/src/render/renderer.js');
   const mainSource=read('source/src/main.js');
@@ -22,12 +22,14 @@ const check=(value,message)=>{if(!value)throw new Error(message);};
   check(atlas.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])),'exact prop atlas must be a PNG');
   check(atlas.readUInt32BE(16)===512&&atlas.readUInt32BE(20)===192,'exact prop atlas must remain 512x192');
   check(atlas.includes(Buffer.from('tRNS')),'exact prop atlas must contain indexed transparency');
-  check(crypto.createHash('sha256').update(atlas).digest('hex')==='10d7a10b8891e92f728ffe3142e33aecc0478d14399050f353e2285552d4b01d','exact prop atlas bytes changed unexpectedly');
+  check(crypto.createHash('sha256').update(atlas).digest('hex')==='10d7a10b8891e92f728ffe3142e33aecc0478d14399050f353e2285552d4b01d','exact binary prop atlas bytes changed unexpectedly');
 
   check(mainSource.includes("prop_furniture_runtime_v1612.js?v=1612"),'main must load only the exact v1.6.12 runtime');
   check(mainSource.includes('while(AO.PropFurnitureArtV1612'),'game construction must wait for the exact atlas');
   check(!tavernComposition.includes('prop_furniture_runtime_v169.js'),'the obsolete early prop runtime injection must be removed');
   check(rendererSource.includes('AO.PropFurnitureArtV1612||AO.PropFurnitureArtV1611||AO.PropFurnitureArtV169'),'canonical renderer must prioritize v1.6.12');
+  check(runtimeSource.includes("generated-props-atlas-v1612.png?v=1612"),'runtime must load the exact binary PNG atlas');
+  check(!runtimeSource.includes('generated-props-atlas-v1612.b64'),'runtime must not depend on the corrupted text payload');
 
   for(const token of [
     "haven_delivery_cart:'haven_cart_wood_sacks'",
@@ -92,16 +94,13 @@ const check=(value,message)=>{if(!value)throw new Error(message);};
     get src(){return this._src;}
   }
   const window={AO};
-  const context={
-    window,AO,document,Image:MockImage,URL,
-    fetch:async url=>({ok:String(url).includes('generated-props-atlas-v1612.b64?v=1612'),status:200,text:async()=>atlasText}),
-    console,setInterval:()=>1,clearInterval(){},queueMicrotask
-  };
+  const context={window,AO,document,Image:MockImage,URL,console,setInterval:()=>1,clearInterval(){},queueMicrotask};
   vm.runInNewContext(runtimeSource,context);
   await new Promise(resolve=>setImmediate(resolve));
   await new Promise(resolve=>setImmediate(resolve));
 
   check(AO.PropFurnitureArtV1612?.ready,'exact v1.6.12 runtime must reach ready state');
+  check(AO.PropFurnitureArtV1612.image?.src?.includes('generated-props-atlas-v1612.png?v=1612'),'runtime image must point at the exact binary PNG');
   check(document.documentElement.dataset.tfrProps==='ready','exact runtime readiness marker must be ready');
   check(AO.MAP_DEFS.haven.objects.find(object=>object.id==='haven_delivery_cart').generatedArtId==='haven_cart_wood_sacks','Haven cart must bind to the exact cart');
   check(AO.MAP_DEFS.tavern.objects.find(object=>object.id==='tavern_keg_2').generatedArtId==='tavern_barrel_oak','standalone tavern keg must bind to the exact barrel');
@@ -115,5 +114,5 @@ const check=(value,message)=>{if(!value)throw new Error(message);};
   check(AO.PropFurnitureArtV1612.drawEntity(ctx,3*32,1*32,{id:'tavern_shelf_mugs'},'tavern'),'exact shelf must draw');
   check(draws[1][1]===4&&draws[1][2]===104&&draws[1][3]===96&&draws[1][4]===64,'shelf must use the exact atlas rectangle');
 
-  console.log('v1.6.12 exact prop assets validated: exact atlas bytes, transparency, runtime load, logical bindings, and cart/shelf draw rectangles passed.');
+  console.log('v1.6.12 exact prop assets validated: binary PNG integrity, transparency, runtime load, logical bindings, and cart/shelf draw rectangles passed.');
 })().catch(error=>{console.error(error);process.exit(1);});
