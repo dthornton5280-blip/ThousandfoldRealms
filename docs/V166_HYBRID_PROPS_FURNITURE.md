@@ -10,7 +10,7 @@ The game loads one additional compact transparent atlas:
 
 - `source/assets/thousandfold/generated/generated-props-atlas-v166.b64`
 - Decoded size: **512 × 192 pixels**
-- Decoded payload: **11,383 bytes**
+- Decoded payload: **11,313 bytes**
 - Ten individually named sprites
 - Explicit source rectangles, dimensions, anchors, layers, collision footprints, interaction footprints, tags, and fallback metadata in `atlas-manifest-v166.json`
 
