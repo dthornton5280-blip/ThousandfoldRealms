@@ -26,14 +26,14 @@
       if(this.ready||this.loading)return;
       this.loading=true;
       try{
-        const responses=await Promise.all(ATLAS_CHUNKS.map(path=>fetch(path,{cache:'force-cache'})));
+        const responses=await Promise.all(ATLAS_CHUNKS.map(path=>fetch(path,{cache:'no-cache'})));
         for(const response of responses)if(!response.ok)throw new Error(`v1.6.6 prop atlas chunk ${response.status}`);
         const base64=(await Promise.all(responses.map(response=>response.text()))).join('').replace(/\s+/g,'');
         const image=new Image();
         image.decoding='async';
         image.onload=()=>{
           this.image=image;this.ready=true;this.failed=false;this.loading=false;
-          patchDefinitions();patchCurrentWorld();installHook();
+          patchDefinitions();patchCurrentWorld();
           AO.events?.emit?.('assetsReady');AO.events?.emit?.('worldChanged');
         };
         image.onerror=()=>this.fail();
@@ -104,7 +104,6 @@
   }
 
   function patchDefinitions(){
-    if(AO.GeneratedPropContent?.installed)return;
     patchIds('haven',['haven_delivery_cart'],'haven_cart_wood_sacks');
     patchIds('haven',['bench_1','bench_2'],'haven_bench_wood_backrest');
     patchIds('haven',['haven_east_sign'],'haven_signpost_wood_dual');
@@ -123,7 +122,18 @@
     patchByKind('tavern',['stool'],'tavern_stool_wood');
     patchByKind('general_store',['crates'],'haven_crate_wood');
     patchByKind('forge',['crates'],'haven_crate_wood');
-    AO.GeneratedPropContent={installed:true,version:'v166',assetIds:Object.keys(SPRITES),liveMaps:['haven','tavern','tavern_cellar','inn','inn_upper'],preservedFallback:true};
+    const state=AO.GeneratedPropContent||{};
+    Object.assign(state,{installed:true,version:'v166',assetIds:Object.keys(SPRITES),liveMaps:['haven','tavern','tavern_cellar','inn','inn_upper'],preservedFallback:true});
+    AO.GeneratedPropContent=state;
+  }
+
+  function definitionsReady(){
+    return Boolean(
+      object('haven','haven_delivery_cart')?.generatedArtId&&
+      object('haven','haven_east_sign')?.generatedArtId&&
+      object('tavern','tavern_table_1')?.generatedArtId&&
+      object('inn_upper','upper_hall_table')?.generatedArtId
+    );
   }
 
   function patchCurrentWorld(){
@@ -138,26 +148,11 @@
     }
   }
 
-  function installHook(){
-    if(AO.GeneratedPropContent?.hookInstalled)return true;
-    if(!AO.SpriteFactory?.icon)return false;
-    const prior=AO.SpriteFactory.icon.bind(AO.SpriteFactory);
-    AO.SpriteFactory.icon=function(ctx,x,y,type,entity={}){
-      if(AO.GeneratedPropArt?.drawEntity(ctx,entity))return;
-      return prior(ctx,x,y,type,entity);
-    };
-    AO.GeneratedPropContent.hookInstalled=true;
-    return true;
-  }
-
   patchDefinitions();
-  patchCurrentWorld();
-  if(!installHook()){
-    let attempts=0;
-    const timer=setInterval(()=>{
-      patchDefinitions();patchCurrentWorld();
-      if(installHook()||++attempts>80)clearInterval(timer);
-    },25);
-  }
+  let attempts=0;
+  const timer=setInterval(()=>{
+    patchDefinitions();patchCurrentWorld();
+    if(definitionsReady()||++attempts>80)clearInterval(timer);
+  },25);
   PropArt.init();
 })();
