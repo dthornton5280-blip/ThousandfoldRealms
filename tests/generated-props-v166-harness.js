@@ -17,7 +17,7 @@ check(atlas.slice(1,4).toString()==='PNG','decoded v1.6.6 atlas must be a PNG');
 const width=atlas.readUInt32BE(16),height=atlas.readUInt32BE(20);
 check(width===512&&height===192,'v1.6.6 atlas must be exactly 512x192');
 check(width===manifest.atlas.width&&height===manifest.atlas.height,'v1.6.6 atlas dimensions must match the manifest');
-check(atlas.length===manifest.atlas.decodedBytes,'v1.6.6 decoded byte count must match the manifest');
+check(atlas.length===manifest.atlas.decodedBytes,`v1.6.6 decoded byte count ${atlas.length} must match manifest ${manifest.atlas.decodedBytes}`);
 check(atlas.length<100000,'v1.6.6 runtime atlas must remain compact');
 
 const required=[
