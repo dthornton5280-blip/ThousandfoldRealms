@@ -13,6 +13,13 @@ window.addEventListener('DOMContentLoaded',async()=>{
     document.head.appendChild(script);
   });
 
+  /* Do not construct the first map while the approved atlas is still decoding.
+     A bounded wait preserves startup even if the asset request genuinely fails. */
+  const started=Date.now();
+  while(AO.PropFurnitureArtV1611&&!AO.PropFurnitureArtV1611.ready&&!AO.PropFurnitureArtV1611.failed&&Date.now()-started<5000){
+    await new Promise(resolve=>setTimeout(resolve,25));
+  }
+
   window.game=new AO.Game();
   game.start();
 });
