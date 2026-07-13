@@ -1,0 +1,101 @@
+name: Validate Canonical Source Build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-canonical-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate source and runtime syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f AGENTS.md
+          test -f README.md
+          test -f source/index.html
+          test -f source/src/core/boot.js
+          test -f tests/canonical-source-v158-harness.js
+
+          while IFS= read -r file; do
+            node --check "$file"
+          done < <(find source/src live-overrides tests -type f -name '*.js' | sort)
+
+      - name: Run canonical architecture regression
+        run: node tests/canonical-source-v158-harness.js
+
+      - name: Dry-run Pages assembly
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/live-overrides
+          cp -a source/. _site/
+          find live-overrides -maxdepth 1 -type f \( -name '*.css' -o -name '*.js' \) -exec cp {} _site/live-overrides/ \;
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          version = json.loads(Path('version.json').read_text(encoding='utf-8'))
+          css_files = sorted(path.name for path in Path('live-overrides').glob('*.css'))
+          js_files = sorted(path.name for path in Path('live-overrides').glob('*.js'))
+          css_tags = ''.join(f'<link rel="stylesheet" href="./live-overrides/{name}?v=test">' for name in css_files)
+          js_tags = ''.join(f'<script src="./live-overrides/{name}?v=test"></script>' for name in js_files)
+
+          path = Path('_site/index.html')
+          text = path.read_text(encoding='utf-8')
+          main_script = '<script src="src/main.js"></script>'
+          text = text.replace('</head>', '<!-- GIT_LIVE_OVERRIDE_STYLES -->' + css_tags + '</head>', 1)
+          text = text.replace(main_script, '<!-- GIT_LIVE_OVERRIDE_RUNTIME -->' + js_tags + main_script, 1)
+          text = text.replace(
+              '<div class="tf-title-version">Current development build</div>',
+              f'<div class="tf-title-version">{version["version"]}</div>',
+              1,
+          )
+          path.write_text(text, encoding='utf-8')
+
+          required = [
+              'id="tfBootScreen"',
+              'id="tfTitleScreen"',
+              'live-overrides/world-atlas-v150.js',
+              'live-overrides/zzzzz-enemy-patrols-v157.js',
+              'src/main.js',
+              'src/core/boot.js',
+              version['version'],
+          ]
+          missing = [token for token in required if token not in text]
+          if missing:
+              raise SystemExit(f'Dry assembly is missing {missing}')
+          if 'Brand Migration' in text:
+              raise SystemExit('Legacy migration title remains after dry assembly')
+
+          positions = [
+              text.find('src/ui/cartography_ui.js'),
+              text.find('live-overrides/world-atlas-v150.js'),
+              text.find('live-overrides/zzzzz-enemy-patrols-v157.js'),
+              text.find('src/main.js'),
+              text.find('src/core/boot.js'),
+          ]
+          if min(positions) < 0 or positions != sorted(positions):
+              raise SystemExit(f'Invalid dry-assembly runtime order: {positions}')
+          PY
+
+      - name: Run current gameplay harnesses
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/world-atlas-v150-harness.js
+          node tests/world-direction-v154-harness.js
+          node tests/visible-patrols-wildlife-v156-harness.js
+          node tests/enemy-patrols-v157-harness.js
