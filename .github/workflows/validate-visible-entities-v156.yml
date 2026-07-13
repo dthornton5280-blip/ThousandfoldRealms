@@ -1,0 +1,43 @@
+name: Validate Visible Patrols and Wildlife
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-visible-entities:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify runtime and harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f live-overrides/zzzz-visible-patrols-wildlife-v156.js
+          test -f tests/visible-patrols-wildlife-v156-harness.js
+          node --check live-overrides/zzzz-visible-patrols-wildlife-v156.js
+          node --check tests/visible-patrols-wildlife-v156-harness.js
+
+      - name: Validate patrol, pause, collision, and hunting behavior
+        run: node tests/visible-patrols-wildlife-v156-harness.js
+
+      - name: Verify runtime loads after directional corrections
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          names = sorted(path.name for path in Path('live-overrides').glob('*.js'))
+          directional = names.index('zzz-world-directional-v154.js')
+          wildlife = names.index('zzzz-visible-patrols-wildlife-v156.js')
+          if not directional < wildlife:
+              raise SystemExit(f'Visible entity runtime loads too early: {directional} !< {wildlife}')
+          PY
