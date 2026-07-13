@@ -1,4 +1,4 @@
-/* Thousandfold Realms v1.6.7 live deployment regression validation. */
+/* Thousandfold Realms v1.6.7+ live deployment regression validation. */
 'use strict';
 const fs=require('fs');
 const path=require('path');
@@ -13,10 +13,12 @@ const tacticalGame=read('source/src/core/tactical_game.js');
 const tacticalCombat=read('source/src/systems/tactical_combat.js');
 const version=JSON.parse(read('version.json'));
 
-check(version.version==='1.6.7-dev','version must identify v1.6.7-dev');
-check(version.buildName==='Live Asset + Collision + Tactical Repair','v1.6.7 build name is incorrect');
-check(composition.includes('runtime_repairs_v167.js?v=167'),'v1.6.7 runtime must use a new cache-busted filename');
-check(!composition.includes("script.src='src/render/generated_props_v166.js'"),'stale v1.6.6 bootstrap must be removed');
+const versionMatch=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/);
+check(versionMatch,'version must be a development checkpoint');
+const [,major,minor,patch]=versionMatch.map(Number);
+check(major>1||(major===1&&(minor>6||(minor===6&&patch>=7))),'version must identify v1.6.7-dev or later');
+check(composition.includes('runtime_repairs_v167.js?v=167'),'v1.6.7 runtime must retain its cache-busted filename');
+check(!composition.includes("script.src='src/render/generated_props_v166.js'"),'stale v1.6.6 bootstrap must remain removed');
 
 /* Asset visibility must not depend on the timing of one early composition pass. */
 check(runtime.includes('copyDefinitionArt(rawEntity)'),'draw-time metadata inheritance is missing');
@@ -50,4 +52,4 @@ check(runtime.includes('encounter.actionRemaining>0||movementChoicesRemain(this)
 for(const method of ['movePlayerTo','playerAction','executeSelfAbility','useItem','bracePlayer'])check(runtime.includes(`'${method}'`),`${method} must trigger the auto-end evaluation`);
 check(runtime.includes('this.endPlayerTurn()'),'exhausted player turns must advance automatically');
 
-console.log('v1.6.7 live runtime validated: visible generated assets, solid buildings, tactical movement input, and automatic exhausted-turn completion are protected.');
+console.log(`v1.6.7 runtime repairs preserved by ${version.version}: generated props, solid buildings, tactical movement input, and automatic exhausted-turn completion remain protected.`);
