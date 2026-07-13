@@ -89,7 +89,8 @@ for(const point of [{x:6,y:6},{x:15,y:6},{x:24,y:6},{x:6,y:15},{x:15,y:15},{x:24
   const grid=buildGrid('haven');assert(!solidTiles.has(grid[point.y][point.x]),`Haven door/road approach is blocked at ${key(point)}.`);
 }
 assertClearCells('haven',Array.from({length:18},(_,i)=>({x:10+i,y:8})),'east-west market road');
-assertClearCells('haven',Array.from({length:10},(_,i)=>({x:14,y:7+i})),'north-south lantern walk');
+assertClearCells('haven',Array.from({length:4},(_,i)=>({x:14,y:7+i})),'central square walk');
+assertClearCells('haven',[{x:15,y:15},{x:15,y:16}],'south chapel approach');
 
 /* Interior entrance and service aisles. */
 assertClearCells('inn',Array.from({length:11},(_,i)=>({x:14,y:6+i})),'inn entrance aisle');
