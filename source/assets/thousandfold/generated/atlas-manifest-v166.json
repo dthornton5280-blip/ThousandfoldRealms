@@ -3,9 +3,7 @@
   "atlas": {
     "id": "generated-props-atlas-v166",
     "encoding": "base64-png-chunks",
-    "chunks": [
-      "generated-props-atlas-v166.b64"
-    ],
+    "chunks": ["generated-props-atlas-v166.b64"],
     "decodedFileName": "generated-props-atlas-v166.png",
     "width": 512,
     "height": 192,
@@ -15,18 +13,18 @@
   },
   "assets": {
     "haven_cart_wood_sacks": {
-      "sourceRect": {"x": 4, "y": 4, "w": 128, "h": 96},
-      "renderDimensions": {"w": 128, "h": 96},
+      "sourceRect": {"x":4,"y":4,"w":128,"h":96},
+      "renderDimensions": {"w":128,"h":96},
       "anchor": "topLeft",
       "layer": "entity",
-      "collisionFootprint": [{"x":0,"y":0},{"x":1,"y":0},{"x":2,"y":0},{"x":0,"y":1},{"x":1,"y":1},{"x":2,"y":1}],
-      "interactionFootprint": [{"x":0,"y":0},{"x":1,"y":0},{"x":2,"y":0}],
+      "collisionFootprint": [{"x":0,"y":0},{"x":1,"y":0}],
+      "interactionFootprint": [{"x":0,"y":0},{"x":1,"y":0}],
       "tags": ["haven","prop","cart","storage"],
       "fallback": "existing Thousandfold procedural renderer"
     },
     "haven_bench_wood_backrest": {
-      "sourceRect": {"x": 136, "y": 4, "w": 64, "h": 48},
-      "renderDimensions": {"w": 64, "h": 48},
+      "sourceRect": {"x":136,"y":4,"w":64,"h":48},
+      "renderDimensions": {"w":64,"h":48},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0},{"x":1,"y":0}],
@@ -35,18 +33,18 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "haven_signpost_wood_dual": {
-      "sourceRect": {"x": 204, "y": 4, "w": 48, "h": 96},
-      "renderDimensions": {"w": 48, "h": 96},
+      "sourceRect": {"x":204,"y":4,"w":48,"h":96},
+      "renderDimensions": {"w":48,"h":96},
       "anchor": "bottomCenter",
       "layer": "tall-prop",
-      "collisionFootprint": [{"x":0,"y":0}],
+      "collisionFootprint": [],
       "interactionFootprint": [{"x":0,"y":0}],
       "tags": ["haven","prop","signpost","wayfinding"],
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_barrel_oak": {
-      "sourceRect": {"x": 256, "y": 4, "w": 32, "h": 40},
-      "renderDimensions": {"w": 32, "h": 40},
+      "sourceRect": {"x":256,"y":4,"w":32,"h":40},
+      "renderDimensions": {"w":32,"h":40},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0}],
@@ -55,8 +53,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "haven_crate_wood": {
-      "sourceRect": {"x": 292, "y": 4, "w": 32, "h": 32},
-      "renderDimensions": {"w": 32, "h": 32},
+      "sourceRect": {"x":292,"y":4,"w":32,"h":32},
+      "renderDimensions": {"w":32,"h":32},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0}],
@@ -65,8 +63,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_table_square": {
-      "sourceRect": {"x": 328, "y": 4, "w": 64, "h": 48},
-      "renderDimensions": {"w": 64, "h": 48},
+      "sourceRect": {"x":328,"y":4,"w":64,"h":48},
+      "renderDimensions": {"w":64,"h":48},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0},{"x":1,"y":0}],
@@ -75,8 +73,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_chair_wood": {
-      "sourceRect": {"x": 396, "y": 4, "w": 32, "h": 48},
-      "renderDimensions": {"w": 32, "h": 48},
+      "sourceRect": {"x":396,"y":4,"w":32,"h":48},
+      "renderDimensions": {"w":32,"h":48},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0}],
@@ -85,8 +83,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_stool_wood": {
-      "sourceRect": {"x": 432, "y": 4, "w": 32, "h": 32},
-      "renderDimensions": {"w": 32, "h": 32},
+      "sourceRect": {"x":432,"y":4,"w":32,"h":32},
+      "renderDimensions": {"w":32,"h":32},
       "anchor": "topLeft",
       "layer": "entity",
       "collisionFootprint": [{"x":0,"y":0}],
@@ -95,8 +93,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_hanging_lantern": {
-      "sourceRect": {"x": 468, "y": 4, "w": 32, "h": 48},
-      "renderDimensions": {"w": 32, "h": 48},
+      "sourceRect": {"x":468,"y":4,"w":32,"h":48},
+      "renderDimensions": {"w":32,"h":48},
       "anchor": "topLeft",
       "layer": "tall-prop",
       "collisionFootprint": [],
@@ -105,8 +103,8 @@
       "fallback": "existing Thousandfold procedural renderer"
     },
     "tavern_shelf_bottles": {
-      "sourceRect": {"x": 4, "y": 104, "w": 96, "h": 64},
-      "renderDimensions": {"w": 96, "h": 64},
+      "sourceRect": {"x":4,"y":104,"w":96,"h":64},
+      "renderDimensions": {"w":96,"h":64},
       "anchor": "topLeft",
       "layer": "tall-prop",
       "collisionFootprint": [{"x":0,"y":0},{"x":1,"y":0},{"x":2,"y":0}],
