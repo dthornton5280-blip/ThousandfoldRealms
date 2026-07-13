@@ -30,85 +30,53 @@ jobs:
         run: |
           set -euo pipefail
 
-          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
-          test -f "$PACKAGE"
+          test -d source
+          test -f source/index.html
+          test -f source/styles.css
+          test -f source/src/main.js
+          test -f source/src/core/boot.js
           test -d live-overrides
-          test -f live-overrides/hud-interaction.css
-          test -f live-overrides/tactical-battlefields-v147.js
-          test -f live-overrides/tactical-presentation-v147.css
-          test -f live-overrides/title-screen-v146.css
-          test -f live-overrides/title-screen-v146.js
-          test -f live-overrides/unified-realm-ui-v149.css
-          test -f live-overrides/world-atlas-v150.js
-          test -f live-overrides/world-atlas-v150.css
-          test -f live-overrides/world-atlas-v152-exploration.js
-          test -f live-overrides/world-atlas-v152-exploration.css
-          test -f live-overrides/world-atlas-v152-travel-copy.js
-          test -f live-overrides/world-travel-network-v153.js
-          test -f live-overrides/world-travel-network-v153a-tiles.js
-          test -f live-overrides/world-travel-network-v154-directional.js
-          test -f live-overrides/world-atlas-v154-directional.css
-          test -f live-overrides/zz-world-atlas-v150-fixes.js
-          test -f live-overrides/zzz-world-directional-v154.js
-          test -f tests/world-atlas-v150-harness.js
-          test -f tests/world-direction-v154-harness.js
           test -f version.json
           test -f CHANGELOG.md
+          test -f AGENTS.md
           test -f docs/CURRENT_STATE.md
+          test -f tests/canonical-source-v158-harness.js
 
-          if find . -maxdepth 1 -type f \( -name 'v*_payload_*.txt' -o -name 'v*_js_*.txt' \) | grep -q .; then
-            echo "Temporary payload or JavaScript chunk files found in repository root."
-            exit 1
-          fi
+          grep -q 'id="tfBootScreen"' source/index.html
+          grep -q 'id="tfTitleScreen"' source/index.html
+          grep -q 'class="tf-title-mode tf-booting"' source/index.html
+          grep -q 'src/core/boot.js' source/index.html
+          ! grep -q 'Brand Migration' source/index.html
 
           while IFS= read -r file; do
             node --check "$file"
-          done < <(find live-overrides -maxdepth 1 -type f -name '*.js' | sort)
+          done < <(find source/src live-overrides tests -type f -name '*.js' | sort)
 
           node tests/world-atlas-v150-harness.js
           node tests/world-direction-v154-harness.js
+          node tests/visible-patrols-wildlife-v156-harness.js
+          node tests/enemy-patrols-v157-harness.js
+          node tests/canonical-source-v158-harness.js
 
           python - <<'PY'
           from pathlib import Path
 
-          checks = {
-              "live-overrides/unified-realm-ui-v149.css": (
-                  "body:not(.tf-title-mode)", ".creator-screen", ".hud .panel",
-                  ".dialogue-card", ".combat-card", "prefers-reduced-motion",
-              ),
-              "live-overrides/world-atlas-v150.css": (
-                  ".atlas-level-tabs", ".atlas-world-map", ".atlas-region-map",
-                  ".atlas-location-node", "prefers-reduced-motion",
-              ),
-              "live-overrides/world-atlas-v152-exploration.css": (
-                  ".atlas-pixel-grid", ".atlas-fog-layer", ".atlas-map-key",
-                  ".key-fog", "prefers-reduced-motion",
-              ),
-              "live-overrides/world-atlas-v154-directional.css": (
-                  ".atlas-exploration-layout", "calc(100dvh - 300px)",
-                  ".atlas-compass::before", ".atlas-compass::after", "overflow:auto",
-              ),
-          }
-          for filename, required in checks.items():
-              css = Path(filename).read_text(encoding="utf-8")
-              if css.count("{") != css.count("}"):
-                  raise SystemExit(f"{filename} has unbalanced braces")
-              missing = [selector for selector in required if selector not in css]
-              if missing:
-                  raise SystemExit(f"{filename} is missing required sections: {missing}")
+          for filename in list(Path('source').rglob('*.css')) + list(Path('live-overrides').glob('*.css')):
+              css = filename.read_text(encoding='utf-8')
+              if css.count('{') != css.count('}'):
+                  raise SystemExit(f'{filename} has unbalanced braces')
           PY
 
-      - name: Assemble website
+      - name: Assemble website from canonical source
         shell: bash
         run: |
           set -euo pipefail
 
-          PACKAGE="Thousandfold_Realms_Web_v1.4.4-dev.zip"
           rm -rf _site
           mkdir -p _site
-          unzip -q "$PACKAGE" -d _site
+          cp -a source/. _site/
           touch _site/.nojekyll
-          test -f _site/index.html
+          cp version.json _site/version.json
 
           mkdir -p _site/live-overrides
           find live-overrides -maxdepth 1 -type f \( -name '*.css' -o -name '*.js' \) -exec cp {} _site/live-overrides/ \;
@@ -118,87 +86,91 @@ jobs:
           import os
           from pathlib import Path
 
-          revision = os.environ.get("GITHUB_SHA", "dev")[:12]
-          version = json.loads(Path("version.json").read_text(encoding="utf-8"))
-          override_dir = Path("live-overrides")
-          css_files = sorted(path.name for path in override_dir.glob("*.css"))
-          js_files = sorted(path.name for path in override_dir.glob("*.js"))
+          revision = os.environ.get('GITHUB_SHA', 'dev')[:12]
+          version = json.loads(Path('version.json').read_text(encoding='utf-8'))
+          override_dir = Path('live-overrides')
+          css_files = sorted(path.name for path in override_dir.glob('*.css'))
+          js_files = sorted(path.name for path in override_dir.glob('*.js'))
 
-          css_tags = "".join(f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">' for name in css_files)
-          js_tags = "".join(f'<script src="./live-overrides/{name}?v={revision}"></script>' for name in js_files)
+          css_tags = ''.join(
+              f'<link rel="stylesheet" href="./live-overrides/{name}?v={revision}">'
+              for name in css_files
+          )
+          js_tags = ''.join(
+              f'<script src="./live-overrides/{name}?v={revision}"></script>'
+              for name in js_files
+          )
           build_meta = (
               f'<meta name="tf-build" content="{version["version"]}">'
               f'<meta name="tf-build-name" content="{version["buildName"]}">'
+              f'<meta name="tf-source-model" content="canonical-source-plus-transitional-overrides">'
           )
 
-          head_marker = "<!-- GIT_LIVE_OVERRIDE_STYLES -->"
-          runtime_marker = "<!-- GIT_LIVE_OVERRIDE_RUNTIME -->"
+          path = Path('_site/index.html')
+          text = path.read_text(encoding='utf-8')
           main_script = '<script src="src/main.js"></script>'
+          if '</head>' not in text or main_script not in text:
+              raise SystemExit('Canonical index is missing an assembly marker')
 
-          for filename in ("index.html", "404.html"):
-              path = Path("_site") / filename
-              if not path.exists():
-                  continue
-              text = path.read_text(encoding="utf-8")
-              if "</head>" not in text:
-                  raise SystemExit(f"{filename} has no closing head tag")
-              if main_script not in text:
-                  raise SystemExit(f"{filename} has no packaged main-script marker")
-              text = text.replace("</head>", head_marker + build_meta + css_tags + "</head>", 1)
-              text = text.replace(main_script, runtime_marker + js_tags + main_script, 1)
-              path.write_text(text, encoding="utf-8")
+          text = text.replace(
+              '</head>',
+              '<!-- GIT_LIVE_OVERRIDE_STYLES -->' + build_meta + css_tags + '</head>',
+              1,
+          )
+          text = text.replace(
+              main_script,
+              '<!-- GIT_LIVE_OVERRIDE_RUNTIME -->' + js_tags + main_script,
+              1,
+          )
+          text = text.replace(
+              '<div class="tf-title-version">Current development build</div>',
+              f'<div class="tf-title-version">{version["version"]}</div>',
+              1,
+          )
+          path.write_text(text, encoding='utf-8')
+          Path('_site/404.html').write_text(text, encoding='utf-8')
           PY
-
-          grep -q 'GIT_LIVE_OVERRIDE_STYLES' _site/index.html
-          grep -q 'GIT_LIVE_OVERRIDE_RUNTIME' _site/index.html
-          grep -q 'world-atlas-v150.js' _site/index.html
-          grep -q 'world-atlas-v152-exploration.js' _site/index.html
-          grep -q 'world-atlas-v152-travel-copy.js' _site/index.html
-          grep -q 'world-travel-network-v153.js' _site/index.html
-          grep -q 'world-travel-network-v153a-tiles.js' _site/index.html
-          grep -q 'world-travel-network-v154-directional.js' _site/index.html
-          grep -q 'zzz-world-directional-v154.js' _site/index.html
-          test -f _site/live-overrides/world-atlas-v150.js
-          test -f _site/live-overrides/world-atlas-v152-exploration.js
-          test -f _site/live-overrides/world-atlas-v152-exploration.css
-          test -f _site/live-overrides/world-atlas-v152-travel-copy.js
-          test -f _site/live-overrides/world-travel-network-v153.js
-          test -f _site/live-overrides/world-travel-network-v153a-tiles.js
-          test -f _site/live-overrides/world-travel-network-v154-directional.js
-          test -f _site/live-overrides/world-atlas-v154-directional.css
-          test -f _site/live-overrides/zzz-world-directional-v154.js
 
           python - <<'PY'
           from pathlib import Path
 
-          text = Path("_site/index.html").read_text(encoding="utf-8")
-          head = text.split("</head>", 1)[0]
-          runtime_files = (
-              "world-atlas-v150.js", "world-atlas-v152-exploration.js",
-              "world-atlas-v152-travel-copy.js", "world-travel-network-v153.js",
-              "world-travel-network-v153a-tiles.js", "world-travel-network-v154-directional.js",
-              "zz-world-atlas-v150-fixes.js", "zzz-world-directional-v154.js",
+          text = Path('_site/index.html').read_text(encoding='utf-8')
+          head = text.split('</head>', 1)[0]
+
+          required = (
+              'id="tfBootScreen"',
+              'id="tfTitleScreen"',
+              'GIT_LIVE_OVERRIDE_STYLES',
+              'GIT_LIVE_OVERRIDE_RUNTIME',
+              'meta name="tf-source-model"',
+              'live-overrides/world-atlas-v150.js',
+              'live-overrides/zzzz-visible-patrols-wildlife-v156.js',
+              'live-overrides/zzzzz-enemy-patrols-v157.js',
+              'src/main.js',
+              'src/core/boot.js',
           )
-          if any(name in head for name in runtime_files):
-              raise SystemExit("Atlas runtime was injected into head before AO exists")
+          missing = [token for token in required if token not in text]
+          if missing:
+              raise SystemExit(f'Assembled build is missing: {missing}')
+
+          if 'Brand Migration' in text:
+              raise SystemExit('Legacy migration branding remains in the canonical page')
+          if 'live-overrides/world-atlas-v150.js' in head:
+              raise SystemExit('Runtime overrides were injected before AO exists')
 
           markers = [
               text.find('src/ui/cartography_ui.js'),
               text.find('live-overrides/world-atlas-v150.js'),
-              text.find('live-overrides/world-atlas-v152-exploration.js'),
-              text.find('live-overrides/world-atlas-v152-travel-copy.js'),
-              text.find('live-overrides/world-travel-network-v153.js'),
-              text.find('live-overrides/world-travel-network-v153a-tiles.js'),
-              text.find('live-overrides/world-travel-network-v154-directional.js'),
-              text.find('live-overrides/zz-world-atlas-v150-fixes.js'),
-              text.find('live-overrides/zzz-world-directional-v154.js'),
+              text.find('live-overrides/zzzz-visible-patrols-wildlife-v156.js'),
+              text.find('live-overrides/zzzzz-enemy-patrols-v157.js'),
               text.find('src/main.js'),
+              text.find('src/core/boot.js'),
           ]
           if min(markers) < 0 or markers != sorted(markers):
-              raise SystemExit(f"Invalid Atlas runtime order: {markers}")
+              raise SystemExit(f'Invalid canonical runtime order: {markers}')
           PY
 
-          echo "Assembled canonical Thousandfold Realms build with directional atlas routes before game bootstrap."
+          echo "Assembled Thousandfold Realms directly from source/ with a baked title and boot shield."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
