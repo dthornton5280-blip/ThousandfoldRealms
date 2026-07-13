@@ -20,6 +20,7 @@ The production website is built directly from `source/`.
 - `source/styles.css` and `source/src/` are the authoritative packaged game source.
 - `source/src/main.js` creates the game.
 - `source/src/core/boot.js` removes the boot shield only after a real screen is visible.
+- `source/src/render/assets.js` contains the original atlases and approved derived runtime art subsets.
 - `live-overrides/` contains transitional modules that have not yet been folded into their final source files.
 - `.github/workflows/deploy-pages.yml` copies `source/` directly into the Pages artifact and injects transitional overrides before `src/main.js`.
 
@@ -36,6 +37,21 @@ The required browser order is:
 5. `source/src/core/boot.js`
 
 Do not inject runtime overrides into `<head>`. Several overrides require `AO` classes to exist before they execute.
+
+## Third-party art rules
+
+The project may use properly licensed third-party pixel art, but the public repository must not become a substitute download for an original asset pack.
+
+- Confirm commercial use, modification, redistribution, and attribution terms before integration.
+- Record the creator and supplied terms under `source/assets/third-party/<pack>/NOTICE.txt`.
+- Commit only the exact optimized runtime subset currently used by the game whenever practical.
+- Do not commit a complete downloaded pack, unused sheets, or editable source files such as `.aseprite` unless the license clearly permits redistribution and the full files are genuinely necessary.
+- Preserve crisp nearest-neighbor scaling and transparent PNG output.
+- Keep rendering fallbacks until a converted area has passed live regression testing.
+- Separate visual footprint from collision and interaction data; replacing art must not silently change map geometry.
+- Convert areas in controlled vertical slices rather than mixing unrelated art styles across the entire game.
+
+The current external-art pilot uses a small derived subset of **Pixel Crawler - Free Pack** by **Anokolisa** in the Black Lantern Tavern. See `source/assets/third-party/pixel-crawler/NOTICE.txt`.
 
 ## Current game rules
 
@@ -66,7 +82,7 @@ Never clear local storage or invalidate saves casually.
 - Do not add another permanent patch layer without documenting why it exists and how it will later be folded into source.
 - Keep maps physically navigable and cardinally accurate.
 - Do not expose unfinished regions as though they are already reachable.
-- Add focused automated validation for every gameplay or deployment regression.
+- Add focused automated validation for every gameplay, art, licensing, or deployment regression.
 - Update `version.json`, `CHANGELOG.md`, and `docs/CURRENT_STATE.md` at canonical checkpoints.
 
 ## Deployment regression checklist
@@ -79,6 +95,8 @@ Before merging a production change, verify:
 - New games still reach the character creator.
 - Source and override scripts load in the required order.
 - Atlas, physical travel, HUD modes, visible patrols, wildlife, tactical combat, dialogue, inventory, quests, saving, and loading still work.
+- Converted art remains scoped to its intended maps and preserves collision and interactions.
+- Third-party creator notices and redistribution boundaries remain present.
 - GitHub Pages is assembled from `source/`, not a ZIP.
 
 ## New-chat handoff
