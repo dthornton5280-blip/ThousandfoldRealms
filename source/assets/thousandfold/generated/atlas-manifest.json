@@ -2,9 +2,19 @@
   "version": "1.6.5-dev",
   "atlas": {
     "id": "generated-proof-atlas",
-    "file": "generated-proof-atlas.png",
+    "encoding": "base64-png-chunks",
+    "chunks": [
+      "generated-proof-atlas.part00.b64",
+      "generated-proof-atlas.part01.b64",
+      "generated-proof-atlas.part02.b64",
+      "generated-proof-atlas.part03.b64",
+      "generated-proof-atlas.part04.b64",
+      "generated-proof-atlas.part05.b64"
+    ],
+    "decodedFileName": "generated-proof-atlas.png",
     "width": 512,
     "height": 288,
+    "decodedBytes": 22580,
     "source": "project-owned generated proof batch derived from approved Thousandfold Realms concept art",
     "runtimeStatus": "active vertical slice with procedural fallback"
   },
