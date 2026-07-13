@@ -1,6 +1,6 @@
 {
-  "version": "1.5.9-dev",
-  "buildName": "Pixel Crawler Tavern Pilot",
+  "version": "1.6.0-dev",
+  "buildName": "Asset Catalog + Stable Tavern Rollback",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
