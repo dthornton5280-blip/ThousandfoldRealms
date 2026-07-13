@@ -63,7 +63,7 @@
     searchable:{chance:.44,loot:['moon_herb','dusk_bloom','antidote'],foundText:'One lanterncap is mature enough to harvest without breaking the ring.',emptyText:'The remaining caps are too young—or too strange—to take safely.'}
   });
   add({
-    id:'whisper_root_hollow',type:'decor',kind:'root_hollow',name:'Foxroot Hollow',x:4,y:12,blocking:true,
+    id:'whisper_root_hollow',type:'decor',kind:'root_hollow',name:'Foxroot Hollow',x:8,y:13,blocking:true,
     artId:'whisper_root_hollow',artW:52,artH:44,description:'The exposed roots of an ancient tree form a dry chamber lined with feathers, nutshells, and bits of blue thread.',
     searchable:{chance:.38,loot:['wild_feathers','copper_charm','smoke_bomb'],gold:[0,5],foundText:'Behind a curtain of root fibers lies a small object carried here by some curious animal.',emptyText:'The hollow holds only old nesting material and a sharp woodland scent.'}
   });
