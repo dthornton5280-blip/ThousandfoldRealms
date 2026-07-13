@@ -1,38 +1,61 @@
 # Thousandfold Realms
 
-Browser-playable development build of the original single-player pixel CRPG.
+Browser-playable development build of an original single-player pixel CRPG.
 
 ## Canonical state
 
-- **Current checkpoint:** `v1.4.6-dev — Biome Tactical + Animated Title Scene`
-- **Canonical branch:** `main`
-- **Current deployment model:** one verified packaged game base plus repository-managed source overrides
-- **Live site:** GitHub Pages deployment from this repository
+- **Current checkpoint:** `v1.5.8-dev — Canonical Source Build`
+- **Production branch:** `main`
+- **Production source:** `source/`
+- **Deployment:** GitHub Pages from this repository
+- **Live architecture:** canonical source plus temporary Git-managed overrides
 
-The packaged base is currently `Thousandfold_Realms_Web_v1.4.4-dev.zip`. Despite the legacy filename, it is treated only as the single verified base package for large assets and the original playable build. The active title-screen, HUD-interaction, and tactical changes are maintained in Git and injected during deployment.
+The website is built directly from the editable `source/` directory. The historical `Thousandfold_Realms_Web_v1.4.4-dev.zip` is no longer used by production deployment.
 
-There is no v1.4.5 package fallback and no competing active build package. The repository state and `CHANGELOG.md` define what is current.
+Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` before modifying the project.
 
 ## Current features
 
-- Dedicated biome battlefields instead of cropped exploration-map combat
-- Animated title scene
-- Start Game, Create New Character, Load Game, and Continue Game options
-- Automatic save-key migration from the former title
-- Exploration HUD interaction fix
-- Browser-safe audio start after player interaction
+- Illustrated title presentation and protected boot sequence
+- Character creation with races, classes, backgrounds, appearance, and attributes
+- Exploration across Haven, Whisperwood, four wilderness-road maps, Lantern Road, Aurelia, Lantern Mine, and Ashen Crypt
+- World, Region, and Local Atlas views
+- Persistent fog-of-war and visited-only fast travel
+- Directionally accurate physical map connections
+- Full, Compact, Hidden, and selectively configurable HUD modes
+- Visible deterministic enemy patrols rather than ordinary step-count random battles
+- Sparse town animals and occasional interactive wilderness wildlife
+- Survival-based hunting and persistent wildlife resources
+- Isolated biome tactical battlefields
+- Dialogue, quests, inventory, equipment, shops, crafting, resources, camps, saves, and migration-safe persistent state
 
-## Repository workflow
+## Repository layout
 
-- Keep large binary assets in the single verified package.
-- Keep all current editable CSS and JavaScript changes in `live-overrides/`.
-- Do not add numbered ZIP builds for ordinary code changes.
-- Do not commit temporary payload chunks or assembly fragments.
-- Every push to `main` validates the package and overrides, assembles one `_site`, and deploys it to GitHub Pages.
+- `source/index.html` — canonical page shell and baked title screen
+- `source/styles.css` — core stylesheet
+- `source/src/` — canonical game code
+- `source/src/core/boot.js` — releases the page after successful startup
+- `live-overrides/` — transitional systems awaiting controlled integration into source
+- `tests/` — focused runtime and architecture harnesses
+- `docs/` — current state, regression plans, and implementation notes
+- `.github/workflows/` — pull-request validation and Pages deployment
+
+## Development workflow
+
+1. Create a branch from `main`.
+2. Make the smallest coherent change.
+3. Add or update focused validation.
+4. Update `version.json`, `CHANGELOG.md`, and `docs/CURRENT_STATE.md` at canonical checkpoints.
+5. Open a pull request.
+6. Merge only after checks pass.
+
+Do not restore ZIP-based deployment. Do not clear player saves casually. Do not expose unfinished regions as reachable content.
 
 ## Project handoff
 
-Read `docs/CURRENT_STATE.md` before beginning a new development session. It records the active architecture, known issues, testing checklist, and next recommended work.
+A new chat or agent should be told:
+
+> Work in `dthornton5280-blip/ThousandfoldRealms`. Treat `main` as production. Read `AGENTS.md`, `version.json`, `docs/CURRENT_STATE.md`, and `CHANGELOG.md` before making changes.
 
 ## Release note
 
