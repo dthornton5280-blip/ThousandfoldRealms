@@ -1,0 +1,16 @@
+const fs=require('fs');
+const assert=(condition,message)=>{if(!condition)throw new Error(message);};
+const read=path=>fs.readFileSync(path,'utf8');
+const version=JSON.parse(read('version.json'));
+assert(version.version==='1.6.1-dev','Expected v1.6.1-dev.');
+assert(version.buildName==='Haven Art + Living Interiors','Unexpected build name.');
+const index=read('source/index.html');
+const order=['src/data/immersive_world.js','src/data/haven_art_content.js','src/systems/immersive_world.js','src/systems/entity_geometry.js','src/systems/footprint_interactions.js','src/render/assets.js','src/render/thousandfold_art.js','src/render/world_polish.js','src/render/thousandfold_renderer.js','src/main.js'];
+for(let i=1;i<order.length;i++)assert(index.indexOf(order[i-1])>=0&&index.indexOf(order[i])>index.indexOf(order[i-1]),`Runtime order is wrong around ${order[i]}.`);
+const provenance=read('source/assets/generated/README.md');
+assert(provenance.includes('project-specific')&&provenance.includes('not a redistributed copy'),'Generated-art provenance is incomplete.');
+const bridge=read('live-overrides/zzzzzz-footprint-game-v161.js');
+assert(bridge.includes('AO.Game.prototype.interactNearest'),'Multi-tile E interaction bridge is missing.');
+assert(bridge.includes('AO.EntityGeometry.distance'),'E interaction bridge does not use footprint geometry.');
+for(const path of ['source/src/data/haven_art_content.js','source/src/systems/entity_geometry.js','source/src/systems/footprint_interactions.js','source/src/render/thousandfold_art.js','source/src/render/thousandfold_renderer.js'])assert(index.includes(path.replace('source/','')),`Canonical page does not load ${path}.`);
+console.log('v1.6.1 runtime order, version, provenance, and bridge harness passed.');
