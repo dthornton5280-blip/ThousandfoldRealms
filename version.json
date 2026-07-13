@@ -1,6 +1,6 @@
 {
-  "version": "1.6.1-dev",
-  "buildName": "Haven Art + Living Interiors",
+  "version": "1.6.2-dev",
+  "buildName": "Tavern Composition + Dialogue Portraits",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }
