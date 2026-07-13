@@ -205,8 +205,11 @@
 
   let attempts=0;
   const timer=setInterval(()=>{
-    patchCurrentWorld();installWorldCollision();installCombatRepairs();installCombatInput();
-    if(window.game&&AO.GeneratedSpriteContent?.installed)installLateRenderHook();
+    patchCurrentWorld();
+    if(window.game){
+      installWorldCollision();installCombatRepairs();installCombatInput();
+      if(AO.GeneratedSpriteContent?.installed)installLateRenderHook();
+    }
     if(window.game&&PropArt.ready&&AO.LiveRuntimeV167.worldCollisionInstalled&&AO.LiveRuntimeV167.combatInstalled&&AO.SpriteFactory?.icon?.tfrGeneratedPropsV167){repairPlayerPosition(window.game.world);clearInterval(timer);}
     else if(++attempts>400)clearInterval(timer);
   },25);
