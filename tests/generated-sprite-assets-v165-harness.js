@@ -48,5 +48,8 @@ check(renderer.includes("collisionFootprint:[{x:0,y:0}]"),'large scenery must re
 check(!renderer.includes('ChatGPT Image Jul'),'presentation sheets must not be referenced at runtime');
 
 const version=JSON.parse(read('version.json'));
-check(version.version==='1.6.5-dev','version must identify the v1.6.5 checkpoint');
+const versionMatch=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/);
+check(versionMatch,'version must identify a development checkpoint');
+const [,major,minor,patch]=versionMatch.map(Number);
+check(major>1||(major===1&&(minor>6||(minor===6&&patch>=5))),'version must identify v1.6.5-dev or later');
 console.log(`v1.6.5 generated sprite atlas validated: ${required.length} assets, ${width}x${height}, ${atlas.length} bytes.`);
