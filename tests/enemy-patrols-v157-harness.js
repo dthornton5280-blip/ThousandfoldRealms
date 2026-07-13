@@ -109,8 +109,7 @@ assert(game.combat.starts[0]===bandit,'Enemy entering the player tile did not st
 assert(bandit.routine,'The v1.5.6 routine was not restored after the base update.');
 
 const runtime=fs.readFileSync('live-overrides/zzzzz-enemy-patrols-v157.js','utf8');
-for(const token of ['document.hasFocus','PATROLS','questEnemy','patrolCooldown','window.addEventListener','STATIONARY_IDS']){
-  if(token==='questEnemy')continue;
+for(const token of ['PATROLS','patrolCooldown','window.addEventListener','STATIONARY_IDS','requiresQuest']){
   assert(runtime.includes(token),`Patrol hotfix is missing ${token}.`);
 }
 assert(!runtime.includes('document.hasFocus()'),'The unreliable per-frame document.hasFocus() gate returned.');
