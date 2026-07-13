@@ -1,4 +1,4 @@
-name: Validate Direct Prop Renderer v1.6.10
+name: Validate Authoritative Props v1.6.11
 
 on:
   pull_request:
@@ -11,32 +11,39 @@ permissions:
   contents: read
 
 jobs:
-  validate-direct-prop-render:
+  validate-authoritative-props:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Verify v1.6.10 files
+      - name: Verify authoritative prop files
         shell: bash
         run: |
           set -euo pipefail
+          test -f source/src/main.js
           test -f source/src/render/renderer.js
           test -f source/src/render/prop_furniture_runtime_v169.js
           test -f tests/direct-prop-render-v1610-harness.js
+          test -f tests/late-prop-runtime-v1611-harness.js
           test -f source/assets/thousandfold/generated/generated-props-atlas-v166.b64
 
       - name: Check JavaScript syntax
         run: |
+          node --check source/src/main.js
           node --check source/src/render/renderer.js
           node --check source/src/data/tavern_composition.js
           node --check source/src/render/prop_furniture_runtime_v169.js
           node --check tests/direct-prop-render-v1610-harness.js
+          node --check tests/late-prop-runtime-v1611-harness.js
 
       - name: Execute canonical render-priority regression
         run: node tests/direct-prop-render-v1610-harness.js
 
-      - name: Preserve v1.6.9 bindings and v1.6.7 gameplay repairs
+      - name: Execute late runtime and real-atlas regression
+        run: node tests/late-prop-runtime-v1611-harness.js
+
+      - name: Preserve prop bindings and gameplay repairs
         run: |
           node tests/prop-furniture-runtime-v169-harness.js
           node tests/live-runtime-v167-harness.js
