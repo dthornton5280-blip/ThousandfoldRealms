@@ -1,0 +1,41 @@
+name: Validate Hybrid Props and Furniture v1.6.6
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-generated-props:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.6 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/assets/thousandfold/generated/generated-props-atlas-v166.b64
+          test -f source/assets/thousandfold/generated/atlas-manifest-v166.json
+          test -f source/src/render/generated_props_v166.js
+          test -f tests/generated-props-v166-harness.js
+          test -f docs/V166_HYBRID_PROPS_FURNITURE.md
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check source/src/render/generated_props_v166.js
+          node --check source/src/data/tavern_composition.js
+          node --check tests/generated-props-v166-harness.js
+          node --check tests/generated-sprite-assets-v165-harness.js
+
+      - name: Validate atlas, metadata, integration, and fallbacks
+        run: node tests/generated-props-v166-harness.js
+
+      - name: Preserve prior generated-art regression
+        run: node tests/generated-sprite-assets-v165-harness.js
