@@ -35,22 +35,7 @@ jobs:
           node --check tests/generated-sprite-assets-v165-harness.js
 
       - name: Validate atlas, metadata, integration, and fallbacks
-        id: validate-v166
-        shell: bash
-        run: |
-          set +e
-          node tests/generated-props-v166-harness.js > v166-validation.txt 2>&1
-          status=$?
-          cat v166-validation.txt
-          exit $status
-
-      - name: Upload validation diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: v166-validation-diagnostics
-          path: v166-validation.txt
-          retention-days: 1
+        run: node tests/generated-props-v166-harness.js
 
       - name: Preserve prior generated-art regression
         run: node tests/generated-sprite-assets-v165-harness.js
