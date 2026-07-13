@@ -1,25 +1,30 @@
 window.addEventListener('DOMContentLoaded',async()=>{
-  /* Load the approved prop/furniture runtime only after the canonical renderer,
-     systems, and map definitions exist. Earlier data-file injection could execute
-     before SpriteFactory and WorldSystem were ready, leaving the live game on
-     fallback art even though the bindings and tests existed. */
+  /* Load the exact user-provided prop runtime only after every canonical renderer,
+     map definition, and world system has been evaluated. */
   await new Promise(resolve=>{
     const script=document.createElement('script');
-    script.src='src/render/prop_furniture_runtime_v169.js?v=1611';
+    script.src='src/render/prop_furniture_runtime_v1612.js?v=1612';
     script.async=false;
-    script.dataset.tfrPropFurnitureV1611='true';
+    script.dataset.tfrExactPropsV1612='true';
     script.onload=resolve;
-    script.onerror=()=>{console.warn('Thousandfold Realms prop runtime failed to load; fallback art remains active.');resolve();};
+    script.onerror=()=>{
+      document.documentElement.dataset.tfrProps='failed';
+      console.error('Thousandfold Realms exact prop runtime script failed to load.');
+      resolve();
+    };
     document.head.appendChild(script);
   });
 
-  /* Do not construct the first map while the approved atlas is still decoding.
-     A bounded wait preserves startup even if the asset request genuinely fails. */
+  /* Build the first map only after the exact atlas is ready or has explicitly failed. */
   const started=Date.now();
-  while(AO.PropFurnitureArtV1611&&!AO.PropFurnitureArtV1611.ready&&!AO.PropFurnitureArtV1611.failed&&Date.now()-started<5000){
+  while(AO.PropFurnitureArtV1612&&!AO.PropFurnitureArtV1612.ready&&!AO.PropFurnitureArtV1612.failed&&Date.now()-started<5000){
     await new Promise(resolve=>setTimeout(resolve,25));
   }
 
   window.game=new AO.Game();
   game.start();
+
+  if(!AO.PropFurnitureArtV1612?.ready){
+    setTimeout(()=>game.toast?.('Exact prop assets did not load. Check the browser console for the recorded atlas error.'),150);
+  }
 });

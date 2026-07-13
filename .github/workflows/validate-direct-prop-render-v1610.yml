@@ -1,4 +1,4 @@
-name: Validate Authoritative Props v1.6.11
+name: Validate Exact User Props v1.6.12
 
 on:
   pull_request:
@@ -11,39 +11,57 @@ permissions:
   contents: read
 
 jobs:
-  validate-authoritative-props:
+  validate-exact-user-props:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          show-progress: false
 
-      - name: Verify authoritative prop files
+      - name: Verify exact prop files
         shell: bash
         run: |
           set -euo pipefail
           test -f source/src/main.js
           test -f source/src/render/renderer.js
-          test -f source/src/render/prop_furniture_runtime_v169.js
-          test -f tests/direct-prop-render-v1610-harness.js
-          test -f tests/late-prop-runtime-v1611-harness.js
-          test -f source/assets/thousandfold/generated/generated-props-atlas-v166.b64
+          test -f source/src/render/prop_furniture_runtime_v1612.js
+          test -f tests/exact-prop-assets-v1612-harness.js
+          test -f source/assets/thousandfold/generated/generated-props-atlas-v1612.png
 
       - name: Check JavaScript syntax
         run: |
           node --check source/src/main.js
           node --check source/src/render/renderer.js
           node --check source/src/data/tavern_composition.js
-          node --check source/src/render/prop_furniture_runtime_v169.js
-          node --check tests/direct-prop-render-v1610-harness.js
-          node --check tests/late-prop-runtime-v1611-harness.js
+          node --check source/src/render/prop_furniture_runtime_v1612.js
+          node --check tests/exact-prop-assets-v1612-harness.js
 
-      - name: Execute canonical render-priority regression
-        run: node tests/direct-prop-render-v1610-harness.js
-
-      - name: Execute late runtime and real-atlas regression
-        run: node tests/late-prop-runtime-v1611-harness.js
-
-      - name: Preserve prop bindings and gameplay repairs
+      - name: Execute exact atlas and runtime regression
+        id: exact_prop_test
+        continue-on-error: true
+        shell: bash
         run: |
-          node tests/prop-furniture-runtime-v169-harness.js
-          node tests/live-runtime-v167-harness.js
+          set -o pipefail
+          {
+            printf 'atlas-sha256: '
+            sha256sum source/assets/thousandfold/generated/generated-props-atlas-v1612.png
+            node tests/exact-prop-assets-v1612-harness.js
+          } 2>&1 | tee exact-prop-test.log
+
+      - name: Upload exact prop test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exact-prop-test-log
+          path: exact-prop-test.log
+          if-no-files-found: error
+
+      - name: Fail when exact prop regression failed
+        if: steps.exact_prop_test.outcome == 'failure'
+        run: |
+          cat exact-prop-test.log
+          exit 1
+
+      - name: Preserve gameplay repairs
+        run: node tests/live-runtime-v167-harness.js
