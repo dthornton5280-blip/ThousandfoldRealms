@@ -35,12 +35,20 @@ jobs:
           test -f source/styles.css
           test -f source/src/main.js
           test -f source/src/core/boot.js
+          test -f source/src/data/haven_art_content.js
+          test -f source/src/systems/entity_geometry.js
+          test -f source/src/systems/footprint_interactions.js
+          test -f source/src/render/thousandfold_art.js
+          test -f source/src/render/thousandfold_renderer.js
+          test -f live-overrides/zzzzzz-footprint-game-v161.js
           test -d live-overrides
           test -f version.json
           test -f CHANGELOG.md
           test -f AGENTS.md
           test -f docs/CURRENT_STATE.md
           test -f tests/canonical-source-v158-harness.js
+          test -f tests/thousandfold-haven-art-v161-harness.js
+          test -f tests/footprint-game-v161-harness.js
 
           grep -q 'id="tfBootScreen"' source/index.html
           grep -q 'id="tfTitleScreen"' source/index.html
@@ -57,6 +65,8 @@ jobs:
           node tests/visible-patrols-wildlife-v156-harness.js
           node tests/enemy-patrols-v157-harness.js
           node tests/canonical-source-v158-harness.js
+          node tests/thousandfold-haven-art-v161-harness.js
+          node tests/footprint-game-v161-harness.js
 
           python - <<'PY'
           from pathlib import Path
@@ -143,9 +153,15 @@ jobs:
               'GIT_LIVE_OVERRIDE_STYLES',
               'GIT_LIVE_OVERRIDE_RUNTIME',
               'meta name="tf-source-model"',
+              'src/data/haven_art_content.js',
+              'src/systems/entity_geometry.js',
+              'src/systems/footprint_interactions.js',
+              'src/render/thousandfold_art.js',
+              'src/render/thousandfold_renderer.js',
               'live-overrides/world-atlas-v150.js',
               'live-overrides/zzzz-visible-patrols-wildlife-v156.js',
               'live-overrides/zzzzz-enemy-patrols-v157.js',
+              'live-overrides/zzzzzz-footprint-game-v161.js',
               'src/main.js',
               'src/core/boot.js',
           )
@@ -159,10 +175,16 @@ jobs:
               raise SystemExit('Runtime overrides were injected before AO exists')
 
           markers = [
+              text.find('src/data/haven_art_content.js'),
+              text.find('src/systems/entity_geometry.js'),
+              text.find('src/systems/footprint_interactions.js'),
+              text.find('src/render/thousandfold_art.js'),
+              text.find('src/render/thousandfold_renderer.js'),
               text.find('src/ui/cartography_ui.js'),
               text.find('live-overrides/world-atlas-v150.js'),
               text.find('live-overrides/zzzz-visible-patrols-wildlife-v156.js'),
               text.find('live-overrides/zzzzz-enemy-patrols-v157.js'),
+              text.find('live-overrides/zzzzzz-footprint-game-v161.js'),
               text.find('src/main.js'),
               text.find('src/core/boot.js'),
           ]
@@ -170,7 +192,7 @@ jobs:
               raise SystemExit(f'Invalid canonical runtime order: {markers}')
           PY
 
-          echo "Assembled Thousandfold Realms directly from source/ with a baked title and boot shield."
+          echo "Assembled Thousandfold Realms directly from source/ with canonical Haven art, living interiors, and a protected boot sequence."
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
