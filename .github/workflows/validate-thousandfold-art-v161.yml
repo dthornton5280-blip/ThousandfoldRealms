@@ -53,8 +53,17 @@ jobs:
       - name: Validate canonical pixel rendering
         run: node tests/thousandfold-art-render-v161-harness.js
 
-      - name: Validate furnished interiors and doors
-        run: node tests/thousandfold-content-v161-harness.js
+      - name: Validate Haven and tavern layout
+        run: node tests/thousandfold-content-v161-harness.js layout
+
+      - name: Validate every furnished interior
+        run: node tests/thousandfold-content-v161-harness.js interiors
+
+      - name: Validate door dimensions and interaction cells
+        run: node tests/thousandfold-content-v161-harness.js doors
+
+      - name: Validate interior character assignments
+        run: node tests/thousandfold-content-v161-harness.js characters
 
       - name: Validate collision, searches, and daily uses
         run: node tests/thousandfold-geometry-v161-harness.js
