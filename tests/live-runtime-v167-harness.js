@@ -20,7 +20,7 @@ check(!composition.includes("script.src='src/render/generated_props_v166.js'"),'
 
 /* Asset visibility must not depend on the timing of one early composition pass. */
 check(runtime.includes('copyDefinitionArt(rawEntity)'),'draw-time metadata inheritance is missing');
-check(runtime.includes('window.game&&AO.GeneratedSpriteContent?.installed'),'late render installation must wait for the canonical renderer');
+check(runtime.includes('if(window.game){')&&runtime.includes('if(AO.GeneratedSpriteContent?.installed)installLateRenderHook()'),'late render installation must wait for the final game and canonical renderer');
 check(runtime.includes('AO.SpriteFactory.icon=wrapped'),'late prop wrapper must replace the final icon function');
 check(runtime.includes('tfrGeneratedPropsV167'),'late prop wrapper must be idempotent');
 check(runtime.includes("fetch(ATLAS_URL,{cache:'reload'})"),'atlas fetch must bypass stale cached text');
