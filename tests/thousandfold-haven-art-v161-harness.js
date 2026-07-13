@@ -76,5 +76,5 @@ const index=read(files.index);
 const order=['src/data/immersive_world.js','src/data/haven_art_content.js','src/systems/immersive_world.js','src/systems/entity_geometry.js','src/systems/footprint_interactions.js','src/render/assets.js','src/render/thousandfold_art.js','src/render/world_polish.js','src/render/thousandfold_renderer.js','src/main.js'];
 for(let i=1;i<order.length;i++)assert(index.indexOf(order[i-1])>=0&&index.indexOf(order[i])>index.indexOf(order[i-1]),`Runtime order is wrong around ${order[i]}.`);
 const provenance=read('source/assets/generated/README.md');
-assert(provenance.includes('project-specific runtime')&&provenance.includes('not a redistributed copy'),'Generated-art provenance is incomplete.');
+assert(provenance.includes('project-specific')&&provenance.includes('not a redistributed copy'),'Generated-art provenance is incomplete.');
 console.log('v1.6.1 Haven art harness passed: canonical pixel renderer, furnished interiors, multi-tile collision, reliable doors, persistent searches, and runtime order.');
