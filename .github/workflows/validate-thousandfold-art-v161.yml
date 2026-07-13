@@ -27,7 +27,9 @@ jobs:
           test -f source/src/render/thousandfold_art.js
           test -f source/src/render/thousandfold_renderer.js
           test -f source/assets/generated/README.md
+          test -f live-overrides/zzzzzz-footprint-game-v161.js
           test -f tests/thousandfold-haven-art-v161-harness.js
+          test -f tests/footprint-game-v161-harness.js
 
       - name: Check JavaScript syntax
         shell: bash
@@ -38,10 +40,16 @@ jobs:
           node --check source/src/systems/footprint_interactions.js
           node --check source/src/render/thousandfold_art.js
           node --check source/src/render/thousandfold_renderer.js
+          node --check live-overrides/zzzzzz-footprint-game-v161.js
           node --check tests/thousandfold-haven-art-v161-harness.js
+          node --check tests/footprint-game-v161-harness.js
 
       - name: Validate art, collisions, doors, interiors, and interactions
-        run: node tests/thousandfold-haven-art-v161-harness.js
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/thousandfold-haven-art-v161-harness.js
+          node tests/footprint-game-v161-harness.js
 
       - name: Reject concept-sheet deployment
         shell: bash
