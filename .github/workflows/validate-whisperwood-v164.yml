@@ -1,0 +1,45 @@
+name: Validate Whisperwood Living Wilderness
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-whisperwood:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify v1.6.4 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f source/src/data/whisperwood_composition.js
+          test -f source/src/render/whisperwood_art.js
+          test -f tests/whisperwood-v164-harness.js
+          test -f docs/V164_WHISPERWOOD_LIVING_WILDERNESS.md
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check source/src/data/whisperwood_composition.js
+          node --check source/src/render/whisperwood_art.js
+          node --check tests/whisperwood-v164-harness.js
+
+      - name: Validate wilderness art, collision, and routes
+        run: node tests/whisperwood-v164-harness.js
+
+      - name: Reject presentation-sheet slicing
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R "drawImage(" source/src/render/whisperwood_art.js
+          ! grep -R "Pixel Crawler" source/src/data/whisperwood_composition.js source/src/render/whisperwood_art.js
