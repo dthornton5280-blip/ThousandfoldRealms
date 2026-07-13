@@ -21,7 +21,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f source/assets/thousandfold/generated/generated-proof-atlas.png
+          for part in 00 01 02 03 04 05; do
+            test -f "source/assets/thousandfold/generated/generated-proof-atlas.part${part}.b64"
+          done
           test -f source/assets/thousandfold/generated/atlas-manifest.json
           test -f tests/generated-sprite-assets-v165-harness.js
           test -f docs/V165_GENERATED_SPRITE_VERTICAL_SLICE.md
