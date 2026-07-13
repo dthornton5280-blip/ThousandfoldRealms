@@ -60,6 +60,13 @@
   if(AO.AMBIENT_ACTORS?.tavern_patron_1)Object.assign(AO.AMBIENT_ACTORS.tavern_patron_1,{x:9,y:9,route:[[9,9],[10,9],[10,10],[9,10]]});
   if(AO.AMBIENT_ACTORS?.tavern_patron_2)Object.assign(AO.AMBIENT_ACTORS.tavern_patron_2,{x:24,y:6,route:[[23,6],[24,6],[25,6],[24,6]]});
 
+  /* Dialogue busts use explicit occupations rather than guessing from the
+     small top-down sprite family assigned to each resident. */
+  const portraitRoles={bran:'tavernkeeper',lys:'bard',elowen:'innkeeper',mara:'apothecary',borin:'smith',selene:'mage',odo:'cleric',mira:'warden',nessa:'tailor',jory:'jeweler'};
+  for(const [id,role] of Object.entries(portraitRoles))if(AO.NPCS?.[id]?.visual)AO.NPCS[id].visual.portraitRole=role;
+  const ambientRoles={tavern_patron_1:'patron',tavern_patron_2:'bard',inn_guest:'patron',inn_attendant:'innkeeper',store_shopper:'traveler',forge_apprentice:'smith',arcane_scholar:'mage'};
+  for(const [id,role] of Object.entries(ambientRoles))if(AO.AMBIENT_ACTORS?.[id]?.visual)AO.AMBIENT_ACTORS[id].visual.portraitRole=role;
+
   if(AO.MAP_LANDMARKS?.tavern)AO.MAP_LANDMARKS.tavern=[
     {x:6,y:4,label:'Black Lantern Bar',kind:'service'},
     {x:24,y:3,label:'Festival Stage',kind:'stage'},
