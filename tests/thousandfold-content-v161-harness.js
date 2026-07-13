@@ -1,6 +1,7 @@
 const fs=require('fs');
 const vm=require('vm');
 const assert=(condition,message)=>{if(!condition)throw new Error(message);};
+const phase=process.argv[2]||'all';
 const contentPath='source/src/data/haven_art_content.js';
 global.window=global;
 global.AO={};
@@ -25,15 +26,24 @@ AO.AMBIENT_ACTORS={tavern_patron_1:{visual:{}},tavern_patron_2:{visual:{}},inn_g
 AO.MAP_LANDMARKS={tavern:[{kind:'service'},{kind:'stage'}]};
 vm.runInThisContext(fs.readFileSync(contentPath,'utf8'),{filename:contentPath});
 const allObjects=Object.values(AO.MAP_DEFS).flatMap(map=>map.objects||[]);
-assert(AO.MapBuilders.tavern().flat().every(tile=>tile!=='bar'),'Tavern still uses solid bar terrain collision.');
-assert(AO.MAP_DEFS.haven.objects.find(o=>o.id==='haven_well')?.useAction,'Haven well interaction missing.');
-assert(AO.MAP_DEFS.tavern.objects.find(o=>o.id==='tavern_long_table')?.collisionFootprint.length===6,'Long table collision footprint missing.');
-assert(AO.MAP_DEFS.tavern.objects.find(o=>o.id==='tavern_shelf_mugs')?.searchable,'Tavern search discovery missing.');
-for(const mapId of ['tavern','tavern_cellar','inn','inn_upper','general_store','forge','arcane_shop','chapel'])assert(AO.MAP_DEFS[mapId].objects.some(o=>o.artId),`${mapId} was not furnished with canonical art.`);
-for(const object of allObjects.filter(o=>o.type==='door'&&!o.integratedBuildingDoor)){
-  assert(object.artW===32&&object.artH===48,`Door ${object.id} does not use the standard 32×48 visual size.`);
-  assert(object.interactionFootprint?.up===1,`Door ${object.id} lacks its upper interaction cell.`);
+
+if(phase==='layout'||phase==='all'){
+  assert(AO.MapBuilders.tavern().flat().every(tile=>tile!=='bar'),'Tavern still uses solid bar terrain collision.');
+  assert(AO.MAP_DEFS.haven.objects.find(o=>o.id==='haven_well')?.useAction,'Haven well interaction missing.');
+  assert(AO.MAP_DEFS.tavern.objects.find(o=>o.id==='tavern_long_table')?.collisionFootprint.length===6,'Long table collision footprint missing.');
+  assert(AO.MAP_DEFS.tavern.objects.find(o=>o.id==='tavern_shelf_mugs')?.searchable,'Tavern search discovery missing.');
 }
-assert(AO.NPCS.bran.visual.artFrames?.[0].includes('tavernkeeper'),'Bran did not receive canonical tavernkeeper art.');
-assert(AO.NPCS.lys.visual.artFrames?.[0].includes('bard'),'Lys did not receive canonical bard art.');
-console.log('Haven and starter-interior content harness passed.');
+if(phase==='interiors'||phase==='all'){
+  for(const mapId of ['tavern','tavern_cellar','inn','inn_upper','general_store','forge','arcane_shop','chapel'])assert(AO.MAP_DEFS[mapId].objects.some(o=>o.artId),`${mapId} was not furnished with canonical art.`);
+}
+if(phase==='doors'||phase==='all'){
+  for(const object of allObjects.filter(o=>o.type==='door'&&!o.integratedBuildingDoor)){
+    assert(object.artW===32&&object.artH===48,`Door ${object.id} does not use the standard 32×48 visual size.`);
+    assert(object.interactionFootprint?.up===1,`Door ${object.id} lacks its upper interaction cell.`);
+  }
+}
+if(phase==='characters'||phase==='all'){
+  assert(AO.NPCS.bran.visual.artFrames?.[0].includes('tavernkeeper'),'Bran did not receive canonical tavernkeeper art.');
+  assert(AO.NPCS.lys.visual.artFrames?.[0].includes('bard'),'Lys did not receive canonical bard art.');
+}
+console.log(`Haven content harness passed: ${phase}.`);
