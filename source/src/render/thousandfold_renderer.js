@@ -162,6 +162,7 @@
 
   const baseIcon=AO.SpriteFactory.icon.bind(AO.SpriteFactory);
   AO.SpriteFactory.icon=function(ctx,x,y,type,entity={}){
+    if(AO.GeneratedPropArt?.drawEntity(ctx,entity))return;
     if(AO.GeneratedSpriteArt?.drawEntity(ctx,entity))return;
     const mapId=window.game?.world?.map?.id;
     if(AO.ThousandfoldArt?.drawEntity(ctx,entity,mapId,typeof performance!=='undefined'?performance.now():0))return;
