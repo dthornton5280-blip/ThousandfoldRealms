@@ -1,6 +1,6 @@
 {
-  "version": "1.6.4-dev",
-  "buildName": "Whisperwood Living Wilderness",
+  "version": "1.6.5-dev",
+  "buildName": "Generated Sprite Vertical Slice",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }

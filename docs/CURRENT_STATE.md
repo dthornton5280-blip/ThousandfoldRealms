@@ -2,9 +2,9 @@
 
 ## Canonical checkpoint
 
-- Version: **1.6.4-dev**
-- Build name: **Whisperwood Living Wilderness**
-- Development branch for this checkpoint: **feature/whisperwood-living-wilderness-v164**
+- Version: **1.6.5-dev**
+- Build name: **Generated Sprite Vertical Slice**
+- Development branch for this checkpoint: **feature/generated-proof-assets-v165**
 - Canonical production branch after merge: **main**
 - Deployment: **GitHub Pages**
 
@@ -15,6 +15,8 @@ The live website is assembled directly from the editable `source/` directory. Th
 Key authoritative files:
 
 - `source/index.html` — canonical page shell and explicit runtime order
+- `source/assets/thousandfold/generated/atlas-manifest.json` — generated atlas dimensions, source rectangles, anchors, layers, and footprints
+- `source/assets/thousandfold/generated/generated-proof-atlas.part00.b64` through `part05.b64` — ordered repository-hosted chunks for the compact transparent PNG atlas
 - `source/src/data/haven_art_content.js` — base Haven art metadata, interactions, searches, uses, and furnishings
 - `source/src/data/tavern_composition.js` — coherent Black Lantern Tavern zoning and collision
 - `source/src/data/haven_composition.js` — Haven square and starter-interior composition
@@ -25,7 +27,7 @@ Key authoritative files:
 - `source/src/render/thousandfold_art.js` — project-owned base environment and furnishing renderer
 - `source/src/render/haven_detail_art.js` — specialized Haven props and landmarks
 - `source/src/render/whisperwood_art.js` — project-owned Whisperwood terrain and wilderness-object renderer
-- `source/src/render/thousandfold_renderer.js` — building, prop, NPC, and multi-cell highlight integration
+- `source/src/render/thousandfold_renderer.js` — generated atlas loading plus building, prop, NPC, fallback, and multi-cell highlight integration
 - `source/src/ui/dialogue_portraits.js` — bounded head-and-shoulders dialogue portraits
 - `source/src/main.js` — constructs the game after all canonical systems exist
 - `source/src/core/boot.js` — releases the protected page only after a real screen is visible
@@ -36,19 +38,48 @@ Key authoritative files:
 
 The rejected v1.5.9 Pixel Crawler tavern pilot remains feature-gated off.
 
-Current production art uses a project-owned visual language derived from the approved concept work without slicing presentation sheets into runtime tiles. Deterministic pixel primitives give the game direct control over:
+Production now uses a hybrid project-owned art pipeline. Deterministic pixel primitives remain the complete fallback and continue to control terrain, missing objects, and systems that have not yet received approved sprites. The first reviewed standalone generated objects are packed into a compact transparent runtime atlas with explicit crops and metadata instead of loading either presentation sheet.
+
+The browser fetches six static Base64 chunks, joins them in order, decodes one 512×288 PNG, and renders named crops with nearest-neighbor sampling. A failed request or decode leaves the established procedural renderer active.
+
+The pipeline directly controls:
 
 - Tile scale and detail density
-- Material palettes and lighting
 - Sprite anchors and visual dimensions
 - Collision and interaction footprints
 - Render order
 - Door dimensions and destination IDs
 - Searchable and usable object behavior
+- Asset loading failure and fallback behavior
 
 Haven emphasizes warm wood, weathered stone, muted greens, red and green roofs, amber windows, bronze-gold accents, flowers, and lantern light. Whisperwood deepens the same world into cool forest greens, Mosswater blues, packed-earth roads, layered canopy, moss, roots, stone, and isolated amber ward-flames.
 
 Pixel Crawler remains available for carefully reviewed character, enemy, tree, station, and selected prop derivatives. Its complete downloaded pack and editable source files are not committed.
+
+## Generated sprite vertical slice
+
+Nine sprites are registered in the v1.6.5 atlas:
+
+- Green deciduous tree
+- Evergreen tree
+- Autumn tree
+- Rounded green bush
+- Hanging-lantern post
+- Roofed stone well
+- Green-awning market stall
+- Black Lantern exterior
+- Stone fireplace
+
+The generated assets are live in these initial locations:
+
+- Haven’s four warded lamp posts
+- Old Market Well
+- Both market stalls
+- The Black Lantern exterior landmark
+- The Black Lantern Tavern’s main hearth
+- Four route-safe scenery placements in Whisperwood
+
+The Black Lantern exterior retains its established building footprint and overlays a stateful functional door. The Whisperwood trees and bush render beyond a single 32px cell while collision remains attached to a deliberate one-cell physical base. Existing object IDs are preserved wherever generated art replaces an established prop.
 
 ## Haven exterior
 
@@ -97,7 +128,7 @@ Whisperwood is the first completed wilderness-art vertical slice.
 
 ### Terrain presentation
 
-The map now has project-owned pixel rendering for:
+The map has project-owned pixel rendering for:
 
 - Moss-rich forest ground
 - Packed-earth Lantern Road
@@ -108,6 +139,8 @@ The map now has project-owned pixel rendering for:
 - Layered tree canopies and trunks
 - Shrubs, ferns, flowers, rocks, and moss stone
 - Eastern cliff face and stone stair
+
+The v1.6.5 generated green deciduous tree, evergreen, autumn tree, and bush are placed on selected former tree or shrub cells after those cells are restored to grass. This avoids double-rendering a small procedural tree beneath a large sprite.
 
 ### Existing gameplay objects
 
@@ -136,6 +169,7 @@ These details provide descriptions, deterministic one-time searches, or once-per
 - Blocking discoveries occupy walkable terrain.
 - Existing enemy starts remain clear.
 - Mireling, bandit, and deer routine points are free of newly added object collision.
+- The four generated scenery placements are outside protected routes and use explicit physical-base collision.
 - Gathering nodes remain nonblocking.
 - Visible-enemy patrols, examination pause, wildlife routines, hunting, and movement persistence remain handled by the established v1.5.6–v1.5.7 systems.
 
@@ -151,7 +185,7 @@ These details provide descriptions, deterministic one-time searches, or once-per
 
 ## Multi-tile geometry
 
-Large props use explicit collision footprints matching their visible bodies. Examples include stalls, counters, tables, benches, beds, fireplaces, shelves, weapon racks, carts, stages, statues, workstations, camps, and fallen logs.
+Large props use explicit collision footprints matching their physical bodies. Examples include stalls, counters, tables, benches, beds, fireplaces, shelves, weapon racks, carts, stages, statues, workstations, camps, and fallen logs. Visual dimensions may exceed the collision footprint for trees, foliage, roofs, and other overhanging art.
 
 Every occupied collision cell blocks movement. Every declared interaction cell can select the same entity. Pathfinding chooses a reachable adjacent cell around the complete footprint.
 
@@ -163,18 +197,17 @@ Existing saves, characters, quests, shops, dialogue, Atlas exploration, fog, def
 
 ## Validation
 
-The v1.6.4 validation checks:
+The v1.6.5 validation checks:
 
-- Whisperwood composition and art registration
-- Blocking-object overlap and placement on walkable terrain
-- Main-road and portal clearance
-- Reachability of all three exits
-- Enemy starts and authored patrol routes against added object collision
-- Stable camp, chest, resource, and portal identities
-- Persistent searches and daily uses
-- Exact multi-cell camp, cart, and log collision
-- Nonblocking gathering nodes
-- Rendering coverage for every new terrain and object art ID
-- No presentation-sheet or Pixel Crawler dependency in the Whisperwood runtime
-- Canonical loading order
-- Continued success of Haven, tavern, patrol, wildlife, Atlas, HUD, and canonical-source regressions
+- All six encoded atlas chunks exist and assemble in order
+- The decoded payload is a valid 512×288 PNG with the expected byte count
+- Every named crop remains within atlas bounds with safe edge padding
+- All nine generated sprites are registered in the runtime
+- Generated sprites draw before procedural fallback
+- Failure to fetch or decode the atlas preserves procedural rendering
+- The Black Lantern exterior keeps its functional stateful doorway
+- The tavern hearth, Haven well, stalls, and lamps retain established interactions and collision
+- Large Whisperwood scenery uses one-cell physical-base collision on walkable terrain
+- Main-road, portal, enemy, patrol, wildlife, and gathering routes remain valid
+- No full presentation sheet is loaded by the runtime
+- Canonical source, Haven, tavern, Whisperwood, patrol, wildlife, Atlas, HUD, and generated-atlas workflows continue to pass

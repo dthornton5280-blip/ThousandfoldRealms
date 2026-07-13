@@ -12,8 +12,11 @@ run('source/src/data/immersive_world.js');
 run('source/src/data/whisperwood_composition.js');
 
 const version=JSON.parse(read('version.json'));
-assert(version.version==='1.6.4-dev','Expected v1.6.4-dev.');
-assert(version.buildName==='Whisperwood Living Wilderness','Unexpected v1.6.4 build name.');
+const versionMatch=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/);
+assert(versionMatch,'Expected a development checkpoint version.');
+const [,major,minor,patch]=versionMatch.map(Number);
+assert(major>1||(major===1&&(minor>6||(minor===6&&patch>=4))),'Expected v1.6.4-dev or later.');
+assert(typeof version.buildName==='string'&&version.buildName.length>0,'Current build name is missing.');
 
 const map=AO.MAP_DEFS.wilds;
 assert(map.composition?.version==='v164','Whisperwood composition metadata is missing.');

@@ -1,0 +1,37 @@
+name: Validate Generated Sprite Atlas v1.6.5
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-generated-sprites:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for part in 00 01 02 03 04 05; do
+            test -f "source/assets/thousandfold/generated/generated-proof-atlas.part${part}.b64"
+          done
+          test -f source/assets/thousandfold/generated/atlas-manifest.json
+          test -f tests/generated-sprite-assets-v165-harness.js
+          test -f docs/V165_GENERATED_SPRITE_VERTICAL_SLICE.md
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check source/src/render/thousandfold_renderer.js
+          node --check tests/generated-sprite-assets-v165-harness.js
+
+      - name: Validate atlas, metadata, integration, and fallbacks
+        run: node tests/generated-sprite-assets-v165-harness.js
