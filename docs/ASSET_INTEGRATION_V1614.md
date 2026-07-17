@@ -20,18 +20,23 @@ The build scripts abort if an approved source changes. Runtime atlases retain ex
 - The delivery cart renders at 96x72 with its 4:3 aspect ratio intact; collision is limited to the two grounded body/wheel cells.
 - Market stalls, benches, signpost, barrel, crate, tables, chairs, stools, shelf, and lantern use approved standalone derivatives where logically placed.
 - The inn, upper inn, Black Lantern, cellar, provisions, forge, Arcana, and chapel use approved wood, continuous rug, and masonry surfaces.
+- Those starter interiors now derive their closed door pixels from the approved Haven facade atlas at a consistent 36x48 visual footprint; the older procedural door remains only as a load-failure fallback.
 - The noticeboard no longer overlaps or captures Selene's entrance.
+- Whisperwood grass and old-road material now use explicit 16-state connected topology across every wilderness-theme map, including the physical road network.
+- Deep water, shallow water, damp bank, lily water, reeds, and waterfalls now use a compact 260-tile Pixel Crawler-derived family covering every cardinal connectivity state across four deterministic phases.
+- Selected Pixel Crawler trees, dead trees, shrubs, flowers, marsh plants, gray rocks, and fire rings are palette-adapted and placed only on existing logical tile/entity roles; collision and routes are unchanged.
+- The rejected v1.6.17 synthetic water candidate is retained only for audit and is not loaded.
 
 ## Deliberately not substituted
 
 The Haven sheet does not contain connected water, riverbanks, cliffs, forest canopy transitions, mine walls, crypt architecture, or capital-city architecture. Reusing town grass/cobble for every biome would destroy regional readability. Existing biome-specific fallbacks remain until matching authored kits exist.
 
-The locally owned Pixel Crawler pack was cataloged and reviewed again. Its environment graphics use a different, more saturated 16px visual language and connected/autotile structures. They are not a visual match for the supplied Thousandfold kits and are not being forced into these maps.
+The locally owned Pixel Crawler pack was cataloged and reviewed at live scale. Nature material that survives palette adaptation is now used in wilderness scenes. Its industrial dungeon modules, cyan-accented machinery, and sci-fi workstations were explicitly rejected and are not forced into the mine, crypt, or Haven interiors.
 
 ## Art still needed for full-world conversion
 
-1. **Whisperwood and travel roads:** labeled connected grass/path transitions, dense forest edge/canopy pieces, shrubs/rocks/flowers, shallow/deep water, shore corners, bridge modules, and road clutter.
-2. **Sunken Fen / Mosswater:** mud, reeds, marsh grass, black water, shore transitions, drowned-road stone, dead trees, and causeway props.
+1. **Whisperwood and travel roads:** the shared ground, water, waterfalls, trees, shrubs, flowers, rocks, and fire rings are now integrated. Still needed: dedicated bridge modules, cliff topology, canopy edge pieces, and road clutter.
+2. **Sunken Fen / Mosswater:** water, shore, reeds, marsh plants, and dead trees are integrated. Still needed: mud transitions, drowned-road stone, causeway props, and a richer marsh landmark kit.
 3. **Mine:** cave floor variants, wall tops/faces/inner and outer corners, ore seams, support beams, rails, pits, ladders, and entrance transitions.
 4. **Crypt and Emberwatch:** crypt floors, masonry wall topology, broken variants, stairs, gates, tombs, rubble, ash/blood decals, and ruin exterior modules.
 5. **Aurelia and connected settlements:** urban road/cobble set, sidewalks/curbs, walls/roofs/facades by district, gates, plazas, and civic/market clutter.

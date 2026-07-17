@@ -2,6 +2,52 @@
 
 Canonical development checkpoints for Thousandfold Realms are recorded here. Detailed implementation notes and regression plans live under `docs/` and in the merged pull requests.
 
+## 1.6.18-dev — Mosswater and Wilderness Art Unification
+
+### Added
+- A checksum-locked Pixel Crawler conversion pipeline that reads the user-owned archive without committing the source pack.
+- A compact 260-tile terrain atlas covering deep water, shallow water, lilies, reeds, and waterfalls across all 16 cardinal shoreline states.
+- Fifteen selected, palette-adapted wilderness derivatives for trees, dead trees, shrubs, flowers, marsh plants, gray rocks, and fire rings.
+- Wilderness-wide application of the approved grass/road topology so Southwood, Mosswater, Ambermeadow, Eastwatch, and other wild maps share Whisperwood's ground language.
+- Region-aware deterministic scenery selection, post-ground prop layering, nearest-neighbor rendering, and manifest/binary/runtime validation.
+
+### Fixed
+- Replaced the rejected synthetic circular water candidate with broader organic banks derived from the owned pack's authored material.
+- Removed transparent demonstration-sheet gaps that appeared as black bars in Mosswater's broad river.
+- Replaced cyan legacy waterfalls and mismatched reed/lily colors with restrained mosswater variants.
+- Preserved all existing tile collision, roads, bridge approaches, portals, routes, entities, and save identifiers while changing only presentation.
+
+### Rejected after live review
+- Pixel Crawler dungeon surfaces and machinery were removed from live use because their industrial pipes, gridded floors, and sci-fi workstations do not fit the medieval mine, crypt, or Haven interiors.
+- The previous v1.6.17 generated water runtime remains reproducible for audit but is no longer loaded.
+
+## 1.6.17-dev — Reliable Entrances and Natural Water Topology
+
+### Fixed
+- Corrected the late runtime collision guard that recognized Haven storefront doors visually but sealed their doorway cells during pathfinding.
+- Preserved solid painted building footprints while keeping each real integrated door as the only traversable opening.
+- Added regression coverage so future collision wrappers cannot silently reintroduce the “No clear path” storefront failure.
+
+### Added
+- A generated, checksum-locked deep-water, shallow-water, and damp-bank material source in the Thousandfold visual language.
+- A deterministic 288-tile atlas covering deep and shallow variants across all 16 cardinal connectivity states and nine seamless phases.
+- A Whisperwood candidate runtime for water, shallow water, and waterfall pools with nearest-neighbor rendering and established fallback preservation.
+- A reusable asset brief and topology harness for extending the family into lily water, reeds, bridges, cliffs, and future wetland regions.
+
+## 1.6.16-dev — Entrance Logic and Visual-Coherence Audit
+
+### Fixed
+- Routed clicks anywhere on a Haven facade to its actual stable door entity while preserving solid building collision.
+- Changed destination doors to enter on one interaction and close behind the player; ordinary room doors still toggle.
+- Prioritized doors over overlapping decoration for E-key interaction and nearby prompts.
+- Replaced starter-interior procedural closed doors with correctly scaled derivatives from the approved Haven facade atlas.
+- Replaced obsolete blue map-edge portal doors with restrained cardinal road markers.
+- Made untracked exploration objectives reflect the current map instead of always describing Haven.
+
+### Audited
+- Added focused coverage for facade pathing, door transitions, collision, interaction priority, portal presentation, objective routing, and interior door startup.
+- Added `docs/GAME_AUDIT_V1616.md` with verified strengths, remaining gameplay risks, visual-conversion gaps, and prioritized asset families.
+
 ## 1.6.14-dev — Handcrafted Haven Terrain and Composition Polish
 
 ### Added

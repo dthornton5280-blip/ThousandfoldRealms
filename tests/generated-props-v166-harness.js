@@ -64,7 +64,7 @@ check(!runtime.includes('ChatGPT Image Jul'),'presentation sheets must never loa
 check(!runtime.includes('contact-sheet'),'contact sheets must never load at runtime');
 
 const composition=read('source/src/data/tavern_composition.js');
-check(composition.includes("script.src='src/render/runtime_repairs_v167.js?v=167'"),'canonical data load must bootstrap the cache-busted live runtime');
+check(composition.includes("script.src='src/render/runtime_repairs_v167.js?v=1617-entrances'"),'canonical data load must bootstrap the current cache-busted live runtime');
 const version=JSON.parse(read('version.json'));
 const match=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/);
 check(match,'version must be a development checkpoint');

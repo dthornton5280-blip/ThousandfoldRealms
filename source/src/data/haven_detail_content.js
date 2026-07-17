@@ -6,7 +6,10 @@
   const patch=(mapId,id,values)=>{const entry=object(mapId,id);if(entry)Object.assign(entry,values);};
 
   /* Final clear-floor corrections after every additive furnishing layer has run. */
-  patch('haven','market_stall_1',{x:6,y:7});
+  /* Keep both canopies beside the market road. The former western x=6
+     coordinate overwrote the main composition and sealed the inn's only
+     walkable approach at (6,7); the road itself must remain clear at y=8. */
+  patch('haven','market_stall_1',{x:8,y:7});
   patch('haven','market_stall_2',{x:20,y:7});
   patch('haven','haven_cache',{x:4,y:16});
   patch('haven','haven_banner_1',{x:12,y:7});

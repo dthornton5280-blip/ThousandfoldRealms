@@ -19,6 +19,7 @@ New-Item -ItemType Directory -Path $overrideTarget | Out-Null
 Get-ChildItem $overrideSource -File |
   Where-Object { $_.Extension -in ".css", ".js" } |
   Copy-Item -Destination $overrideTarget
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot "local_art_qa.js") -Destination $overrideTarget
 
 $css = (Get-ChildItem $overrideSource -Filter "*.css" | Sort-Object Name | ForEach-Object {
   "<link rel=`"stylesheet`" href=`"./live-overrides/$($_.Name)?v=local-$($_.LastWriteTimeUtc.Ticks)`">"
@@ -34,7 +35,7 @@ if (-not $html.Contains('<script src="src/main.js"></script>')) {
 $html = $html.Replace("</head>", "<!-- GIT_LIVE_OVERRIDE_STYLES -->$css</head>")
 $html = $html.Replace(
   '<script src="src/main.js"></script>',
-  "<!-- GIT_LIVE_OVERRIDE_RUNTIME -->$js<script src=`"src/main.js`"></script>"
+  "<!-- GIT_LIVE_OVERRIDE_RUNTIME -->$js<script src=`"./live-overrides/local_art_qa.js?v=local`"></script><script src=`"src/main.js`"></script>"
 )
 [IO.File]::WriteAllText($indexPath, $html, [Text.UTF8Encoding]::new($false))
 [IO.File]::WriteAllText((Join-Path $site "404.html"), $html, [Text.UTF8Encoding]::new($false))

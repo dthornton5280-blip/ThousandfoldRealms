@@ -45,7 +45,7 @@ check(runtime.includes("map?.id!=='haven'"),'runtime must explicitly reject non-
 check(runtime.includes('imageSmoothingEnabled=false'),'runtime must use nearest-neighbor drawing');
 check(main.includes('haven_ground_runtime_v1614.js?v=1614'),'main must cache-bust and load Haven runtime');
 check(!composition.includes("[9,6,'shrub']")&&!composition.includes("[20,11,'flower_patch']")&&!composition.includes("[11,12,'rocks']"),'garden accents must not overwrite building footprints');
-check(detail.includes("patch('haven','market_stall_1',{x:6,y:7})")&&detail.includes("patch('haven','market_stall_2',{x:20,y:7})"),'market canopies must remain entirely inside the square while leaving the east-west lane and cart bay clear');
+check(detail.includes("patch('haven','market_stall_1',{x:8,y:7})")&&detail.includes("patch('haven','market_stall_2',{x:20,y:7})"),'market canopies must remain beside the market road without sealing a storefront approach');
 check(props.includes("haven_cart_wood_sacks:{x:4,y:4,w:128,h:96,drawW:96,drawH:72"),'delivery cart must retain its exact 4:3 aspect ratio at town scale');
 check(composition.includes("place('haven','town_board',13,8")&&composition.includes('interactionFootprint:footprint(2,1)'),'noticeboard must remain in the square with an interaction footprint that cannot steal the Arcana doorway');
 

@@ -1,6 +1,6 @@
 {
-  "version": "1.6.14-dev",
-  "buildName": "Handcrafted Haven Terrain and Composition Polish",
+  "version": "1.6.18-dev",
+  "buildName": "Mosswater and Wilderness Art Unification",
   "canonicalBranch": "main",
   "deploymentModel": "canonical source plus transitional Git-managed overrides"
 }

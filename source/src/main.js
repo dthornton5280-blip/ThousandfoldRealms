@@ -29,6 +29,9 @@ const startThousandfoldRealms=async()=>{
   await loadRuntime('src/render/haven_ground_runtime_v1614.js?v=1614','tfrHavenGroundV1614','Haven ground');
   await loadRuntime('src/render/haven_facade_runtime_v1614.js?v=1614','tfrHavenFacadesV1614','Haven facade');
   await loadRuntime('src/render/haven_interior_runtime_v1614.js?v=1614','tfrHavenInteriorsV1614','starter interior');
+  await loadRuntime('src/render/haven_interior_door_runtime_v1616.js?v=1616','tfrHavenInteriorDoorsV1616','starter interior door');
+  await loadRuntime('src/render/whisperwood_ground_runtime_v1615.js?v=1618-wilderness','tfrWhisperwoodGroundV1615','shared wilderness ground');
+  await loadRuntime('src/render/pixel_crawler_environment_runtime_v1618.js?v=1618','tfrPixelCrawlerEnvironmentV1618','Pixel Crawler environment');
 
   /* Build the first map only after required art is ready or has explicitly failed. */
   const started=Date.now();
@@ -38,7 +41,10 @@ const startThousandfoldRealms=async()=>{
     const havenDone=!AO.HavenGroundArtV1614||AO.HavenGroundArtV1614.ready||AO.HavenGroundArtV1614.failed;
     const facadesDone=!AO.HavenFacadeArtV1614||AO.HavenFacadeArtV1614.ready||AO.HavenFacadeArtV1614.failed;
     const interiorsDone=!AO.HavenInteriorArtV1614||AO.HavenInteriorArtV1614.ready||AO.HavenInteriorArtV1614.failed;
-    if(propsDone&&groundDone&&havenDone&&facadesDone&&interiorsDone)break;
+    const interiorDoorsDone=!AO.HavenInteriorDoorArtV1616||AO.HavenInteriorDoorArtV1616.ready||AO.HavenInteriorDoorArtV1616.failed;
+    const whisperwoodDone=!AO.WhisperwoodGroundArtV1615||AO.WhisperwoodGroundArtV1615.ready||AO.WhisperwoodGroundArtV1615.failed;
+    const pixelEnvironmentDone=!AO.PixelCrawlerEnvironmentArtV1618||AO.PixelCrawlerEnvironmentArtV1618.ready||AO.PixelCrawlerEnvironmentArtV1618.failed;
+    if(propsDone&&groundDone&&havenDone&&facadesDone&&interiorsDone&&interiorDoorsDone&&whisperwoodDone&&pixelEnvironmentDone)break;
     await new Promise(resolve=>setTimeout(resolve,25));
   }
 

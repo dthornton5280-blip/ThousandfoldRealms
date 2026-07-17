@@ -1,0 +1,22 @@
+/* Thousandfold Realms v1.6.17 shared natural water/shore topology validation. */
+const fs=require('fs'),vm=require('vm'),assert=(value,message)=>{if(!value)throw new Error(message);};
+global.window=global;
+global.document={baseURI:'http://127.0.0.1:8765/',documentElement:{dataset:{}}};
+global.Image=class{constructor(){this.naturalWidth=512;this.naturalHeight=576;}set src(value){this._src=value;this.onload?.();}};
+global.AO={events:{emit(){}},ThousandfoldArt:{drawTile(){return false;}}};
+const grid=Array.from({length:5},()=>Array(5).fill('grass'));
+global.game={world:{map:{id:'wilds'},grid}};
+vm.runInThisContext(fs.readFileSync('source/src/render/shared_water_shore_runtime_v1617.js','utf8'));
+const art=AO.SharedWaterShoreArtV1617;
+assert(art?.ready,'shared natural water/shore atlas did not become ready');
+grid[2][2]='water';
+assert(art.selectTile('water',2,2).includes('natural_water_isolated_'),'isolated water must select an explicit isolated topology');
+grid[1][2]='water';grid[2][3]='shallow_water';grid[3][2]='lilywater';grid[2][1]='reeds';
+assert(art.selectTile('water',2,2).includes('natural_water_open_'),'all water-family neighbors must produce an open-water topology');
+assert(art.selectTile('shallow_water',3,2).startsWith('natural_shallow_'),'shallow water must use the shallow material family');
+assert(art.selectTile('lilywater',2,3)===null,'unsupported lily decoration must preserve its established fallback until its own asset passes review');
+game.world.map.id='haven';
+assert(art.selectTile('water',2,2)===null,'candidate natural water must not alter Haven');
+const main=fs.readFileSync('source/src/main.js','utf8');
+assert(!main.includes("loadRuntime('src/render/shared_water_shore_runtime_v1617.js"),'the superseded v1.6.17 candidate must remain available for audit without staying active');
+console.log('v1.6.17 shared water/shore archival test passed: the rejected candidate remains reproducible but is no longer loaded by the game.');

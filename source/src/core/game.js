@@ -53,7 +53,15 @@ AO.Game = class {
   }
   toast(text){this.ui.toast(text);this.log(text);}
   log(text){if(!this.state)return;this.state.log.unshift(text);this.state.log=this.state.log.slice(0,60);this.ui.updateHud();}
-  interactNearest(){if(this.state.mode!=='explore')return;const pos=this.world.playerPos(),targets=this.world.entities.filter(e=>!e.hidden&&AO.Util.dist(pos,e)<=1&&e.type!=='portal');if(targets[0])this.world.interact(targets[0]);else this.toast('Nothing nearby to interact with.');}
+  interactNearest(){
+    if(this.state.mode!=='explore')return;
+    const pos=this.world.playerPos(),geometry=AO.EntityGeometry;
+    const distance=entity=>geometry?geometry.distance(pos,entity,true):AO.Util.dist(pos,entity);
+    const priority=entity=>entity.type==='door'?0:entity.type==='npc'?1:entity.type==='enemy'?2:3;
+    const targets=this.world.entities.filter(entity=>!entity.hidden&&entity.type!=='portal'&&distance(entity)<=1)
+      .sort((a,b)=>priority(a)-priority(b)||distance(a)-distance(b));
+    if(targets[0])this.world.interact(targets[0]);else this.toast('Nothing nearby to interact with.');
+  }
   check(stat,dc,skill=''){const p=this.state.player,rm=this.raceMechanics();let bonus=AO.Util.statMod(this.stat(stat)),proficient=(p.skills||[]).includes(skill);if(proficient)bonus+=2+Math.floor((p.level-1)/3);bonus+=rm.allChecks||0;bonus+=(rm.skillBonuses?.[skill]||0);const natural=AO.Util.d20(),total=natural+bonus;this.toast(`${AO.Util.title(skill||stat)} check: ${total} vs DC ${dc}${proficient?' • proficient':''}`);return{success:natural===20||total>=dc,natural,total,bonus,proficient};}
   offerCamp(){
     if(!this.state||this.state.mode!=='explore')return;if(!this.world.map?.allowCamp){this.toast('Camping is not allowed here. Use the Lantern Rest or find an outdoor campsite.');return;}
@@ -72,7 +80,7 @@ AO.Game = class {
     if(npc.shop)choices.push({label:`Browse ${AO.SHOPS[npc.shop].name}`,action:()=>{this.ui.closeDialogue();this.ui.openShop(npc.shop);}});
     if(npc.id==='mara')choices.push({label:'Browse ordinary provisions.',action:()=>{this.ui.closeDialogue();this.ui.openShop('haven_general');}});
     if(npc.id==='elowen')choices.push({label:'Rent a room and rest.',action:()=>this.offerInnRest(npc)});
-    if(npc.id==='mira')choices.push({label:'Ask about Haven and its buildings.',action:()=>this.ui.dialogue(npc.name,'The inn stands northwest, Selene’s shop north, the tavern northeast, Mara south-west, the chapel south, and Borin’s forge south-east. Open a door once, then use it again to enter.',[{label:'Back',action:()=>this.dialogue(npc)}],npc.visual,'Lantern Square')});
+    if(npc.id==='mira')choices.push({label:'Ask about Haven and its buildings.',action:()=>this.ui.dialogue(npc.name,'The inn stands northwest, Selene’s shop north, the tavern northeast, Mara south-west, the chapel south, and Borin’s forge south-east. Click a storefront or approach its doorway to enter.',[{label:'Back',action:()=>this.dialogue(npc)}],npc.visual,'Lantern Square')});
     if(npc.id==='bran')choices.push({label:'Ask for tavern rumors.',action:()=>this.ui.dialogue(npc.name,'Travelers whisper about a haunted room upstairs at the inn, blue crystals in the abandoned mine, and an old fire moving beneath the crypt.',[{label:'Back',action:()=>this.dialogue(npc)}],npc.visual,'Rumors by Firelight')});
     if(npc.id==='borin')choices.push({check:'[HISTORY • DC 11]',label:'Examine the forge mark above his anvil.',action:()=>{const r=this.check('int',11,'history');this.ui.dialogue(npc.name,r.success?'You recognize the mark of the ward-smiths who sealed the Ashen Crypt. Borin nods, impressed.':'The mark is ancient, but its meaning escapes you.',[{label:'Continue',action:()=>this.dialogue(npc)}],npc.visual,npc.title);}});
     if(npc.id==='mara')choices.push({check:'[PERSUASION • DC 12]',label:'Ask for a traveler’s sample.',action:()=>{const r=this.check('cha',12,'persuasion');if(r.success&&!this.state.flags.maraGift){this.state.flags.maraGift=true;this.inventory.add('healing_draught');}this.ui.dialogue(npc.name,r.success?'“One bottle. Return alive and buy the next one.”':'“Charm does not refill shelves,” Mara says.',[{label:'Continue',action:()=>this.dialogue(npc)}],npc.visual,npc.title);}});

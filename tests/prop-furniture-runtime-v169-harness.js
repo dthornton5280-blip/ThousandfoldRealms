@@ -21,7 +21,7 @@ const version=JSON.parse(read('version.json'));
 check(atLeast(version.version,'1.6.12'),'version must identify v1.6.12-dev or later');
 check(main.includes("prop_furniture_runtime_v1612.js?v=1612"),'main must continue loading the exact v1.6.12 prop runtime');
 check(main.includes('AO.PropFurnitureArtV1612'),'initial game construction must still observe exact prop readiness');
-check(composition.includes("runtime_repairs_v167.js?v=167"),'v1.6.7 collision and tactical repairs must remain loaded');
+check(composition.includes("runtime_repairs_v167.js?v=1617-entrances"),'v1.6.7 collision and tactical repairs must remain loaded with the current entrance cache key');
 check(!composition.includes('prop_furniture_runtime_v169.js'),'obsolete early prop runtime injection must remain removed');
 check(!composition.includes('visible_generated_assets_v168.js'),'mistaken v1.6.8 nature showcase bootstrap must remain removed');
 check(!exists('source/src/render/visible_generated_assets_v168.js'),'mistaken v1.6.8 nature showcase runtime must remain deleted');

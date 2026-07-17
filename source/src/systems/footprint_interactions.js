@@ -6,8 +6,15 @@
   const G=AO.EntityGeometry;
   const terrainBlocked=new Set(['tree','stonewall','water','lilywater','roof','woodwall','bar','cliff_face','waterfall','rocks','shrub','fence','reeds']);
 
+  const buildingAt=(world,x,y)=>(world?.map?.buildings||[]).find(building=>
+    x>=building.x&&x<building.x+building.w&&y>=building.y&&y<building.y+building.h
+  );
+  const buildingDoor=(world,building)=>building&&world?.entities?.find(entity=>entity.id===building.doorId&&!entity.hidden);
+
   AO.Pathfinder.isWalkable=function(world,x,y,ignoreEntityId=null){
     if(x<0||y<0||x>=AO.CONFIG.mapWidth||y>=AO.CONFIG.mapHeight)return false;
+    const building=buildingAt(world,x,y),door=buildingDoor(world,building);
+    if(building&&!(door&&G.contains(door,x,y)))return false;
     if(terrainBlocked.has(world.grid[y]?.[x]))return false;
     return !world.entities.some(entity=>entity.id!==ignoreEntityId&&entity.blocking!==false&&!entity.hidden&&G.contains(entity,x,y));
   };
@@ -30,6 +37,11 @@
     }
     click(x,y){
       if(this.game.state.mode!=='explore')return;
+      /* The complete painted facade is a useful click target, but movement still
+         resolves to its real door anchor. This keeps visual architecture and
+         pathfinding geometry in agreement without making walls walkable. */
+      const building=buildingAt(this,x,y),door=buildingDoor(this,building);
+      if(door){this.approachAndInteract(door);return;}
       const entity=this.entityAt(x,y,true);if(entity){this.approachAndInteract(entity);return;}
       const path=AO.Pathfinder.path(this,this.playerPos(),{x,y},'player');if(path.length)this.setPath(path);
     }
@@ -126,4 +138,5 @@
       const text=action.text||(rewards.length?`You recover ${rewards.join(', ')}.`:'You take a quiet moment with it.');this.showObjectResult(title,text);
     }
   };
+  AO.BuildingGeometry={at:buildingAt,door:buildingDoor};
 })();

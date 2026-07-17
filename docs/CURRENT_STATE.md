@@ -2,8 +2,8 @@
 
 ## Canonical checkpoint
 
-- Version: **1.6.14-dev**
-- Build name: **Handcrafted Haven Terrain and Composition Polish**
+- Version: **1.6.18-dev**
+- Build name: **Mosswater and Wilderness Art Unification**
 - Development branch: **feature/haven-handcrafted-terrain-v1614**
 - Canonical production branch after merge: **main**
 - Deployment: **GitHub Pages**
@@ -13,6 +13,22 @@
 The live game is assembled from the editable `source/` directory. The historical packaged archive is not used by production.
 
 Authoritative files for the current checkpoint:
+
+- `source/src/systems/footprint_interactions.js` — facade-to-door click routing plus canonical building collision
+- `source/src/systems/world.js` — single-activation destination-door transitions
+- `source/src/render/haven_interior_door_runtime_v1616.js` — approved starter-interior door derivatives and fallback
+- `source/src/render/renderer.js` — logical map-edge travel markers
+- `source/src/ui/ui.js` — map-aware untracked exploration objectives
+- `tests/gameplay-polish-v1616-harness.js` — entrance, collision, objective, portal, and door-art regression coverage
+- `docs/GAME_AUDIT_V1616.md` — prioritized engineering, design, and art punch list
+- `source/src/render/runtime_repairs_v167.js` — late collision safety that preserves integrated doorway openings
+- `source/src/render/pixel_crawler_environment_runtime_v1618.js` — active wilderness-wide water, waterfall, and environment-prop conversion
+- `scripts/build_pixel_crawler_environment_v1618.py` — checksum-locked user-owned-pack-to-compact-derivative pipeline
+- `source/assets/third-party/pixel-crawler/tfr-environment-terrain-v1618.png` and `.json` — 260 active water/shore/waterfall derivatives
+- `source/assets/third-party/pixel-crawler/tfr-environment-props-v1618.png` and `.json` — 15 active wilderness and fire-ring derivatives
+- `tests/pixel-crawler-environment-v1618-harness.js` — topology, scope, manifest, atlas, and startup coverage
+- `docs/PIXEL_CRAWLER_ENVIRONMENT_CONVERSION_V1618.md` — conversion contract, accepted families, and live-review rejections
+- `source/src/render/shared_water_shore_runtime_v1617.js` — superseded water candidate retained for reproducible audit only
 
 - `source/assets/thousandfold/tiles/haven-ground-handcrafted-v1614.png` and `.json` — approved Haven terrain atlas and explicit metadata
 - `source/src/render/haven_ground_runtime_v1614.js` — deterministic Haven-only terrain selection and fallback
