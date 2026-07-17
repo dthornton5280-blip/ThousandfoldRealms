@@ -82,7 +82,7 @@
   'use strict';
   if(typeof document==='undefined'||document.querySelector('script[data-tfr-runtime-v167]'))return;
   const script=document.createElement('script');
-  script.src='src/render/runtime_repairs_v167.js?v=167';
+  script.src='src/render/runtime_repairs_v167.js?v=1617-entrances';
   script.async=false;
   script.dataset.tfrRuntimeV167='true';
   document.head.appendChild(script);

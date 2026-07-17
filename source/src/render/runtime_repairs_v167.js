@@ -145,7 +145,16 @@
   const installWorldCollision=()=>{
     if(AO.LiveRuntimeV167?.worldCollisionInstalled||!AO.Pathfinder||!AO.WorldSystem)return false;
     const priorWalkable=AO.Pathfinder.isWalkable.bind(AO.Pathfinder);
-    AO.Pathfinder.isWalkable=function(world,x,y,ignoreEntityId=null){if(buildingAt(world,x,y))return false;return priorWalkable(world,x,y,ignoreEntityId);};
+    /* The footprint interaction runtime deliberately restores the integrated
+       doorway cell as the one traversable opening in each painted facade.
+       Preserve that exception when this late safety wrapper is installed;
+       otherwise the visual door is recognized but every route to it is
+       rejected as solid building geometry. */
+    AO.Pathfinder.isWalkable=function(world,x,y,ignoreEntityId=null){
+      const building=buildingAt(world,x,y),door=building&&world?.entities?.find(entity=>entity.id===building.doorId&&!entity.hidden);
+      if(building&&!(door&&AO.EntityGeometry?.contains(door,x,y)))return false;
+      return priorWalkable(world,x,y,ignoreEntityId);
+    };
     const priorLoad=AO.WorldSystem.prototype.load;
     AO.WorldSystem.prototype.load=function(...args){const result=priorLoad.apply(this,args);patchCurrentWorld();repairPlayerPosition(this);return result;};
     AO.LiveRuntimeV167.worldCollisionInstalled=true;return true;

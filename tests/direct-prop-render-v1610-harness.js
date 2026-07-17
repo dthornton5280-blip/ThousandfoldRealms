@@ -16,11 +16,11 @@ const match=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/);
 check(match,'version must identify a development checkpoint');
 const [,major,minor,patch]=match.map(Number);
 check(major>1||(major===1&&(minor>6||(minor===6&&patch>=10))),'version must identify v1.6.10-dev or later');
-check(mainSource.includes("prop_furniture_runtime_v169.js?v=1611"),'main must force a fresh v1.6.11 prop runtime request');
-check(mainSource.includes("script.dataset.tfrPropFurnitureV1611='true'"),'v1.6.11 runtime marker is missing');
-check(mainSource.includes('while(AO.PropFurnitureArtV1611'),'game construction must wait for the authoritative atlas to settle');
+check(mainSource.includes("prop_furniture_runtime_v1612.js?v=1612"),'main must request the exact v1.6.12 prop runtime');
+check(mainSource.includes("'tfrExactPropsV1612','exact prop'"),'exact prop runtime marker is missing');
+check(mainSource.includes('AO.PropFurnitureArtV1612.ready||AO.PropFurnitureArtV1612.failed'),'game construction must wait for the authoritative atlas to settle');
 
-const priorityCall="const propArt=AO.PropFurnitureArtV1611||AO.PropFurnitureArtV169";
+const priorityCall="const propArt=AO.PropFurnitureArtV1612||AO.PropFurnitureArtV1611||AO.PropFurnitureArtV169";
 const drawCall='propArt?.drawEntity?.(ctx,e.x*32,e.y*32,e,world.map.id)';
 const pixelEntityCall='AO.PixelCrawlerArt?.enabled&&AO.PixelCrawlerArt.drawEntity';
 const decorIconCall='AO.SpriteFactory.icon(ctx,e.x*32,e.y*32,e.type,e)';

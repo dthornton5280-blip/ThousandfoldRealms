@@ -28,9 +28,16 @@ PREVIEW_TARGETS = (
     "Environment/Tilesets/Wall_Tiles.png",
     "Environment/Tilesets/Wall_Variations.png",
     "Environment/Tilesets/Dungeon_Tiles.png",
+    "Environment/Tilesets/Water_tiles.png",
     "Environment/Structures/Buildings/Interior/Interior_Walls_01.png",
     "Environment/Structures/Buildings/Interior/Interior_Props_01.png",
     "Environment/Props/Static/Furniture.png",
+    "Environment/Props/Static/Vegetation.png",
+    "Environment/Props/Static/Rocks.png",
+    "Environment/Props/Static/Dungeon_Props.png",
+    "Environment/Structures/Stations/Anvil/Anvil.png",
+    "Environment/Structures/Stations/Furnace/Furnace.png",
+    "Environment/Structures/Stations/Workbench/Workbench.png",
     "MockUps/Tavern.png",
 )
 

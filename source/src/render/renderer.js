@@ -29,7 +29,19 @@ AO.Renderer = class {
     for(let y=0;y<AO.CONFIG.mapHeight;y++)for(let x=0;x<AO.CONFIG.mapWidth;x++)this.tile(ctx,x,y,world.grid[y][x],world.map.theme);
     if(this.renderTerrainEffects)this.renderTerrainEffects(ctx,'under');
     if(world.path.length){ctx.fillStyle='rgba(126,180,207,.23)';for(const p of world.path)ctx.fillRect(p.x*32+4,p.y*32+4,24,24);}
-    for(const e of world.entities.filter(e=>!e.hidden&&e.type==='portal'))AO.SpriteFactory.icon(ctx,e.x*32,e.y*32,'portal',e);
+    /* Map-edge travel is represented by the road and a restrained cardinal
+       chevron. The former freestanding blue portal-door sprite looked like an
+       unrelated building entrance and obscured the actual exit tile. */
+    for(const e of world.entities.filter(e=>!e.hidden&&e.type==='portal')){
+      const px=e.x*32,py=e.y*32,edge=e.x===0?'west':e.x===AO.CONFIG.mapWidth-1?'east':e.y===0?'north':e.y===AO.CONFIG.mapHeight-1?'south':null;
+      if(!edge){AO.SpriteFactory.icon(ctx,px,py,'portal',e);continue;}
+      ctx.save();ctx.fillStyle='rgba(240,198,110,.82)';
+      if(edge==='west'){ctx.fillRect(px+4,py+14,4,4);ctx.fillRect(px+8,py+11,4,10);}
+      if(edge==='east'){ctx.fillRect(px+24,py+14,4,4);ctx.fillRect(px+20,py+11,4,10);}
+      if(edge==='north'){ctx.fillRect(px+14,py+4,4,4);ctx.fillRect(px+11,py+8,10,4);}
+      if(edge==='south'){ctx.fillRect(px+14,py+24,4,4);ctx.fillRect(px+11,py+20,10,4);}
+      ctx.restore();
+    }
     const p=this.game.state.player,r=AO.RACES[p.raceId],c=AO.CLASSES[p.classId],moving=performance.now()<world.movingUntil,animFrame=Math.floor(performance.now()/95)%4;
     const drawables=world.entities.filter(e=>!e.hidden&&e.type!=='portal').map(e=>({...e,_player:false}));
     drawables.push({id:'__player',type:'player',x:this.game.state.world.x,y:this.game.state.world.y,_player:true});

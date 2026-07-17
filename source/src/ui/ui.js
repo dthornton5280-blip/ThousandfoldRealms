@@ -32,12 +32,29 @@ AO.UI = class {
   begin(){const name=this.e.heroName.value.trim()||'Nameless';this.game.newGame({name,raceId:this.selectedRace,classId:this.selectedClass,backgroundId:this.selectedBackground,appearance:AO.Util.deepCopy(this.creatorAppearance),stats:AO.Util.deepCopy(this.creatorStats)});}
   showGame(){this.e.creator.classList.add('hidden');this.e.gameScreen.classList.remove('hidden');}
   setLocation(name){this.e.location.textContent=name;}
+  explorationObjective(){
+    const id=this.game.state?.world?.mapId,map=this.game.world?.map;
+    const objectives={
+      haven:'Explore Haven, enter its storefronts, and speak with residents.',
+      wilds:'Follow the eastern road through Whisperwood, or investigate its northern trails.',
+      southwood_trail:'Follow the road east toward Mosswater Crossing.',
+      mosswater_crossing:'Cross Mosswater and keep to the eastbound road.',
+      ambermeadow:'Continue east through Ambermeadow toward Eastwatch.',
+      eastwatch_approach:'Pass Eastwatch and follow the road toward Aurelia.',
+      lantern_road:'Follow Lantern Road toward Aurelia.',
+      lantern_mine:'Explore the abandoned mine or return to Whisperwood.',
+      crypt:'Explore the Ashen Crypt or return to Whisperwood.'
+    };
+    if(objectives[id])return objectives[id];
+    if(['interior','tavern','cellar','forge','arcane','chapel'].includes(map?.theme))return `Explore ${map?.name||'the building'}, speak with its residents, or return outside.`;
+    return `Explore ${map?.name||'the surrounding area'} and locate the next safe route.`;
+  }
   updateHud(){
     const p=this.game.state?.player;if(!p)return;const r=AO.RACES[p.raceId],c=AO.CLASSES[p.classId];this.e.hudName.textContent=p.name;this.e.hudBuild.textContent=`${r.name} ${c.name}`;this.e.hudLevel.textContent=`LEVEL ${p.level}`;
     const set=(text,bar,val,max)=>{text.textContent=`${val}/${max}`;bar.style.width=`${max?val/max*100:0}%`;};set(this.e.hpText,this.e.hpBar,p.hp,p.maxHp);set(this.e.manaText,this.e.manaBar,p.mana,p.maxMana);set(this.e.staminaText,this.e.staminaBar,p.stamina,p.maxStamina);
     const cap=this.game.progression.xpForLevel(p.level),max=p.level>=AO.CONFIG.maxLevel;this.e.xpText.textContent=max?'MAX':`${p.xp}/${cap}`;this.e.xpBar.style.width=`${max?100:p.xp/cap*100}%`;this.e.gold.textContent=p.gold;this.e.ac.textContent=p.ac;this.e.day.textContent=this.game.state.rest?.day||1;
     const rested=this.game.state.rest?.wellRestedBattles||0;this.e.restedPanel.classList.toggle('hidden',!rested);this.e.restedText.textContent=rested?`+5 HP, +3 mana/stamina • ${rested} battle(s) remaining`:'';
-    const journal=this.game.quests.journal().filter(q=>q.state.status!=='complete'),tracked=journal.find(q=>q.id===this.game.state.trackedQuestId)||journal[0];if(tracked&&!this.game.state.trackedQuestId)this.game.state.trackedQuestId=tracked.id;this.e.tracked.textContent=tracked?tracked.def.name:'Explore';this.e.objective.textContent=tracked?(tracked.state.status==='ready'?`Return to ${AO.NPCS[tracked.def.giver]?.name||'the quest giver'}.`:tracked.stage?.text):'Explore Haven, enter its buildings, and speak with residents.';
+    const journal=this.game.quests.journal().filter(q=>q.state.status!=='complete'),tracked=journal.find(q=>q.id===this.game.state.trackedQuestId)||journal[0];if(tracked&&!this.game.state.trackedQuestId)this.game.state.trackedQuestId=tracked.id;this.e.tracked.textContent=tracked?tracked.def.name:'Explore';this.e.objective.textContent=tracked?(tracked.state.status==='ready'?`Return to ${AO.NPCS[tracked.def.giver]?.name||'the quest giver'}.`:tracked.stage?.text):this.explorationObjective();
     const ctx=this.e.hudPortrait.getContext('2d');ctx.clearRect(0,0,96,96);ctx.fillStyle='#101317';ctx.fillRect(0,0,96,96);AO.SpriteFactory.character(ctx,16,5,AO.Util.visualFor(r.visual,p.appearance),c.visual,2.1,{player:p});this.e.eventLog.innerHTML=(this.game.state.log||[]).slice(0,20).map(x=>`<div class="log-line">${x}</div>`).join('');
   }
   openPanel(type){if(!this.game.state||this.game.state.mode==='combat')return;this.game.state.mode='panel';this.e.panel.classList.remove('hidden');if(type==='inventory')this.renderInventory();if(type==='journal')this.renderJournal();if(type==='character')this.renderCharacter();}

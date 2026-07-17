@@ -1,0 +1,207 @@
+{
+  "version": "1.6.18",
+  "status": "integrated",
+  "sourceArchiveSha256": "b7b228ca232da9958f191b01db87764dddb67610116151e06e8dd8ade6de94b8",
+  "atlas": {
+    "file": "tfr-environment-props-v1618.png",
+    "width": 512,
+    "height": 122
+  },
+  "sprites": {
+    "pc_shrub_round_green": {
+      "x": 4,
+      "y": 4,
+      "w": 38,
+      "h": 43,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        0,
+        48,
+        48
+      ]
+    },
+    "pc_shrub_round_olive": {
+      "x": 46,
+      "y": 4,
+      "w": 38,
+      "h": 43,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        48,
+        0,
+        96,
+        48
+      ]
+    },
+    "pc_shrub_low_green": {
+      "x": 88,
+      "y": 4,
+      "w": 42,
+      "h": 48,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        48,
+        48,
+        96
+      ]
+    },
+    "pc_shrub_low_olive": {
+      "x": 134,
+      "y": 4,
+      "w": 42,
+      "h": 48,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        48,
+        48,
+        96,
+        96
+      ]
+    },
+    "pc_flower_wild_a": {
+      "x": 180,
+      "y": 4,
+      "w": 26,
+      "h": 41,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        144,
+        32,
+        192
+      ]
+    },
+    "pc_flower_wild_b": {
+      "x": 210,
+      "y": 4,
+      "w": 24,
+      "h": 41,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        32,
+        144,
+        64,
+        192
+      ]
+    },
+    "pc_marsh_plants": {
+      "x": 238,
+      "y": 4,
+      "w": 48,
+      "h": 45,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        96,
+        144,
+        144,
+        192
+      ]
+    },
+    "pc_dead_tree": {
+      "x": 290,
+      "y": 4,
+      "w": 54,
+      "h": 47,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        128,
+        0,
+        192,
+        64
+      ]
+    },
+    "pc_rock_cluster_gray": {
+      "x": 348,
+      "y": 4,
+      "w": 46,
+      "h": 43,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        96,
+        16,
+        144,
+        64
+      ]
+    },
+    "pc_rocks_gray_small": {
+      "x": 398,
+      "y": 4,
+      "w": 48,
+      "h": 44,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        144,
+        16,
+        192,
+        64
+      ]
+    },
+    "pc_tree_green": {
+      "x": 4,
+      "y": 56,
+      "w": 59,
+      "h": 62,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        0,
+        64,
+        64
+      ]
+    },
+    "pc_tree_olive": {
+      "x": 67,
+      "y": 56,
+      "w": 59,
+      "h": 62,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        64,
+        0,
+        128,
+        64
+      ]
+    },
+    "pc_tree_autumn": {
+      "x": 130,
+      "y": 56,
+      "w": 59,
+      "h": 62,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        64,
+        64,
+        128
+      ]
+    },
+    "pc_fire_ring": {
+      "x": 193,
+      "y": 56,
+      "w": 28,
+      "h": 27,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        0,
+        16,
+        32,
+        48
+      ]
+    },
+    "pc_fire_ring_stone": {
+      "x": 225,
+      "y": 56,
+      "w": 29,
+      "h": 28,
+      "anchor": "bottomCenter",
+      "sourceCrop": [
+        32,
+        16,
+        64,
+        48
+      ]
+    }
+  }
+}

@@ -17,7 +17,7 @@ const versionMatch=String(version.version||'').match(/^(\d+)\.(\d+)\.(\d+)-dev$/
 check(versionMatch,'version must be a development checkpoint');
 const [,major,minor,patch]=versionMatch.map(Number);
 check(major>1||(major===1&&(minor>6||(minor===6&&patch>=7))),'version must identify v1.6.7-dev or later');
-check(composition.includes('runtime_repairs_v167.js?v=167'),'v1.6.7 runtime must retain its cache-busted filename');
+check(composition.includes('runtime_repairs_v167.js?v=1617-entrances'),'late runtime repairs must carry the current entrance-fix cache key');
 check(!composition.includes("script.src='src/render/generated_props_v166.js'"),'stale v1.6.6 bootstrap must remain removed');
 
 /* Asset visibility must not depend on the timing of one early composition pass. */
@@ -31,7 +31,7 @@ check(runtime.includes("fetch(ATLAS_URL,{cache:'reload'})"),'atlas fetch must by
    the repair must detect and relocate any current or saved position in a building. */
 check(maps.includes("start:{x:14,y:15}"),'fixture changed: expected historical Haven start coordinate');
 check(runtime.includes('const buildingAt='),'building-footprint collision helper is missing');
-check(runtime.includes('if(buildingAt(world,x,y))return false'),'exploration pathfinding must reject building footprints');
+check(runtime.includes("if(building&&!(door&&AO.EntityGeometry?.contains(door,x,y)))return false"),'exploration pathfinding must reject building footprints while preserving the integrated doorway opening');
 check(runtime.includes('repairPlayerPosition(this)'),'every map load must repair invalid saved positions');
 check(runtime.includes("toast?.('Your position was moved outside a solid building.')"),'position repair feedback is missing');
 check(runtime.includes('staticBlockerAt(this.game.world,x,y,ignoreId)'),'tactical movement must respect world furniture and building collision');

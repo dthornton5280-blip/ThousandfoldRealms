@@ -20,7 +20,7 @@ assert(index.includes('id="tfBootScreen"'), 'Canonical boot shield is missing.')
 assert(index.includes('id="tfTitleScreen"'), 'Current title screen is not baked into canonical HTML.');
 assert(index.includes('class="tf-title-mode tf-booting"'), 'The page does not begin in protected boot mode.');
 assert(index.includes('id="tfBackToTitle"'), 'Baked character creator lost its title-navigation control.');
-assert(index.includes('<script src="src/main.js"></script><script src="src/core/boot.js"></script>'), 'Boot release does not run after game bootstrap.');
+assert(/<script src="src\/main\.js(?:\?v=\d+)?"><\/script><script src="src\/core\/boot\.js(?:\?v=\d+)?"><\/script>/.test(index), 'Boot release does not run after game bootstrap.');
 
 assert(boot.includes("body.classList.remove('tf-booting')"), 'Boot controller never releases the protected page.');
 assert(boot.includes("document.documentElement.dataset.tfReady = 'true'"), 'Boot controller does not publish readiness.');
@@ -34,8 +34,8 @@ assert(workflow.includes("Path('_site/404.html').write_text(text"), 'Canonical d
 assert(workflow.includes('canonical-source-plus-transitional-overrides'), 'Deployment architecture metadata is missing.');
 assert(workflow.includes('src/core/boot.js'), 'Deployment does not validate boot ordering.');
 
-const mainIndex = index.indexOf('<script src="src/main.js"></script>');
-const bootIndex = index.indexOf('<script src="src/core/boot.js"></script>');
+const mainIndex = index.search(/<script src="src\/main\.js(?:\?v=\d+)?"><\/script>/);
+const bootIndex = index.search(/<script src="src\/core\/boot\.js(?:\?v=\d+)?"><\/script>/);
 assert(mainIndex >= 0 && bootIndex > mainIndex, 'Canonical boot release must load after main.js.');
 
 console.log(`Canonical source architecture harness passed at ${version.version}: direct source deployment, baked current title, protected boot, preserved saves, and no legacy ZIP dependency.`);

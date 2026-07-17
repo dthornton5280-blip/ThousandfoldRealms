@@ -9,7 +9,7 @@
     Array.from({length:w},(_,x)=>({x:x+ox,y:y+oy}))).flat();
 
   const GEOMETRY={
-    haven_cart_wood_sacks:{blocking:true,collisionFootprint:rect(4,3),interactionFootprint:rect(4,3)},
+    haven_cart_wood_sacks:{blocking:true,collisionFootprint:rect(2,1,1,1),interactionFootprint:rect(3,2)},
     haven_bench_wood_backrest:{blocking:true,collisionFootprint:rect(2,1),interactionFootprint:rect(2,1)},
     haven_signpost_wood_dual:{blocking:false,collisionFootprint:[],interactionFootprint:[{x:0,y:0}]},
     tavern_barrel_oak:{blocking:true,collisionFootprint:rect(1,1),interactionFootprint:rect(1,1)},

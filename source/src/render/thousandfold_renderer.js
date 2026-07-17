@@ -99,7 +99,8 @@
       const dx=building.x*TILE,dy=building.y*TILE;
       const dw=(building.w||8)*TILE,dh=(building.h||5)*TILE;
       this.drawSprite(ctx,id,dx,dy,dw,dh);
-      this.drawDoorOverlay(ctx,building,world,dx,dy);
+      const door=world?.entities?.find(entity=>entity.id===building.doorId);
+      if(door?.open)this.drawDoorOverlay(ctx,building,world,dx,dy);
       return true;
     }
   };
@@ -187,7 +188,8 @@
       const night=(this.game.state.world.time??8)<6||(this.game.state.world.time??8)>18;
       ctx.save();ctx.imageSmoothingEnabled=false;
       for(const b of buildings){
-        const drawn=AO.GeneratedSpriteArt?.drawBuilding(ctx,b,this.game.world)
+        const drawn=AO.HavenFacadeArtV1614?.drawBuilding(ctx,b,this.game.world)
+          ||AO.GeneratedSpriteArt?.drawBuilding(ctx,b,this.game.world)
           ||AO.ThousandfoldArt?.drawBuilding(ctx,b,this.game.world)
           ||AO.Assets?.drawBuilding(ctx,b);
         if(!drawn)continue;

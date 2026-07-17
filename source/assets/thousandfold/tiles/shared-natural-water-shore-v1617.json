@@ -1,0 +1,3344 @@
+{
+  "version": "1.6.17-candidate",
+  "status": "candidate-live-review",
+  "source": "reference/candidates/shared_natural_water_shore_source_v1617.png",
+  "sourceSha256": "add7f22afab6a9020a8b5a2ee2e3277c7cfeb9aae2444e1e1430902f39d60704",
+  "grassSource": "reference/candidates/whisperwood_grass_road_material_source_v1615.png",
+  "atlas": {
+    "width": 512,
+    "height": 576,
+    "tileSize": 32
+  },
+  "topologyBits": {
+    "isolated": 0,
+    "end_n": 1,
+    "end_e": 2,
+    "end_s": 4,
+    "end_w": 8,
+    "straight_ns": 5,
+    "straight_ew": 10,
+    "corner_ne": 3,
+    "corner_se": 6,
+    "corner_sw": 12,
+    "corner_nw": 9,
+    "tee_nes": 7,
+    "tee_esw": 14,
+    "tee_nsw": 13,
+    "tee_new": 11,
+    "open": 15
+  },
+  "tiles": {
+    "natural_water_isolated_p00": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_isolated_p00": {
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_isolated_p01": {
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_isolated_p01": {
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_isolated_p02": {
+      "x": 128,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_isolated_p02": {
+      "x": 160,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_isolated_p10": {
+      "x": 192,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_isolated_p10": {
+      "x": 224,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_isolated_p11": {
+      "x": 256,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_isolated_p11": {
+      "x": 288,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_isolated_p12": {
+      "x": 320,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_isolated_p12": {
+      "x": 352,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_isolated_p20": {
+      "x": 384,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_isolated_p20": {
+      "x": 416,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_isolated_p21": {
+      "x": 448,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_isolated_p21": {
+      "x": 480,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_isolated_p22": {
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 0,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_isolated_p22": {
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 0,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_end_n_p00": {
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_end_n_p00": {
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_end_n_p01": {
+      "x": 128,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_end_n_p01": {
+      "x": 160,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_end_n_p02": {
+      "x": 192,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_end_n_p02": {
+      "x": 224,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_end_n_p10": {
+      "x": 256,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_end_n_p10": {
+      "x": 288,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_end_n_p11": {
+      "x": 320,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_end_n_p11": {
+      "x": 352,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_end_n_p12": {
+      "x": 384,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_end_n_p12": {
+      "x": 416,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_end_n_p20": {
+      "x": 448,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_end_n_p20": {
+      "x": 480,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_end_n_p21": {
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_end_n_p21": {
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_end_n_p22": {
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 1,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_end_n_p22": {
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 1,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_end_e_p00": {
+      "x": 128,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_end_e_p00": {
+      "x": 160,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_end_e_p01": {
+      "x": 192,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_end_e_p01": {
+      "x": 224,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_end_e_p02": {
+      "x": 256,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_end_e_p02": {
+      "x": 288,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_end_e_p10": {
+      "x": 320,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_end_e_p10": {
+      "x": 352,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_end_e_p11": {
+      "x": 384,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_end_e_p11": {
+      "x": 416,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_end_e_p12": {
+      "x": 448,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_end_e_p12": {
+      "x": 480,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_end_e_p20": {
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_end_e_p20": {
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_end_e_p21": {
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_end_e_p21": {
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_end_e_p22": {
+      "x": 128,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 2,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_end_e_p22": {
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 2,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_end_s_p00": {
+      "x": 192,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_end_s_p00": {
+      "x": 224,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_end_s_p01": {
+      "x": 256,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_end_s_p01": {
+      "x": 288,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_end_s_p02": {
+      "x": 320,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_end_s_p02": {
+      "x": 352,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_end_s_p10": {
+      "x": 384,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_end_s_p10": {
+      "x": 416,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_end_s_p11": {
+      "x": 448,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_end_s_p11": {
+      "x": 480,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_end_s_p12": {
+      "x": 0,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_end_s_p12": {
+      "x": 32,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_end_s_p20": {
+      "x": 64,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_end_s_p20": {
+      "x": 96,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_end_s_p21": {
+      "x": 128,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_end_s_p21": {
+      "x": 160,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_end_s_p22": {
+      "x": 192,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 4,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_end_s_p22": {
+      "x": 224,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 4,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_end_w_p00": {
+      "x": 256,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_end_w_p00": {
+      "x": 288,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_end_w_p01": {
+      "x": 320,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_end_w_p01": {
+      "x": 352,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_end_w_p02": {
+      "x": 384,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_end_w_p02": {
+      "x": 416,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_end_w_p10": {
+      "x": 448,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_end_w_p10": {
+      "x": 480,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_end_w_p11": {
+      "x": 0,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_end_w_p11": {
+      "x": 32,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_end_w_p12": {
+      "x": 64,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_end_w_p12": {
+      "x": 96,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_end_w_p20": {
+      "x": 128,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_end_w_p20": {
+      "x": 160,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_end_w_p21": {
+      "x": 192,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_end_w_p21": {
+      "x": 224,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_end_w_p22": {
+      "x": 256,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 8,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_end_w_p22": {
+      "x": 288,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 8,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_straight_ns_p00": {
+      "x": 320,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_straight_ns_p00": {
+      "x": 352,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_straight_ns_p01": {
+      "x": 384,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_straight_ns_p01": {
+      "x": 416,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_straight_ns_p02": {
+      "x": 448,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_straight_ns_p02": {
+      "x": 480,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_straight_ns_p10": {
+      "x": 0,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_straight_ns_p10": {
+      "x": 32,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_straight_ns_p11": {
+      "x": 64,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_straight_ns_p11": {
+      "x": 96,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_straight_ns_p12": {
+      "x": 128,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_straight_ns_p12": {
+      "x": 160,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_straight_ns_p20": {
+      "x": 192,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_straight_ns_p20": {
+      "x": 224,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_straight_ns_p21": {
+      "x": 256,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_straight_ns_p21": {
+      "x": 288,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_straight_ns_p22": {
+      "x": 320,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 5,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_straight_ns_p22": {
+      "x": 352,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 5,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_straight_ew_p00": {
+      "x": 384,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_straight_ew_p00": {
+      "x": 416,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_straight_ew_p01": {
+      "x": 448,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_straight_ew_p01": {
+      "x": 480,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_straight_ew_p02": {
+      "x": 0,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_straight_ew_p02": {
+      "x": 32,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_straight_ew_p10": {
+      "x": 64,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_straight_ew_p10": {
+      "x": 96,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_straight_ew_p11": {
+      "x": 128,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_straight_ew_p11": {
+      "x": 160,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_straight_ew_p12": {
+      "x": 192,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_straight_ew_p12": {
+      "x": 224,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_straight_ew_p20": {
+      "x": 256,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_straight_ew_p20": {
+      "x": 288,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_straight_ew_p21": {
+      "x": 320,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_straight_ew_p21": {
+      "x": 352,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_straight_ew_p22": {
+      "x": 384,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 10,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_straight_ew_p22": {
+      "x": 416,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 10,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_corner_ne_p00": {
+      "x": 448,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_corner_ne_p00": {
+      "x": 480,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_corner_ne_p01": {
+      "x": 0,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_corner_ne_p01": {
+      "x": 32,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_corner_ne_p02": {
+      "x": 64,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_corner_ne_p02": {
+      "x": 96,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_corner_ne_p10": {
+      "x": 128,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_corner_ne_p10": {
+      "x": 160,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_corner_ne_p11": {
+      "x": 192,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_corner_ne_p11": {
+      "x": 224,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_corner_ne_p12": {
+      "x": 256,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_corner_ne_p12": {
+      "x": 288,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_corner_ne_p20": {
+      "x": 320,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_corner_ne_p20": {
+      "x": 352,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_corner_ne_p21": {
+      "x": 384,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_corner_ne_p21": {
+      "x": 416,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_corner_ne_p22": {
+      "x": 448,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 3,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_corner_ne_p22": {
+      "x": 480,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 3,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_corner_se_p00": {
+      "x": 0,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_corner_se_p00": {
+      "x": 32,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_corner_se_p01": {
+      "x": 64,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_corner_se_p01": {
+      "x": 96,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_corner_se_p02": {
+      "x": 128,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_corner_se_p02": {
+      "x": 160,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_corner_se_p10": {
+      "x": 192,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_corner_se_p10": {
+      "x": 224,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_corner_se_p11": {
+      "x": 256,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_corner_se_p11": {
+      "x": 288,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_corner_se_p12": {
+      "x": 320,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_corner_se_p12": {
+      "x": 352,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_corner_se_p20": {
+      "x": 384,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_corner_se_p20": {
+      "x": 416,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_corner_se_p21": {
+      "x": 448,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_corner_se_p21": {
+      "x": 480,
+      "y": 288,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_corner_se_p22": {
+      "x": 0,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 6,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_corner_se_p22": {
+      "x": 32,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 6,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_corner_sw_p00": {
+      "x": 64,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_corner_sw_p00": {
+      "x": 96,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_corner_sw_p01": {
+      "x": 128,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_corner_sw_p01": {
+      "x": 160,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_corner_sw_p02": {
+      "x": 192,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_corner_sw_p02": {
+      "x": 224,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_corner_sw_p10": {
+      "x": 256,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_corner_sw_p10": {
+      "x": 288,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_corner_sw_p11": {
+      "x": 320,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_corner_sw_p11": {
+      "x": 352,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_corner_sw_p12": {
+      "x": 384,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_corner_sw_p12": {
+      "x": 416,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_corner_sw_p20": {
+      "x": 448,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_corner_sw_p20": {
+      "x": 480,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_corner_sw_p21": {
+      "x": 0,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_corner_sw_p21": {
+      "x": 32,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_corner_sw_p22": {
+      "x": 64,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 12,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_corner_sw_p22": {
+      "x": 96,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 12,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_corner_nw_p00": {
+      "x": 128,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_corner_nw_p00": {
+      "x": 160,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_corner_nw_p01": {
+      "x": 192,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_corner_nw_p01": {
+      "x": 224,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_corner_nw_p02": {
+      "x": 256,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_corner_nw_p02": {
+      "x": 288,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_corner_nw_p10": {
+      "x": 320,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_corner_nw_p10": {
+      "x": 352,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_corner_nw_p11": {
+      "x": 384,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_corner_nw_p11": {
+      "x": 416,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_corner_nw_p12": {
+      "x": 448,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_corner_nw_p12": {
+      "x": 480,
+      "y": 352,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_corner_nw_p20": {
+      "x": 0,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_corner_nw_p20": {
+      "x": 32,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_corner_nw_p21": {
+      "x": 64,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_corner_nw_p21": {
+      "x": 96,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_corner_nw_p22": {
+      "x": 128,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 9,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_corner_nw_p22": {
+      "x": 160,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 9,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_tee_nes_p00": {
+      "x": 192,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_tee_nes_p00": {
+      "x": 224,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_tee_nes_p01": {
+      "x": 256,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_tee_nes_p01": {
+      "x": 288,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_tee_nes_p02": {
+      "x": 320,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_tee_nes_p02": {
+      "x": 352,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_tee_nes_p10": {
+      "x": 384,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_tee_nes_p10": {
+      "x": 416,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_tee_nes_p11": {
+      "x": 448,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_tee_nes_p11": {
+      "x": 480,
+      "y": 384,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_tee_nes_p12": {
+      "x": 0,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_tee_nes_p12": {
+      "x": 32,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_tee_nes_p20": {
+      "x": 64,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_tee_nes_p20": {
+      "x": 96,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_tee_nes_p21": {
+      "x": 128,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_tee_nes_p21": {
+      "x": 160,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_tee_nes_p22": {
+      "x": 192,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 7,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_tee_nes_p22": {
+      "x": 224,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 7,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_tee_esw_p00": {
+      "x": 256,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_tee_esw_p00": {
+      "x": 288,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_tee_esw_p01": {
+      "x": 320,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_tee_esw_p01": {
+      "x": 352,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_tee_esw_p02": {
+      "x": 384,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_tee_esw_p02": {
+      "x": 416,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_tee_esw_p10": {
+      "x": 448,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_tee_esw_p10": {
+      "x": 480,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_tee_esw_p11": {
+      "x": 0,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_tee_esw_p11": {
+      "x": 32,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_tee_esw_p12": {
+      "x": 64,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_tee_esw_p12": {
+      "x": 96,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_tee_esw_p20": {
+      "x": 128,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_tee_esw_p20": {
+      "x": 160,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_tee_esw_p21": {
+      "x": 192,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_tee_esw_p21": {
+      "x": 224,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_tee_esw_p22": {
+      "x": 256,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 14,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_tee_esw_p22": {
+      "x": 288,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 14,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_tee_nsw_p00": {
+      "x": 320,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_tee_nsw_p00": {
+      "x": 352,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_tee_nsw_p01": {
+      "x": 384,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_tee_nsw_p01": {
+      "x": 416,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_tee_nsw_p02": {
+      "x": 448,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_tee_nsw_p02": {
+      "x": 480,
+      "y": 448,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_tee_nsw_p10": {
+      "x": 0,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_tee_nsw_p10": {
+      "x": 32,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_tee_nsw_p11": {
+      "x": 64,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_tee_nsw_p11": {
+      "x": 96,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_tee_nsw_p12": {
+      "x": 128,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_tee_nsw_p12": {
+      "x": 160,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_tee_nsw_p20": {
+      "x": 192,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_tee_nsw_p20": {
+      "x": 224,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_tee_nsw_p21": {
+      "x": 256,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_tee_nsw_p21": {
+      "x": 288,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_tee_nsw_p22": {
+      "x": 320,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 13,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_tee_nsw_p22": {
+      "x": 352,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 13,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_tee_new_p00": {
+      "x": 384,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_tee_new_p00": {
+      "x": 416,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_tee_new_p01": {
+      "x": 448,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_tee_new_p01": {
+      "x": 480,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_tee_new_p02": {
+      "x": 0,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_tee_new_p02": {
+      "x": 32,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_tee_new_p10": {
+      "x": 64,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_tee_new_p10": {
+      "x": 96,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_tee_new_p11": {
+      "x": 128,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_tee_new_p11": {
+      "x": 160,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_tee_new_p12": {
+      "x": 192,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_tee_new_p12": {
+      "x": 224,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_tee_new_p20": {
+      "x": 256,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_tee_new_p20": {
+      "x": 288,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_tee_new_p21": {
+      "x": 320,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_tee_new_p21": {
+      "x": 352,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_tee_new_p22": {
+      "x": 384,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 11,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_tee_new_p22": {
+      "x": 416,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 11,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_water_open_p00": {
+      "x": 448,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_shallow_open_p00": {
+      "x": 480,
+      "y": 512,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        0,
+        0
+      ]
+    },
+    "natural_water_open_p01": {
+      "x": 0,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_shallow_open_p01": {
+      "x": 32,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        1,
+        0
+      ]
+    },
+    "natural_water_open_p02": {
+      "x": 64,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_shallow_open_p02": {
+      "x": 96,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        2,
+        0
+      ]
+    },
+    "natural_water_open_p10": {
+      "x": 128,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_shallow_open_p10": {
+      "x": 160,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        0,
+        1
+      ]
+    },
+    "natural_water_open_p11": {
+      "x": 192,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_shallow_open_p11": {
+      "x": 224,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        1,
+        1
+      ]
+    },
+    "natural_water_open_p12": {
+      "x": 256,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_shallow_open_p12": {
+      "x": 288,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        2,
+        1
+      ]
+    },
+    "natural_water_open_p20": {
+      "x": 320,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_shallow_open_p20": {
+      "x": 352,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        0,
+        2
+      ]
+    },
+    "natural_water_open_p21": {
+      "x": 384,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_shallow_open_p21": {
+      "x": 416,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        1,
+        2
+      ]
+    },
+    "natural_water_open_p22": {
+      "x": 448,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "topologyBits": 15,
+      "phase": [
+        2,
+        2
+      ]
+    },
+    "natural_shallow_open_p22": {
+      "x": 480,
+      "y": 544,
+      "w": 32,
+      "h": 32,
+      "material": "shallow",
+      "topologyBits": 15,
+      "phase": [
+        2,
+        2
+      ]
+    }
+  }
+}

@@ -84,12 +84,14 @@ AO.WorldSystem = class {
   useDoor(door){
     const ws=this.game.state.world;
     if(door.lockedBy&&this.game.inventory.count(door.lockedBy)<1){this.game.toast(`Locked: requires ${AO.ITEMS[door.lockedBy]?.name||'a key'}.`);return;}
-    if(!door.open){door.open=true;door.blocking=false;ws.doors[door.id]=true;this.game.toast(`${door.label||'Door'} opened.`);AO.events.emit('worldChanged');return;}
+    /* A destination door is one interaction: the character opens it, crosses
+       the threshold, and it closes behind them. Requiring a second click made
+       painted entrances feel disconnected from their gameplay anchor. */
     if(door.to){
-      /* Open doors are a transient interaction state. They close behind the player
-         during a map transition so exterior and interior door art never remains ajar. */
+      door.open=true;door.blocking=false;ws.doors[door.id]=true;AO.events.emit('worldChanged');
       this.closeDoor(door,true);this.load(door.to,door.toX,door.toY);return;
     }
+    if(!door.open){door.open=true;door.blocking=false;ws.doors[door.id]=true;this.game.toast(`${door.label||'Door'} opened.`);AO.events.emit('worldChanged');return;}
     if(AO.Util.dist(this.playerPos(),door)<=1){this.closeDoor(door,false);AO.events.emit('worldChanged');}
   }
   decorText(kind){const text={table:'A sturdy table marked by years of use.',bench:'A place to rest beneath Haven’s lanterns.',lamp:'A warded lantern burns without smoke.',shelf:'Shelves packed with goods and local curiosities.',keg:'A heavy keg stamped with the Black Lantern mark.',crates:'Crates labeled for roads east and north.',bed:'A neatly made bed.',statue:'A weathered guardian watches in silence.',brazier:'Ash glows beneath a low blue flame.'};return text[kind]||'It adds another small detail to the life of this place.';}
